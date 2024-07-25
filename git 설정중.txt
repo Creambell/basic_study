@@ -1,0 +1,4 @@
+D드라이브에 basic_study 파일 생성
+
+settings.gradle 에서 이름을 basic_study로 바꿔줘야 
+.jar이 들어있는 Project and External Dependencies가 생깁니다.
