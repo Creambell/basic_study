@@ -23,3 +23,9 @@ git pull origin main --allow-unrelated-histories
 (충돌이 발생하면 수동으로 해결해야 합니다)
 변경사항을 원격 저장소로 푸시합니다:
 git push -u origin main
+
+바꾼걸 처 넣을려면
+cd /d/basic_study로 들어가고
+git add . 으로 모두 변경사항 체크 후
+git commit -m "바뀔곳 이름" 설명써주고
+git push origin main 하면 됩니다.
