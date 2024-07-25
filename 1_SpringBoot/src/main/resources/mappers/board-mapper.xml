@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.kh.spring.board.model.dao.BoardMapper">
+
+	<select id="getListCount" resultType="_int">
+		select count(*)
+		from board
+		where board_status = 'Y'
+		and board_type = #{i}
+	</select>
+
+
+	<select id="selectBoardList" resultType="Board">
+		select *
+		from board
+		join member on(board_writer = id)
+		where board_status='Y' and board_type=#{i}
+		order by board_id desc
+	</select>
+
+
+	<insert id="insertBoard" useGeneratedKeys="true">
+		<selectKey resultType="_int" keyProperty="boardId"
+			order="BEFORE">
+			select seq_bid.nextval from dual
+		</selectKey>
+		insert into board
+		values(#{boardId}, #{boardTitle}, #{boardWriter}, #{boardContent}, default, sysdate,
+		sysdate, default, #{boardType})
+	</insert>
+
+
+	<select id="selectBoard" resultType="Board">
+		select *
+		from board
+		join member on(board_writer = id)
+		where board_status = 'Y' and board_id = #{id}
+		<!-- url로 파라미터 직접 조회해서 글 들어가기 위해 where Y조건 -->
+	</select>
+
+	<select id="selectReply" resultType="Reply">
+		select *
+		from reply
+		join member on(reply_writer = id)
+		where ref_board_id = #{bId} and reply_status = 'Y'
+		order by reply_id desc
+	</select>
+
+	<update id="updateCount">
+		update board
+		set board_count = board_count + 1
+		where board_id = #{id}
+	</update>
+
+	<insert id="insertReply">
+		insert into reply
+		values(seq_rid.nextval, #{replyContent}, #{refBoardId}, #{replyWriter}, sysdate, sysdate,
+		default)
+	</insert>
+
+	<update id="deleteReply">
+		update reply
+		set reply_status = 'N'
+		where reply_id = #{rId}
+
+	</update>
+
+	<update id="updateReply">
+		update reply
+		set reply_content = #{replyContent}
+		where reply_id = #{replyId}
+	</update>
+
+	<update id="updateBoard">
+		update board
+		set board_title = #{boardTitle}, board_content = #{boardContent}, board_modify_date = sysdate, board_type= #{boardType}
+		where board_id = #{boardId}
+	</update>
+
+	<update id="deleteBoard">
+		update board
+		set board_status ='N'
+		where board_Id = #{bId}
+	</update>
+
+
+
+
+
+</mapper>

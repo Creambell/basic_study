@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<meta charset="utf-8">
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<style>
+	abbr>a{color: black; text-decoration: none;}
+	#delete{color: lightgray;}
+	#delete:hover{color: gray; cursor: pointer;}
+</style>
+</head>
+<body>
+	<main>
+		<div th:replace="~{common/navbar :: navbar}"></div>
+		<div class="container py-4">
+			<div class="p-5 mb-4 bg-light rounded-3">
+				<div class="container-fluid py-5">
+					<h1 class="display-5 fw-bold">
+						<abbr title="if you click this, you can go main page(home.do).">
+							<!-- <a href="home.do">[[${session.loginUser.nickName}]]'s Information</a> -->
+							<a href="home.do" th:text="|${session.loginUser.nickName}'s Information|"></a>
+						</abbr>
+					</h1>
+					<label id="delete"> 탈퇴하기</label>
+				</div>
+			</div>
+
+			<div class="row align-items-md-stretch">
+				<div class="col-md-6">
+					<div class="h-100 p-5 text-bg-success rounded-3">
+						<h2>Basic Information</h2>
+						<table>
+							<tr><td width="150px">ID</td><td>[[${loginUser.id}]]</td></tr>
+							<tr><td>NAME</td><td>[[${session.loginUser.name}]]</td></tr>
+							<tr><td>NICKNAME</td><td>[[${ loginUser.nickName }]]</td></tr>
+							<tr><td>EMAIL</td><td>[[${ loginUser.email == null ? '-' : loginUser.email }]]</td></tr>
+							<tr><td>GENDER</td><td>[[${ loginUser.gender == 'M' ? '남자' : '여자' }]]</td></tr>
+							<tr><td>AGE</td><td>[[${ loginUser.age == 0 ? '-' : loginUser.age }]]</td></tr>
+							<tr><td>PHONE</td><td>[[${ loginUser.phone == null ? '-' : loginUser.phone }]]</td></tr>
+							<tr><td>ADDRESS</td><td>[[${ loginUser.address == null ? '-' : loginUser.address }]]</td></tr>
+							<tr><td>ENROLL</td><td>[[${ loginUser.enrollDate }]]</td></tr>
+							<tr><td>UPDATE</td><td>[[${ loginUser.updateDate }]]</td></tr>
+						</table>
+						<br>
+						<button class="btn btn-outline-light" type="button" onclick="location.href='editMyInfo.me'">EDIT MY INFO</button>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="h-100 p-5 bg-light border rounded-3">
+						<form action="updatePassword.me" method="post">
+							<h2>Update your Password</h2>
+							<div class="col-12">
+								<label for="currentPwd" class="form-label">Current PWD</label>
+								<input type="password" class="form-control" id="currentPwd" name="currentPwd" required>
+							</div>
+							<br>
+							<div class="col-12">
+								<label for="newPwd" class="form-label">PWD to Change</label>
+								<input type="password" class="form-control" id="newPwd" name="newPwd" required>
+							</div>
+							<br>
+							<div class="col-12">
+								<label for="newPwdConfirm" class="form-label">PWD to Change Confirm</label>
+								<input type="password" class="form-control" id="newPwdConfirm" required>
+							</div>
+							<br>
+							<button class="btn btn-outline-secondary">UPDATE MY PWD</button>
+						</form>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="h-100 p-5 bg-light border rounded-3">
+						<h2>My Boards Top 5</h2>
+						<table style="text-align: center; width: 100%;">
+							<tr>
+								<th>No.</th>
+								<th>Title</th>
+								<th>Date</th>
+								<th>Views</th>
+							</tr>
+							<tr th:each="b : ${list}">
+								<th:block th:if="${ b.ID_TYPE < 0 }">
+									<td>[[${ b.ID_TYPE }]]</td>
+									<td>[[${ b.BOARD_TITLE }]]</td>
+									<td>[[${ #strings.arraySplit(b.MODIFY_DATE, ' ')[0] }]]</td>
+									<td>[[${ b.COUNT_CONTENT }]]</td>
+								</th:block>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="h-100 p-5 text-bg-dark rounded-3">
+						<h2>My Replies Top 5</h2>
+						<table style="text-align: center; width: 100%;">
+							<tr>
+								<th>Type</th>
+								<th>Title</th>
+								<th>Content</th>
+								<th>Date</th>
+							</tr>
+									<tr th:each="r:${ list }" th:if="${ r.ID_TYPE < 0 }">
+										<td>[[${ r.ID_TYPE + 3 == 1 ? 'Board' : 'Attach' }]]</td>
+										<td>[[${ r.BOARD_TITLE }]]</td>
+										<td>[[${ r.COUNT_CONTENT }]]</td>
+										<td>[[${ #strings.listSplit(r.MODIFY_DATE, ' ')[0] }]]</td>
+									</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<footer class="pt-3 mt-4 text-muted border-top"> &copy; 2022 </footer>
+		</div>
+	</main>
+	
+	<div class="modal fade" tabindex="-1" role="dialog" id="modalChoice">
+		<div class="modal-dialog" role="document">
+    		<div class="modal-content rounded-3 shadow">
+      			<div class="modal-body p-4 text-center">
+        			<h3 class="mb-0">정말로 탈퇴하시겠습니까?</h3>
+        			<p class="mb-0">탈퇴 후 계정은 복구할 수 없습니다.</p>
+      			</div>
+      			<div class="modal-footer flex-nowrap p-0">
+        			<button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0 border-end" onclick="location.href='deleteMember.me'">
+        				<strong>네</strong>
+        			</button>
+        			<button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0" data-bs-dismiss="modal">아니오</button>
+      			</div>
+    		</div>
+  		</div>
+	</div>
+	
+	<!-- 내츄럴 템플릿  서버를 끼지 않아도 동작이 되는 것, 자바스크립트는 서버를 들어가지 않아도 자체로 읽어드리는 게 목표다
+		loginUser를 객체로 활용할 수 있다.
+	-->
+	<script th:inline="javascript">
+		window.onload = () => {
+			/*<![CDATA[*/
+			const loginUser = /*[[${loginUser}]]*/'아무값';
+			/*]]>*/
+			console.log(loginUser)
+			if(loginUser == ''){
+				alert('로그인 후 이용해주세요.');
+				location.href='loginView.me';
+			}
+			
+			document.getElementById('delete').addEventListener('click', ()=>{
+				$('#modalChoice').modal('show');	
+			});
+		}
+	</script>
+</body>
+</html>

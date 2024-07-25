@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body class="bg-light">
+	<div th:replace="~{common/navbar :: navbar}"></div>
+	<div class="container">
+		<main>
+			<div class="py-5 text-center">
+				<a href="home.do"><img class="d-block mx-auto mb-4" src="image/springboot.png" alt="" width="130"></a>
+				<h2>Edit My Infomation</h2>
+			</div>
+			<div style="margin-left: 350px; margin-right: 350px;">
+				<form class="needs-validation" action="updateMember.me" method="POST">
+					<div class="row g-3">
+						<div class="col-12">
+							<label for="id" class="form-label">ID</label>
+							<input type="text" class="form-control" id="id" name="id" readonly th:value="${ loginUser.id }">
+							<label id="idCheckResult">Please check your ID.</label>
+						</div>
+						
+						<div class="col-12">
+							<label for="name" class="form-label">NAME</label>
+							<input type="text" class="form-control" id="name" name="name" required th:value="${ loginUser.name }">
+						</div>
+						
+						<div class="col-12">
+							<label for="nickName" class="form-label">NICKNAME</label>
+							<input type="text" class="form-control" id="nickName" name="nickName" required th:value="${ loginUser.nickName }">
+							<label id="nickNameCheckResult">Please check your NickName.</label>
+						</div>
+
+						<div class="col-12">
+							<label for="emailId" class="form-label">EMAIL</label>
+							<div class="input-group">
+								<input type="text" class="form-control" id="emailId" name="emailId" th:value="${ #strings.arraySplit(loginUser.email, '@')[0] }">
+								<span class="input-group-text">@</span>
+								<select name="emailDomain" style="width: 280px;" th:with="emailDomain=${#strings.arraySplit(loginUser.email, '@')[1]}">
+									<option th:selected="${emailDomain == 'naver.com'}">naver.com</option>
+									<option th:selected="${emailDomain == 'gmail.com'}">gmail.com</option>
+									<option th:selected="${emailDomain == 'nate.com'}">nate.com</option>
+									<option th:selected="${emailDomain == 'hanmail.net'}">hanmail.net</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-12">
+							<label class="form-label">GENDER</label><br>
+							<input type="radio" id="man" name="gender" th:value="M" th:if="${ loginUser.gender =='M' }" checked>  MAN &nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" id="woman" name="gender" th:value="F" th:if="${ loginUser.gender =='F' }" checked> WOMAN
+						</div>
+						
+						<div class="col-12">
+							<label for="age" class="form-label">AGE</label>
+							<input type="number" class="form-control" id="age" name="age" min="0" max="100" th:value="${ loginUser.age }">
+						</div>
+
+						<div class="col-12">
+							<label for="phone" class="form-label">PHONE</label>
+							<input type="text" class="form-control" id="phone" name="phone" th:value="${ loginUser.phone }">
+						</div>
+						
+						<div class="col-12">
+							<label for="address" class="form-label">ADDRESS</label>
+							<input type="text" class="form-control" id="address" name="address" th:value="${ loginUser.address }">
+						</div>
+						
+						<br><br><br><br><br>
+						
+						<button class="w-100 btn btn-primary btn-lg">UPDATE</button>
+					</div>
+				</form>
+			</div>
+		</main>
+
+		<footer class="my-5 pt-5 text-muted text-center text-small"></footer>
+	</div>
+	
+	<script th:inline="javascript">
+		window.onload = () =>{
+			/*<![CDATA[*/
+			const loginUser = /*[[${loginUser}]]*/'loginUser';
+			/*]]>*/
+			if(loginUser == null){
+				alert("로그인해주세요");
+				location.href='loginView.me';
+			}
+		}
+		
+	</script>
+</body>
+</html>
