@@ -12,13 +12,13 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Reply {
-	private int replyId;
-	private String replyContent;
-	private int refBoardId;
-	private String replyWriter;
-	private String nickName;
-	private Date replyCreateDate;
-	private Date replyModifyDate;
-	private String replyStatus;
+	private int reNo;
+    private int reWriterNo;
+    private int boardNo;
+    private String reContent;
+    private Date createDate;
+    private Date updateDate;
+    private char reStatus;
+    private int replyCount;
 	
 }
