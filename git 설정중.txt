@@ -27,5 +27,5 @@ git push -u origin main
 바꾼걸 처 넣을려면
 cd /d/basic_study로 들어가고
 git add . 으로 모두 변경사항 체크 후
-git commit -m "바뀔곳 이름" 설명써주고
+git commit -m "바뀔곳 이름" 설명써주고 -m은 메세지라서 꼭 써줘야함 main의 약자아님!!
 git push origin main 하면 됩니다.
