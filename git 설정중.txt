@@ -12,6 +12,9 @@ git init
 원격 저장소를 추가합니다 (이미 설정되어 있다면 이 단계는 건너뛰세요):
 git remote add origin https://github.com/Creambell/final-study.git
 
+git 변경사항 확인
+git status
+
 모든 파일을 스테이징 영역에 추가합니다:
 git add .
 
