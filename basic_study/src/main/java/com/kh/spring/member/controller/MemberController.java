@@ -17,17 +17,19 @@ public class MemberController {
 	@Autowired
 	BCryptPasswordEncoder bcrypt;
 	
+	// 내 정보 수정 페이지
 	@GetMapping("editPage.me")
 	public String moveEditPage() {
 		return "editPage";
 	}
 	
+	// 내 댓글 보기 페이지
 	@GetMapping("myComment.me")
 	public String moveMyComment() {
 		return  "myComment";
 	}
 	
-	
+	// 내 게시글 보기 페이지
 	@GetMapping("myPost.me")
 	public String moveMyPost() {
 		return "myPost";
