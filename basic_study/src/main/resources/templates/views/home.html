@@ -1,12 +1,170 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-<meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Study 개인 공부 블로그</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background-color: #f8f8f8;
+            border-bottom: 1px solid #ddd;
+        }
+        .nav {
+            background-color: #e8f1f9;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        .content {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+        }
+        .content div {
+            border: 1px solid #ddd;
+            padding-bottom: 10px;
+            width: 20%;
+            text-align: center;
+        }
+        .footer {
+            background-color: #e8f1f9;
+            padding: 10px 20px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+        }
+        .notice {
+            background-color: #e8f1f9;
+            padding: 10px 20px;
+            text-align: left;
+            border-top: 1px solid #ddd;
+        }
+    </style>
 </head>
 <body>
-		
+    <div class="header">
+        <div class="logo">
+            <h1>JAVA STUDY BLOG</h1>
+        </div>
+        <div class="title">
+            <h2>Basic Study 개인 공부 블로그</h2>
+        </div>
+        <div class="auth">
+            <button>회원가입</button>
+            <button>로그인</button>
+        </div>
+    </div>
+    <div class="nav">
+        <a href="#">Client</a>
+        <a href="#">Image</a>
+        <a href="#">Spring</a>
+        <a href="#">Java</a>
+        <a href="#">JavaScript</a>
+        <a href="#">Error</a>
+    </div>
+    <br>
+    <div class="content">
+    	<div>
+    		<img th:src="@{image/java.png}" alt="Java">
+    	</div>
+    	<div>
+            <img th:src="@{image/eclipse.png}" alt="Eclipse">
+        </div>
+        <div>
+            <img th:src="@{image/spring.png}" alt="Spring">
+    	</div>
+    	<div>
+            <img th:src="@{image/springboot.png}" alt="SpringBoot">
+    	</div>
+    </div>	
+    <div class="content">	
+        <div>
+            <h3>자바 게시판</h3>
+            <ol>
+                <li>자바에 대해서</li>
+                <li>자바의 공부법</li>
+                <li>내가 배운 자바</li>
+                <li>자바 게시판 완성</li>
+            </ol>
+        </div>
+        <div>
+            <h3>자바 스크립트 게시판</h3>
+            <ol>
+                <li>자바에 대해서</li>
+                <li>자바의 공부법</li>
+                <li>내가 배운 자바</li>
+                <li>자바 게시판 완성</li>
+            </ol>
+        </div>
+        <div>
+            <h3>스프링 게시판</h3>
+            <ol>
+                <li>자바에 대해서</li>
+                <li>자바의 공부법</li>
+                <li>내가 배운 자바</li>
+                <li>자바 게시판 완성</li>
+            </ol>
+        </div>
+        <div>
+            <h3>스프링 부트 게시판</h3>
+            <ol>
+                <li>자바에 대해서</li>
+                <li>자바의 공부법</li>
+                <li>내가 배운 자바</li>
+                <li>자바 게시판 완성</li>
+            </ol>
+        </div>
+    </div>    
+    <div class="content">
+         <div>
+            <h3>자바 게시판</h3>
+            <ol>
+                <li>자바에 대해서</li>
+                <li>자바의 공부법</li>
+                <li>내가 배운 자바</li>
+                <li>자바 게시판 완성</li>
+            </ol>
+        </div>
+        <div>
+            <h3>자바 스크립트 게시판</h3>
+            <ol>
+                <li>자바에 대해서</li>
+                <li>자바의 공부법</li>
+                <li>내가 배운 자바</li>
+                <li>자바 게시판 완성</li>
+            </ol>
+        </div>
+        <div>
+            <h3>스프링 게시판</h3>
+                <p>1. 자바에 대해서</p>
+                <p>2. 자바의 공부법</p>
+                <p>3. 내가 배운 자바</p>
+                <p>4. 자바 게시판 완성</p>
+        </div>
+         <div>
+            <h3>스프링 부트 게시판</h3>
+                <p>1. 자바에 대해서</p>
+                <p>2. 자바의 공부법</p>
+                <p>3. 내가 배운 자바</p>
+                <p>4. 자바 게시판 완성</p>
+        </div>
+    </div>
+    <br>
+    <div class="footer">
+        <p>문의사항</p>
+        <p>E-Mail osh021511@naver.com</p>
+        <p>Phone 012-345-6789</p>
+    </div>
 </body>
 </html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>내 게시글 보기 - Basic Study 개인 공부 블로그</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background-color: #f8f8f8;
+            border-bottom: 1px solid #ddd;
+        }
+        .nav {
+            background-color: #e8f1f9;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        .content {
+            display: flex;
+            padding: 20px;
+        }
+        .sidebar {
+            width: 20%;
+            border-right: 1px solid #ddd;
+            padding-right: 20px;
+        }
+        .main {
+            width: 80%;
+            padding-left: 20px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar li {
+            padding: 10px 0;
+        }
+        .sidebar a {
+            text-decoration: none;
+            color: #333;
+        }
+        .main table {
+            width: 80%;
+            border-collapse: collapse;
+        }
+        .main table, .main th, .main td {
+            border: 1px solid #ddd;
+        }
+        .main th, .main td {
+            padding: 10px;
+            text-align: left;
+        }
+        .main button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+         .footer {
+            background-color: #e8f1f9;
+            padding: 10px 20px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+        }
+        .notice {
+            background-color: #e8f1f9;
+            padding: 10px 20px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <h1>JAVA STUDY BLOG</h1>
+        </div>
+        <div class="title">
+            <h2>Basic Study 개인 공부 블로그</h2>
+        </div>
+        <div class="auth">
+            <button>회원가입</button>
+            <button>로그인</button>
+        </div>
+    </div>
+    <div class="nav">
+        <a href="#">Client</a>
+        <a href="#">Image</a>
+        <a href="#">Spring</a>
+        <a href="#">Java</a>
+        <a href="#">JavaScript</a>
+        <a href="#">Error</a>
+    </div>
+    <br>
+    <div class="content">
+        <div class="sidebar">
+            <ul>
+				<li><a href="editPage.html">내 정보 수정</a></li>
+                <li><a href="myComment.html">내 게시글 보기</a></li>
+                <li><a href="myPost.html">내 댓글 보기</a></li>
+            </ul>
+        </div>
+        <div class="main">
+            <h2><내 게시글 보기></h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th><input type="checkbox"></th>
+                        <th>제목</th>
+                        <th>내용</th>
+                        <th>작성 일자</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>안녕하세요.</td>
+                        <td>좋은 하루예요</td>
+                        <td>2024-07-23</td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <button type="submit">삭제하기</button>
+        </div>
+    </div>
+    <div class="notice">
+        주의 사항
+    </div>
+    <div class="footer">
+        문의사항: osh021511@naver.com | Phone: 012-345-6789
+    </div>
+</body>
+</html>
