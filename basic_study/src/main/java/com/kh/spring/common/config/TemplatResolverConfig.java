@@ -49,7 +49,18 @@ public class TemplatResolverConfig {
 		return dotBo;
 	}
 	
-	
+	@Bean	public ClassLoaderTemplateResolver dotAdResolver() {
+		ClassLoaderTemplateResolver dotAd = new ClassLoaderTemplateResolver();
+		dotAd.setPrefix("templates/views/admin/");
+		dotAd.setSuffix(".html");
+		dotAd.setTemplateMode(TemplateMode.HTML); 
+		dotAd.setCharacterEncoding("UTF-8");
+		dotAd.setCacheable(false);
+		dotAd.setOrder(2); 			
+		dotAd.setCheckExistence(true);
+		
+		return dotAd;
+	}
 	
 	
 	

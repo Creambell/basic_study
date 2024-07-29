@@ -1,4 +1,4 @@
-package com.kh.spring.board.controller;
+package com.kh.spring.admin.controller;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -9,15 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.kh.spring.board.model.service.BoardService;
-
-
+import com.kh.spring.admin.model.service.AdminService;
 
 @Controller
-public class BoardController{
+public class AdminController {
 	
 	@Autowired
-	private BoardService bService;
+	private AdminService aService;
 	
 	public String[] saveFile(MultipartFile upload) {
 		String savePath = "C:\\uploadFiles"; // 자기 파일 경로 설정해주세요.
@@ -54,28 +52,33 @@ public class BoardController{
 		}
 	}
 	
-	// 글 상세보기
-	@GetMapping("BoardDetail.bo")
-	public String BoardDetail() {
-		return "BoardDetail";
+	@GetMapping("UserBoard.ad")
+	public String UserBoard() {
+		return "UserBoard";
 	}
 	
-	// 글 쓰기
-	@GetMapping("writeBoard.bo")
-	public String writeBoard() {
-		return "writeBoard";
+	@GetMapping("ImageBoard.ad")
+	public String ImageBoard() {
+		return "ImageBoard";
 	}
 	
-	// 글+이미지 쓰기
-	@GetMapping("writeImageBoard.bo")
-	public String writeImageBoard() {
-		return "writeImageBoard";
+	@GetMapping("SpringBoard.ad")
+	public String SpringBoard() {
+		return "SpringBoard";
+	}
+	@GetMapping("JavaBoard.ad")
+	public String JavaBoard() {
+		return "JavaBoard";
+	}
+	@GetMapping("JavaScriptBoard.ad")
+	public String JavaScriptBoard() {
+		return "JavaScriptBoard";
+	}
+	@GetMapping("ErrorBoard.ad")
+	public String ErrorBoard() {
+		return "ErrorBoard";
 	}
 	
 	
 	
-	
-	
-	
-	
-	}
+}

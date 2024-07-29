@@ -33,10 +33,19 @@
             padding: 10px;
         }
         .content div {
-            border: 1px solid #ddd;
             padding-bottom: 10px;
             width: 20%;
             text-align: center;
+            border-radius: 15px; /* Adding rounded corners */
+            border: 1px solid #ddd; /* Adding border to divs */
+        }
+        .content .img-container {
+            border: none; /* Removing border from image divs */
+        }
+        .content img {
+            width: 100%;
+            height: auto;
+            border-radius: 15px; /* Adding rounded corners to images */
         }
         .footer {
             background-color: #e8f1f9;
@@ -75,75 +84,63 @@
     </div>
     <br>
     <div class="content">
-    	<div>
-    		<img th:src="@{image/java.png}" alt="Java">
-    	</div>
-    	<div>
-            <img th:src="@{image/eclipse.png}" alt="Eclipse">
+        <div class="img-container">
+            <img th:src="@{eclipse.jpg}" alt="Eclipse">
         </div>
-        <div>
-            <img th:src="@{image/spring.png}" alt="Spring">
-    	</div>
-    	<div>
-            <img th:src="@{image/springboot.png}" alt="SpringBoot">
-    	</div>
-    </div>	
-    <div class="content">	
-        <div>
+        <div class="img-container">
+            <img th:src="@{java.jpg}" alt="Java">
+        </div>
+        <div class="img-container">
+            <img th:src="@{spring.jpg}" alt="Spring">
+        </div>
+        <div class="img-container">
+            <img th:src="@{springboot.jpg}" alt="SpringBoot">
+        </div>
+    </div>
+    <div class="content">    
+         <div>
             <h3>자바 게시판</h3>
-            <ol>
-                <li>자바에 대해서</li>
-                <li>자바의 공부법</li>
-                <li>내가 배운 자바</li>
-                <li>자바 게시판 완성</li>
-            </ol>
+                <p>1. 자바에 대해서</p>
+                <p>2. 자바의 공부법</p>
+                <p>3. 내가 배운 자바</p>
+                <p>4. 자바 게시판 완성</p>
         </div>
         <div>
             <h3>자바 스크립트 게시판</h3>
-            <ol>
-                <li>자바에 대해서</li>
-                <li>자바의 공부법</li>
-                <li>내가 배운 자바</li>
-                <li>자바 게시판 완성</li>
-            </ol>
+                <p>1. 자바에 대해서</p>
+                <p>2. 자바의 공부법</p>
+                <p>3. 내가 배운 자바</p>
+                <p>4. 자바 게시판 완성</p>
         </div>
-        <div>
+         <div>
             <h3>스프링 게시판</h3>
-            <ol>
-                <li>자바에 대해서</li>
-                <li>자바의 공부법</li>
-                <li>내가 배운 자바</li>
-                <li>자바 게시판 완성</li>
-            </ol>
+                <p>1. 자바에 대해서</p>
+                <p>2. 자바의 공부법</p>
+                <p>3. 내가 배운 자바</p>
+                <p>4. 자바 게시판 완성</p>
         </div>
-        <div>
+         <div>
             <h3>스프링 부트 게시판</h3>
-            <ol>
-                <li>자바에 대해서</li>
-                <li>자바의 공부법</li>
-                <li>내가 배운 자바</li>
-                <li>자바 게시판 완성</li>
-            </ol>
+                <p>1. 자바에 대해서</p>
+                <p>2. 자바의 공부법</p>
+                <p>3. 내가 배운 자바</p>
+                <p>4. 자바 게시판 완성</p>
         </div>
     </div>    
     <div class="content">
-         <div>
+          <div>
             <h3>자바 게시판</h3>
-            <ol>
-                <li>자바에 대해서</li>
-                <li>자바의 공부법</li>
-                <li>내가 배운 자바</li>
-                <li>자바 게시판 완성</li>
-            </ol>
+                <p>1. 자바에 대해서</p>
+                <p>2. 자바의 공부법</p>
+                <p>3. 내가 배운 자바</p>
+                <p>4. 자바 게시판 완성</p>
         </div>
         <div>
             <h3>자바 스크립트 게시판</h3>
-            <ol>
-                <li>자바에 대해서</li>
-                <li>자바의 공부법</li>
-                <li>내가 배운 자바</li>
-                <li>자바 게시판 완성</li>
-            </ol>
+                <p>1. 자바에 대해서</p>
+                <p>2. 자바의 공부법</p>
+                <p>3. 내가 배운 자바</p>
+                <p>4. 자바 게시판 완성</p>
         </div>
         <div>
             <h3>스프링 게시판</h3>
@@ -160,6 +157,7 @@
                 <p>4. 자바 게시판 완성</p>
         </div>
     </div>
+    <br>
     
     <!-- 페이지 중간점검을 위한 링크 멤버컨트롤러에 연결만 된 상태입니다. -->
     <div class="nav"> 
@@ -168,7 +166,21 @@
         <a th:href="@{myPost.me}">내 게시글 보기</a>
     </div>
     
-    <br>
+    <div class="nav"> 
+    	<a th:href="@{BoardDetail.bo}">글 상세 페이지</a>
+        <a th:href="@{writeBoard.bo}">글쓰기 페이지</a>
+        <a th:href="@{writeImageBoard.bo}">글+이미지 쓰기 페이지</a>
+    </div>
+    
+    <div class="nav"> 
+        <a th:href="@{UserBoard.ad}">방문자게시판</a>
+        <a th:href="@{ImageBoard.ad}">이미지</a>
+        <a th:href="@{SpringBoard.ad}">스프링</a>
+        <a th:href="@{JavaBoard.ad}">자바</a>
+        <a th:href="@{JavaScriptBoard.ad}">자바 스크립트</a>
+        <a th:href="@{ErrorBoard.ad}">에러 모음집</a>
+    </div>
+    
     <div class="footer">
         <p>문의사항</p>
         <p>E-Mail osh021511@naver.com</p>
