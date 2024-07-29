@@ -30,7 +30,7 @@ public class TemplatResolverConfig {
 		dotMe.setTemplateMode(TemplateMode.HTML); 
 		dotMe.setCharacterEncoding("UTF-8");
 		dotMe.setCacheable(false);
-		dotMe.setOrder(1); 			
+		dotMe.setOrder(2); 			
 		dotMe.setCheckExistence(true);
 		
 		return dotMe;
