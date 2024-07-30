@@ -44,6 +44,10 @@ dependencies {
 	// https://mvnrepository.com/artifact/org.json/json
 	implementation group: 'org.json', name: 'json', version: '20231013'
 	
+	//GSON입니당
+	// https://mvnrepository.com/artifact/com.google.code.gson/gson
+	implementation group: 'com.google.code.gson', name: 'gson', version: '2.11.0'
+	
 }
 
 tasks.named('test') {
