@@ -2,6 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<!-- 웹 폰트 'NanumSquareRound'를 불러오기 위한 CSS 선언 -->
 <style>
 @font-face {
     font-family: 'NanumSquareRound';
@@ -9,6 +10,7 @@
     font-weight: normal;
     font-style: normal;
 }
+/* 기본 스타일 설정 */
 body {
     font-family: 'NanumSquareRound', sans-serif;
     background-color: #f5f5f5;
@@ -16,6 +18,7 @@ body {
     padding: 0;
     display: flex;
 }
+/* 사이드바 스타일 설정 */
 .nav-container {
     width: 200px;
     background-color: #333;
@@ -47,6 +50,7 @@ body {
     font-weight: bold;
     font-size: 1.1em;
 }
+/* 메인 컨텐츠 스타일 설정 */
 .main-container {
     flex-grow: 1;
     padding: 20px;
@@ -64,11 +68,12 @@ body {
     height: 750px;
 }
 h2 {
-    border-left: 5px solid black;
+    border-left: 5px solid #FF6347; /* 테두리 색상 설정 */
     padding-left: 10px;
     display: inline-block;
     margin-bottom: 15px;
 }
+/* 테이블 스타일 설정 */
 .table {
     width: 100%;
     border-collapse: collapse;
@@ -85,10 +90,12 @@ h2 {
 .table-group-divider {
     border-top: 2px solid gray;
 }
+/* 체크박스 스타일 설정 */
 .form-check-input {
     transform: scale(1);
-    accent-color: #FF6347;
+    accent-color: #FF6347; /* 체크박스 색상 설정 */
 }
+/* 버튼 스타일 설정 */
 button {
     color: #fff;
     padding: 10px;
@@ -97,13 +104,13 @@ button {
     cursor: pointer;
 }
 #write_button {
-    background-color: #4CAF50;
+    background-color: #4CAF50; /* 쓰기 버튼 색상 설정 */
 }
 #update_button {
-    background-color: #FFB74D;
+    background-color: #FFB74D; /* 수정 버튼 색상 설정 */
 }
 #delete_button {
-    background-color: #E57373;
+    background-color: #E57373; /* 삭제 버튼 색상 설정 */
 }
 .buttons-container {
     display: flex;
@@ -111,6 +118,7 @@ button {
     gap: 10px;
     margin-bottom: 20px;
 }
+/* 페이지네이션 스타일 설정 */
 .pagination-container {
     display: flex;
     justify-content: center;
@@ -123,7 +131,7 @@ button {
     padding: 10px;
     cursor: pointer;
 }
-
+/* 검색 영역 스타일 설정 */
 .search-container {
     display: flex;
     justify-content: center;
@@ -147,7 +155,7 @@ button {
     font-size: 14px;
 }
 .search-button {
-    background-color: #4CAF50;
+    background-color: #4CAF50; /* 검색 버튼 색상 설정 */
     color: white;
     border: none;
     padding: 0 20px;
@@ -162,6 +170,7 @@ button {
 <title>방문자 게시판</title>
 </head>
 <body>
+<!-- 사이드바 -->
 <div class="nav-container">
     <h3>관리자메뉴</h3>
     <ul>
@@ -174,9 +183,11 @@ button {
         <li><a href="#">회원정보수정</a></li>
     </ul>
 </div>
+<!-- 메인 컨텐츠 -->
 <div class="main-container">
     <div class="container">
         <h2>방문자 게시판</h2>
+        <!-- 테이블 -->
         <table class="table">
             <thead>
                 <tr>
@@ -216,11 +227,13 @@ button {
                 <!-- 기존 10개의 게시글 -->
             </tbody>
         </table>
+        <!-- 버튼 영역 -->
         <div class="buttons-container">
             <button class="btn btn-primary" type="button" id="write_button">쓰기</button>
             <button class="btn btn-primary" type="button" id="update_button">수정</button>
             <button class="btn btn-primary" type="button" id="delete_button">삭제</button>
         </div>
+        <!-- 검색 영역 -->
         <div class="search-container">
             <select class="form-select" aria-label="Default select example">
                 <option selected>----</option>
@@ -233,6 +246,7 @@ button {
             </div>
             <button class="search-button">검색</button>
         </div>
+        <!-- 페이지네이션 -->
         <div class="pagination-container">
             <div class="prev-button">&lt;</div>
             <div class="number-button-wrapper">
