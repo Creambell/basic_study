@@ -27,6 +27,7 @@
             color: #333;
             font-weight: bold;
         }
+        
         .content {
             display: flex;
             padding: 20px;
@@ -51,16 +52,29 @@
             text-decoration: none;
             color: #333;
         }
-        .main table {
-            width: 80%;
+        .sidebar a.active {
+            color: red;
+            font-weight: bold;
+        }
+         .main table {
+            width: 100%;
             border-collapse: collapse;
         }
         .main table, .main th, .main td {
             border: 1px solid #ddd;
         }
-        .main th, .main td {
+        .main th {
             padding: 10px;
-            text-align: left;
+            text-align: center;
+            background-color: #f0f0f0;
+        }
+        .main td {
+            padding: 10px;
+            text-align: center;
+        }
+        .main .button-container {
+            text-align: right;
+            margin-top: 10px;
         }
         .main button {
             padding: 10px;
@@ -68,8 +82,9 @@
             color: white;
             border: none;
             cursor: pointer;
+            margin-left: 5px;
         }
-         .footer {
+        .footer {
             background-color: #e8f1f9;
             padding: 10px 20px;
             text-align: center;
@@ -83,7 +98,7 @@
         }
     </style>
 </head>
-<body>
+<body id="myPost"> <!-- 페이지 ID가 myPost -->
     <div class="header">
         <div class="logo">
             <h1>JAVA STUDY BLOG</h1>
@@ -107,14 +122,16 @@
     <br>
     <div class="content">
         <div class="sidebar">
-            <ul>
-				<li><a href="editPage.html">내 정보 수정</a></li>
-                <li><a href="myComment.html">내 게시글 보기</a></li>
-                <li><a href="myPost.html">내 댓글 보기</a></li>
-            </ul>
+            <div class="nav"> 
+    			<ul>
+    				<li><a th:href="@{editPage.me}" id="link-editPage">내 정보 수정</a>
+       				<li><a th:href="@{myComment.me}" id="link-myComment">내 댓글 보기</a>
+        			<li><a th:href="@{myPost.me}" id="link-myPost">내 게시글 보기</a>
+        		</ul>
+    		</div>
         </div>
         <div class="main">
-            <h2><내 게시글 보기></h2>
+            <h2>내 게시글 보기</h2>
             <table>
                 <thead>
                     <tr>
@@ -124,7 +141,7 @@
                         <th>작성 일자</th>
                     </tr>
                 </thead>
-                <tbody>
+               <tbody>
                     <tr>
                         <td><input type="checkbox"></td>
                         <td>안녕하세요.</td>
@@ -133,15 +150,46 @@
                     </tr>
                 </tbody>
             </table>
-            <br>
-            <button type="submit">삭제하기</button>
+            <div class="button-container">
+                <button type="submit">수정하기</button>
+                <button type="submit">삭제하기</button>
+            </div>
         </div>
     </div>
     <div class="notice">
         주의 사항
     </div>
+    <div class="nav"> 
+    	<a th:href="@{editPage.me}">내 정보 수정</a>
+        <a th:href="@{myComment.me}">내 댓글 보기</a>
+        <a th:href="@{myPost.me}">내 게시글 보기</a>
+    </div>
+    
+    <div class="nav"> 
+    	<a th:href="@{BoardDetail.bo}">글 상세 페이지</a>
+        <a th:href="@{writeBoard.bo}">글쓰기 페이지</a>
+        <a th:href="@{writeImageBoard.bo}">글+이미지 쓰기 페이지</a>
+    </div>
+    
+    <div class="nav"> 
+        <a th:href="@{UserBoard.ad}">방문자게시판</a>
+        <a th:href="@{ImageBoard.ad}">이미지</a>
+        <a th:href="@{SpringBoard.ad}">스프링</a>
+        <a th:href="@{JavaBoard.ad}">자바</a>
+        <a th:href="@{JavaScriptBoard.ad}">자바 스크립트</a>
+        <a th:href="@{ErrorBoard.ad}">에러 모음집</a>
+    </div>
+    
     <div class="footer">
         문의사항: osh021511@naver.com | Phone: 012-345-6789
     </div>
+
+    <script>
+        const currentPageId = document.body.id;
+        const activeLink = document.getElementById('link-' + currentPageId);
+        if (activeLink) {
+            activeLink.classList.add('active');
+        }
+    </script>
 </body>
 </html>
