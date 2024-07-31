@@ -182,9 +182,9 @@
         <a th:href="@{ErrorBoard.ad}">에러 모음집</a>
     </div>
     
-    <div class="footer">
-        문의사항: osh021511@naver.com | Phone: 012-345-6789
-    </div>
+    <div>
+		<div th:replace="~{common/footer :: footer}"></div>
+	</div>
 
     <script>
         const currentPageId = document.body.id;

@@ -154,6 +154,9 @@ h2 {
 <title>이미지 게시판</title>
 </head>
 <body>
+
+	<div th:replace="~{common/header :: header}"></div>
+
 <!-- 사이드바 -->
 <div class="nav-container">
     <h3>관리자메뉴</h3>
@@ -233,5 +236,10 @@ h2 {
         </div>
     </div>
 </div>
+
+<div>
+	<div th:replace="~{common/footer :: footer}"></div>
+</div>
+
 </body>
 </html>

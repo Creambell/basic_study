@@ -65,26 +65,7 @@
 
 	<div th:replace="~{common/header :: header}" ></div>
 
-    <div class="header">
-        <div class="logo">
-            <h1>JAVA STUDY BLOG</h1>
-        </div>
-        <div class="title">
-            <h1>Basic Study 개인 공부 블로그</h1>
-        </div>
-        <div class="auth">
-            <button>회원가입</button>
-            <button>로그인</button>
-        </div>
-    </div>
-    <div class="nav">
-        <a href="#">Client</a>
-        <a href="#">Image</a>
-        <a href="#">Spring</a>
-        <a href="#">Java</a>
-        <a href="#">JavaScript</a>
-        <a href="#">Error</a>
-    </div>
+    
     <br>
     <div class="content">
         <div class="img-container">
@@ -182,12 +163,11 @@
         <a th:href="@{JavaBoard.ad}">자바</a>
         <a th:href="@{JavaScriptBoard.ad}">자바 스크립트</a>
         <a th:href="@{ErrorBoard.ad}">에러 모음집</a>
+        <a th:href="@{AdminPage.ad}">블로거 페이지</a>
     </div>
     
-    <div class="footer">
-        <p>문의사항</p>
-        <p>E-Mail osh021511@naver.com</p>
-        <p>Phone 012-345-6789</p>
-    </div>
+    <div>
+		<div th:replace="~{common/footer :: footer}"></div>
+	</div>
 </body>
 </html>

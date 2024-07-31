@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="footer">
+<head>
+<meta charset="UTF-8">
+<title>footer</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="../../../static/css/header.css" rel="stylesheet" type="text/css">
+<style>
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 250px; /* 푸터의 높이만큼 여백 추가 */
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 20%;
+    padding: 10px 20px;
+    text-align: left;
+    border-top: 1px solid #ddd;
+    line-height: 1.5;
+}
+
+a:link {
+    color: black;
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:active {
+    text-decoration: none;
+}
+
+#copyright {
+    font-size: 12px;
+}
+
+.legal-links a {
+    margin-right: 15px;
+}
+</style>
+</head>
+<body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<div class="footer">
+    <h1>Basic Study</h1>
+    <div id="copyright">
+        <p>&copy; 2024 BasicStudy All rights reserved.</p>
+    </div>
+    <hr>
+    <p class="blog-description">개발자의 지속적인 학습과 성장을 기록하는 공간</p>
+    <p class="tech-stack">이 블로그는 HTML, CSS, JavaScript, Java, Springboot, bootStrap으로 제작되었습니다.</p>
+    <p>E-Mail: <span id="email">osh021511[at]naver[dot]com</span></p>
+    <p>Phone: 012-345-6789</p>
+    <hr>
+    <div class="legal-links">
+        <a href="/privacy-policy">개인정보 처리방침</a>
+        <a href="/terms-of-service">이용약관</a>
+    </div>
+</div>
+
+<script>
+function displayEmail() {
+    var email = document.getElementById('email');
+    email.innerHTML = email.innerHTML.replace('[at]', '@').replace('[dot]', '.');
+}
+// 페이지 로드 후 이메일 주소 표시
+window.onload = displayEmail;
+</script>
+</body>
+</html>

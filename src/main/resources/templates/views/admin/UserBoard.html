@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <!-- 웹 폰트 'NanumSquareRound'를 불러오기 위한 CSS 선언 -->
@@ -13,7 +13,6 @@
 /* 기본 스타일 설정 */
 body {
     font-family: 'NanumSquareRound', sans-serif;
-    background-color: #f5f5f5;
     margin: 0;
     padding: 0;
     display: flex;
@@ -170,6 +169,9 @@ button {
 <title>방문자 게시판</title>
 </head>
 <body>
+
+	<div th:replace="~{common/header :: header}"></div>
+
 <!-- 사이드바 -->
 <div class="nav-container">
     <h3>관리자메뉴</h3>
@@ -268,5 +270,10 @@ button {
         </div>
     </div>
 </div>
+
+<div>
+	<div th:replace="~{common/footer :: footer}"></div>
+</div>
+
 </body>
 </html>

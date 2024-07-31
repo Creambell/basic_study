@@ -79,6 +79,9 @@ public class AdminController {
 		return "ErrorBoard";
 	}
 	
-	
+	@GetMapping("AdminPage.ad")
+	public String AdminPage() {
+		return "adminPage";
+	}
 	
 }

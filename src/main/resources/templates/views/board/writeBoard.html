@@ -4,10 +4,6 @@
 <meta charset="UTF-8">
 <title>게시글 작성</title>
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color:#f5f5f5;
-    }
     .main {
         width: 900px;
         height: auto;
@@ -66,6 +62,9 @@
 </style>
 </head>
 <body>
+
+	<div th:replace="~{common/header :: header}"></div>
+
 <div class="main">
     <div class="header">
         <span>게시글 제목</span>
@@ -95,5 +94,9 @@
 	<div style='text-align:right; padding-right: 120px;'>
     	<a href="javascript:history.back();" class="btn" style='padding:10px;'>뒤로가기</a>
     </div>
+    
+<div>
+	<div th:replace="~{common/footer :: footer}"></div>
+</div>
 </body>
 </html>

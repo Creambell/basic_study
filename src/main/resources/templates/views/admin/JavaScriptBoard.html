@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <style>
@@ -162,6 +162,9 @@ button {
 <title>JavaScript</title>
 </head>
 <body>
+
+	<div th:replace="~{common/header :: header}"></div>
+
 <div class="nav-container">
     <h3>관리자메뉴</h3>
     <ul>
@@ -253,6 +256,10 @@ button {
             <div class="next-button">&gt;</div>
         </div>
     </div>
+</div>
+
+<div>
+	<div th:replace="~{common/footer :: footer}"></div>
 </div>
 </body>
 </html>

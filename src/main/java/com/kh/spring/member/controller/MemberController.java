@@ -34,4 +34,16 @@ public class MemberController {
 	public String moveMyPost() {
 		return "myPost";
 	}
+	
+	// 로그인 페이지
+		@GetMapping("login.me")
+		public String login() {
+			return "login";
+	}
+		
+	// 회원가입 페이지
+	@GetMapping("joinMember.me")
+	public String joinMember() {
+		return "joinMember";
+	}
 }
