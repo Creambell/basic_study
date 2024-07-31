@@ -4,10 +4,6 @@
 <meta charset="UTF-8">
 <title>게시글 작성</title>
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color:#f5f5f5;
-    }
     .main {
         width: 900px;
         height: auto;
@@ -32,7 +28,7 @@
         margin-bottom: 20px;
         
     }
-    .btn {
+    .btng {
         border: 1px solid #ccc;
         padding: 5px 10px;
         cursor: pointer;
@@ -67,6 +63,9 @@
 </style>
 </head>
 <body>
+
+	<div th:replace="~{common/header :: header}" ></div>
+
 <div class="main">
     <div class="header">
         <span>게시글 제목</span>
@@ -109,7 +108,7 @@
     <hr>
     
     <div class="writeButton" style='text-align:right; margin-top:30px;'>
-	    <button type="button" class="btn" style='padding:10px;'>쓰기</button>
+	    <button type="button" class="btng" style='padding:10px;'>쓰기</button>
 	    <button type="button" class="btnw" style='padding:10px;'>수정</button>
 	    <button type="button" class="btnd" style='padding:10px;'>삭제</button>
     </div>
@@ -117,7 +116,7 @@
     <div class="comments">
         <textarea rows="3" placeholder="작성된 댓글이 없습니다." style='text-align:center; padding-top:30px;'></textarea>
         <div style="text-align: right; margin-top: 5px;">
-            <button type="button" class="btn" style='padding:10px;'>쓰기</button>
+            <button type="button" class="btng" style='padding:10px;'>쓰기</button>
             <button type ="button" class="btnd" style='padding:10px;'>취소</button>
         </div>
     </div>
@@ -127,7 +126,7 @@
 <br><br><br><br><br>
  
 	<div style='text-align:right; padding-right: 120px;'>
-    	<a href="javascript:history.back();" class="btn" style='padding:10px;'>뒤로가기</a>
+    	<a href="javascript:history.back();" class="btng" style='padding:10px;'>뒤로가기</a>
     </div>
 
 <br><br><br><br><br>
