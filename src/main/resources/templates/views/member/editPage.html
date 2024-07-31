@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>내 정보 수정 - Basic Study 개인 공부 블로그</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background-color: #f8f8f8;
+            border-bottom: 1px solid #ddd;
+        }
+        .nav {
+            background-color: #e8f1f9;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        .content {
+            display: flex;
+            padding: 20px;
+        }
+        .sidebar {
+            width: 20%;
+            border-right: 1px solid #ddd;
+            padding-right: 20px;
+        }
+        .main {
+            width: 50%;
+            padding-left: 20px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar li {
+            padding: 10px 0;
+        }
+        .sidebar a {
+            text-decoration: none;
+            color: #333;
+        }
+        .sidebar a.active {
+            color: red;
+            font-weight: bold;
+        }
+        .main form {
+            display: flex;
+            flex-direction: column;
+        }
+        .main label {
+            margin: 10px 0 5px;
+        }
+        .main input {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+        }
+        .main button {
+            padding: 10px;
+            width: auto;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin: 0 auto;
+        }
+        .footer {
+            background-color: #e8f1f9;
+            padding: 10px 20px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+        }
+        .notice {
+            background-color: #e8f1f9;
+            padding: 10px 20px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body id="editPage"> <!-- 페이지 ID 추가 -->
+    <div class="header">
+        <div class="logo">
+            <h1>JAVA STUDY BLOG</h1>
+        </div>
+        <div class="title">
+            <h2>Basic Study 개인 공부 블로그</h2>
+        </div>
+        <div class="auth">
+            <button>회원가입</button>
+            <button>로그인</button>
+        </div>
+    </div>
+    <div class="nav">
+        <a href="#">Client</a>
+        <a href="#">Image</a>
+        <a href="#">Spring</a>
+        <a href="#">Java</a>
+        <a href="#">JavaScript</a>
+        <a href="#">Error</a>
+    </div>
+    <br>
+    <div class="content">
+        <div class="sidebar">
+            <div class="nav"> 
+    			<ul>
+    				<li><a th:href="@{editPage.me}" id="link-editPage">내 정보 수정</a>
+       				<li><a th:href="@{myComment.me}" id="link-myComment">내 댓글 보기</a>
+        			<li><a th:href="@{myPost.me}" id="link-myPost">내 게시글 보기</a>
+        		</ul>
+    		</div>
+        </div>
+        <div class="main">
+            <form>
+                <label for="name">이름</label>
+                <input type="text" id="name" value="오승현">
+                <label for="email">아이디</label>
+                <input type="email" id="email" value="HHH@naver.com">
+                <label for="password">비밀번호</label>
+                <input type="password" id="password" value="password">
+                <label for="confirm-password">비밀번호 확인</label>
+                <input type="password" id="confirm-password" value="password">
+                <label for="phone">휴대폰 번호</label>
+                <input type="text" id="phone" value="01012345678">
+                <label for="email">이메일</label>
+                <input type="email" id="email" value="HHH@naver.com">
+                <button type="submit">수정하기</button>
+            </form>
+        </div>
+    </div>
+    <div class="notice">
+        주의 사항
+    </div>
+    <div class="nav"> 
+    	<a th:href="@{editPage.me}">내 정보 수정</a>
+        <a th:href="@{myComment.me}">내 댓글 보기</a>
+        <a th:href="@{myPost.me}">내 게시글 보기</a>
+    </div>
+    
+    <div class="nav"> 
+    	<a th:href="@{BoardDetail.bo}">글 상세 페이지</a>
+        <a th:href="@{writeBoard.bo}">글쓰기 페이지</a>
+        <a th:href="@{writeImageBoard.bo}">글+이미지 쓰기 페이지</a>
+    </div>
+    
+    <div class="nav"> 
+        <a th:href="@{UserBoard.ad}">방문자게시판</a>
+        <a th:href="@{ImageBoard.ad}">이미지</a>
+        <a th:href="@{SpringBoard.ad}">스프링</a>
+        <a th:href="@{JavaBoard.ad}">자바</a>
+        <a th:href="@{JavaScriptBoard.ad}">자바 스크립트</a>
+        <a th:href="@{ErrorBoard.ad}">에러 모음집</a>
+    </div>
+    
+    <div class="footer">
+        문의사항: osh021511@naver.com | Phone: 012-345-6789
+    </div>
+
+    <script>
+        const currentPageId = document.body.id;
+
+        const activeLink = document.getElementById('link-' + currentPageId);
+        if (activeLink) {
+            activeLink.classList.add('active');
+        }
+    </script>
+</body>
+</html>
