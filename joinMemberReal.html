@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link href="../../../static/css/joinMember.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+
+<div class="main-container">
+	
+	<div class="header">
+	    <div th:replace="views/common/header :: header"></div>
+    </div>
+
+    <div class="content">
+
+	  	 <div class="login-area">
+    	    <h2>| 회원가입</h2>
+        	    <form>
+            	    <label for="name">이름</label>
+                <input type="text" id="name" value="오승현">
+                <label for="email">아이디</label>
+                <input type="id" id="id" value="whiljel">
+                <label for="password">비밀번호</label>
+                <input type="password" id="password" value="password">
+                <label for="confirm-password">비밀번호 확인 (비밀번호를 한번 더 입력해주세요.)</label> <!-- 스크립트에 ajax로 텍스트 색, 알림 구현 -->
+                <input type="password" id="confirm-password" value="password">
+                <label for="email">이메일</label> <!-- 이메일 선택할 수 있게 드롭다운 -->
+                <input type="email" id="email" value="email">
+                <label for="phone">휴대폰 번호</label>
+                <input type="text" id="phone" value="01012345678"> <br>
+                <button type="submit">가입하기</button>
+                	<button id="back-button" type="submit">뒤로 가기</button>
+            	</form>
+            	
+        </div>
+        
+        
+        
+        
+   	</div>
+    	
+    	
+    	
+	</div>	
+  	
+  	
+  	
+  	
+    
+    
+
+
+
+
+</body>
+</html>

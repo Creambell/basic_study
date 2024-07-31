@@ -1,0 +1,73 @@
+@charset "UTF-8";
+
+  .btn-primary {
+    width: 120px;
+    background-color: #C0C0C0; 
+    color: white !important; 
+    border: none;
+    height: 40px;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.btn-primary:hover {
+    background-color: #BEBFC5; /* 호버 시 약간 어두운 베이지 */
+	font-weight 	: bold;
+}
+.header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background-color: #f8f8f8;
+            border-bottom: 1px solid #ddd;
+        }
+.button{
+	border-radius:25%;
+	background-color: grey;
+}        
+
+#welcomeNotice{
+	font-size:20px;
+	
+}
+     body {
+            font-family: Arial, sans-serif;
+            	
+        }
+        
+        .nav {
+            background-color: #e8f1f9;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        .content {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+        }
+        .content div {
+            border: 1px solid #ddd;
+            padding-bottom: 10px;
+            width: 20%;
+            text-align: center;
+        }
+        .footer {
+            background-color: #e8f1f9;
+            padding: 10px 20px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+        }
+        .notice {
+            background-color: #e8f1f9;
+            padding: 10px 20px;
+            text-align: left;
+            border-top: 1px solid #ddd;
+        }   
+        
