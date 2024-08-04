@@ -62,10 +62,7 @@
     </style>
 </head>
 <body>
-
-	<div th:replace="~{common/header :: header}" ></div>
-
-    
+    <div th:replace="~{common/header :: header}"></div>
     <br>
     <div class="content">
         <div class="img-container">
@@ -163,11 +160,9 @@
         <a th:href="@{JavaBoard.ad}">자바</a>
         <a th:href="@{JavaScriptBoard.ad}">자바 스크립트</a>
         <a th:href="@{ErrorBoard.ad}">에러 모음집</a>
-        <a th:href="@{AdminPage.ad}">블로거 페이지</a>
+        <a th:href="@{AdminPage.ad}">블로거 게시판</a>
     </div>
     
-    <div>
-		<div th:replace="~{common/footer :: footer}"></div>
-	</div>
+    <div th:replace="~{common/footer :: footer}"></div>
 </body>
 </html>

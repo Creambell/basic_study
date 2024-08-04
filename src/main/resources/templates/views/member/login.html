@@ -5,15 +5,7 @@
 <!-- <link href="../../../static/css/login.css" rel="stylesheet" type="text/css"> -->
 <style>
 
-@font-face {
-    font-family: 'NanumSquareRound';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
 body {
-    font-family: 'NanumSquareRound', sans-serif;
     background-color: #f5f5f5;
     margin: 0;
     padding: 0;
@@ -33,10 +25,10 @@ body {
 }
 
 .content {
-    width: 750px;
-    height: 750px;
-    margin: 20px auto;
-    padding: 20px;
+    width: 70%;
+    height: 100%;
+    margin: px auto;
+    padding: 50px;
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
@@ -88,7 +80,15 @@ box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 #login-button {
     margin-bottom: 5px;
     margin-top: 20px;
+    background-color: tomato;
 }
+#join-button{
+	background-color: white;
+	color: grey;
+	width: 130px;
+	text-align: left;	
+}
+
 
 #login-button:hover, #back-button:hover {
     font-weight: bold;
@@ -120,28 +120,17 @@ a:focus, a:visited, a:active, a:link {
                 	<input type="text" id="id" placeholder="아이디를 입력해주세요.">
                 	<label for="password">비밀번호</label>
                 	<input type="text" id="password" placeholder="비밀번호를 입력해주세요.">
-                	<button id="login-button" type="submit">로그인</button>
-                	<button id="back-button" type="submit">뒤로 가기</button>
+                	<button id="login-button" type="submit" >로그인</button>
+                	<button id="back-button" type="submit" onclick="javascript:history.back();">뒤로 가기</button>
+     		        <button type="button" class="btn btn-primary" id="join-button" onclick="location.href='joinMember.me'">회원가입하기</button>
             	</form>
-            	<div class="join-member">
-            		<a href="joinMember.html">회원 가입하기</a>
-            	</div>
         </div>
    	</div>
 </div>	
-
-<div>
 	<div th:replace="~{common/footer :: footer}"></div>
-</div>
-  	
-  	
-  	
-  	
-    
-    
-
-
-
-
 </body>
+
+<!-- <div> -->
+	
+<!-- </div> -->
 </html>
