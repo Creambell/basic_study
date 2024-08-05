@@ -52,31 +52,31 @@ public class AdminController {
 		}
 	}
 	
-	@GetMapping("UserBoard.ad")
+	@GetMapping("UserAdmin.ad")
 	public String UserBoard() {
-		return "UserBoard";
+		return "UserAdmin";
 	}
 	
-	@GetMapping("ImageBoard.ad")
+	@GetMapping("ImageAdmin.ad")
 	public String ImageBoard() {
-		return "ImageBoard";
+		return "ImageAdmin";
 	}
 	
-	@GetMapping("SpringBoard.ad")
+	@GetMapping("SpringAdmin.ad")
 	public String SpringBoard() {
 		return "SpringBoard";
 	}
-	@GetMapping("JavaBoard.ad")
+	@GetMapping("JavaAdmin.ad")
 	public String JavaBoard() {
-		return "JavaBoard";
+		return "JavaAdmin";
 	}
-	@GetMapping("JavaScriptBoard.ad")
+	@GetMapping("JavaScriptAdmin.ad")
 	public String JavaScriptBoard() {
-		return "JavaScriptBoard";
+		return "JavaScriptAdmin";
 	}
-	@GetMapping("ErrorBoard.ad")
+	@GetMapping("ErrorAdmin.ad")
 	public String ErrorBoard() {
-		return "ErrorBoard";
+		return "ErrorAdmin";
 	}
 	
 	@GetMapping("AdminPage.ad")

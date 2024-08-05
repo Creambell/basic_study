@@ -72,8 +72,32 @@ public class BoardController{
 		return "writeImageBoard";
 	}
 	
+	@GetMapping("UserBoard.bo")
+	public String UserBoard() {
+		return "UserBoard";
+	}
 	
+	@GetMapping("ImageBoard.bo")
+	public String ImageBoard() {
+		return "ImageBoard";
+	}
 	
+	@GetMapping("SpringBoard.bo")
+	public String SpringBoard() {
+		return "SpringBoard";
+	}
+	@GetMapping("JavaBoard.bo")
+	public String JavaBoard() {
+		return "JavaBoard";
+	}
+	@GetMapping("JavaScriptBoard.bo")
+	public String JavaScriptBoard() {
+		return "JavaScriptBoard";
+	}
+	@GetMapping("ErrorBoard.bo")
+	public String ErrorBoard() {
+		return "ErrorBoard";
+	}
 	
 	
 	

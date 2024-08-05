@@ -21,17 +21,15 @@
        
       }
 
-     /* 사이드바 스타일 설정 */
+/* 사이드바 스타일 설정 08-05 */
 .sidebar {
     width: 200px;
     background-color: #333;
     color: white;
-    padding: 20px 0 20px   ;
+    padding: 20px;
     height: 100%;
     border-radius: 20px;
-    left-margin: 200px;
-    
-    
+    margin-left: 80px;
 }
 .sidebar h3 {
     text-align: center;
@@ -66,7 +64,7 @@
         justify-content: center;
         align-items: flex-start;
         overflow: auto;
-        margin-left: 300px;
+        margin-left: 300px; /*없으면 왼쪽으로 붙음*/
       }
       .content-container {
         width: 900px;
@@ -197,9 +195,9 @@
 <aside class="sidebar">
     <h3>관리자메뉴</h3>
     <ul>
-        <li><a href="#" class="active">방문자게시판</a></li>
+        <li><a href="#">방문자게시판</a></li>
         <li><a href="#">Image</a></li>
-        <li><a href="#">Spring</a></li>
+        <li><a href="#" class="active">Spring</a></li>
         <li><a href="#">Java</a></li>
         <li><a href="#">JavaScript</a></li>
         <li><a href="#">Error 모음집</a></li>
@@ -220,7 +218,7 @@
     <div class="content-wrapper">
       <div class="main-content-container">
         <div class="content-container">
-          <h2>방문자 게시판</h2>
+          <h2>Spring 게시판</h2>
           <!-- 테이블 -->
           <table class="table">
             <thead>

@@ -7,13 +7,15 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: white;
+            color: #333;
         }
         .header {
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            background-color: white;            
+			justify-content: space-between;
             padding: 10px 20px;
-            background-color: #f8f8f8;
             border-bottom: 1px solid #ddd;
         }
         .nav {
@@ -31,13 +33,15 @@
             display: flex;
             justify-content: space-around;
             padding: 10px;
+            background-color: white;
         }
         .content div {
             padding-bottom: 10px;
             width: 20%;
             text-align: center;
-            border-radius: 15px; 
+            border-radius: 15px;
             border: 1px solid #ddd;
+            background-color: white; 
         }
         .content .img-container {
             border: none;
@@ -45,23 +49,22 @@
         .content img {
             width: 100%;
             height: auto;
-            border-radius: 15px; 
+            border-radius: 15px;
         }
         .footer {
-            background-color: #e8f1f9;
+            background-color: white; 
             padding: 10px 20px;
             text-align: center;
             border-top: 1px solid #ddd;
         }
         .notice {
-            background-color: #e8f1f9;
+            background-color: white;
             padding: 10px 20px;
             text-align: left;
             border-top: 1px solid #ddd;
-        }
     </style>
 </head>
-<body>
+<body style="background-color: white;">
     <div th:replace="~{common/header :: header}"></div>
     <br>
     <div class="content">
@@ -79,76 +82,76 @@
         </div>
     </div>
     <div class="content">    
-         <div>
+        <div>
             <h3>자바 게시판</h3>
-                <p>1. 자바에 대해서</p>
-                <p>2. 자바의 공부법</p>
-                <p>3. 내가 배운 자바</p>
-                <p>4. 자바 게시판 완성</p>
+            <p>1. 자바에 대해서</p>
+            <p>2. 자바의 공부법</p>
+            <p>3. 내가 배운 자바</p>
+            <p>4. 자바 게시판 완성</p>
         </div>
         <div>
             <h3>자바 스크립트 게시판</h3>
-                <p>1. 자바에 대해서</p>
-                <p>2. 자바의 공부법</p>
-                <p>3. 내가 배운 자바</p>
-                <p>4. 자바 게시판 완성</p>
+            <p>1. 자바에 대해서</p>
+            <p>2. 자바의 공부법</p>
+            <p>3. 내가 배운 자바</p>
+            <p>4. 자바 게시판 완성</p>
         </div>
-         <div>
+        <div>
             <h3>스프링 게시판</h3>
-                <p>1. 자바에 대해서</p>
-                <p>2. 자바의 공부법</p>
-                <p>3. 내가 배운 자바</p>
-                <p>4. 자바 게시판 완성</p>
+            <p>1. 자바에 대해서</p>
+            <p>2. 자바의 공부법</p>
+            <p>3. 내가 배운 자바</p>
+            <p>4. 자바 게시판 완성</p>
         </div>
-         <div>
+        <div>
             <h3>스프링 부트 게시판</h3>
-                <p>1. 자바에 대해서</p>
-                <p>2. 자바의 공부법</p>
-                <p>3. 내가 배운 자바</p>
-                <p>4. 자바 게시판 완성</p>
+            <p>1. 자바에 대해서</p>
+            <p>2. 자바의 공부법</p>
+            <p>3. 내가 배운 자바</p>
+            <p>4. 자바 게시판 완성</p>
         </div>
-    </div>    
-   <div class="content">
-          <div>
+    </div>
+    <div class="content">
+        <div>
             <h3>에러 게시판</h3>
-                <p>1. 자바에 대해서</p>
-                <p>2. 자바의 공부법</p>
-                <p>3. 내가 배운 자바</p>
-                <p>4. 자바 게시판 완성</p>
+            <p>1. 자바에 대해서</p>
+            <p>2. 자바의 공부법</p>
+            <p>3. 내가 배운 자바</p>
+            <p>4. 자바 게시판 완성</p>
         </div>
         <div>
             <h3>방문자 게시판</h3>
-                <p>1. 자바에 대해서</p>
-                <p>2. 자바의 공부법</p>
-                <p>3. 내가 배운 자바</p>
-                <p>4. 자바 게시판 완성</p>
+            <p>1. 자바에 대해서</p>
+            <p>2. 자바의 공부법</p>
+            <p>3. 내가 배운 자바</p>
+            <p>4. 자바 게시판 완성</p>
         </div>
         <div>
             <h3>이미지 게시판</h3>
-                <p>1. 자바에 대해서</p>
-                <p>2. 자바의 공부법</p>
-                <p>3. 내가 배운 자바</p>
-                <p>4. 자바 게시판 완성</p>
+            <p>1. 자바에 대해서</p>
+            <p>2. 자바의 공부법</p>
+            <p>3. 내가 배운 자바</p>
+            <p>4. 자바 게시판 완성</p>
         </div>
-         <div>
+        <div>
             <h3>QnA 게시판</h3>
-                <p>1. 자바에 대해서</p>
-                <p>2. 자바의 공부법</p>
-                <p>3. 내가 배운 자바</p>
-                <p>4. 자바 게시판 완성</p>
+            <p>1. 자바에 대해서</p>
+            <p>2. 자바의 공부법</p>
+            <p>3. 내가 배운 자바</p>
+            <p>4. 자바 게시판 완성</p>
         </div>
     </div>
     <br>
     
     <!-- 페이지 중간점검을 위한 링크 멤버컨트롤러에 연결만 된 상태입니다. -->
     <div class="nav"> 
-    	<a th:href="@{editPage.me}">내 정보 수정</a>
+        <a th:href="@{editPage.me}">내 정보 수정</a>
         <a th:href="@{myComment.me}">내 댓글 보기</a>
         <a th:href="@{myPost.me}">내 게시글 보기</a>
     </div>
     
     <div class="nav"> 
-    	<a th:href="@{BoardDetail.bo}">글 상세 페이지</a>
+        <a th:href="@{BoardDetail.bo}">글 상세 페이지</a>
         <a th:href="@{writeBoard.bo}">글쓰기 페이지</a>
         <a th:href="@{writeImageBoard.bo}">글+이미지 쓰기 페이지</a>
     </div>
@@ -162,7 +165,15 @@
         <a th:href="@{ErrorBoard.ad}">에러 모음집</a>
         <a th:href="@{AdminPage.ad}">블로거 게시판</a>
     </div>
-    
+    <div class="nav">
+    	<p>일반 페이지</p> 
+        <a th:href="@{UserBoard.bo}">방문자게시판</a>
+        <a th:href="@{ImageBoard.bo}">이미지</a>
+        <a th:href="@{SpringBoard.bo}">스프링</a>
+        <a th:href="@{JavaBoard.bo}">자바</a>
+        <a th:href="@{JavaScriptBoard.bo}">자바 스크립트</a>
+        <a th:href="@{ErrorBoard.bo}">에러 모음집</a>
+    </div>
     <div th:replace="~{common/footer :: footer}"></div>
 </body>
 </html>
