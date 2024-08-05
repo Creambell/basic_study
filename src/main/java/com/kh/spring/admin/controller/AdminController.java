@@ -54,6 +54,9 @@ public class AdminController {
 	
 	@GetMapping("UserAdmin.ad")
 	public String UserBoard() {
+		
+		
+		
 		return "UserAdmin";
 	}
 	
@@ -64,7 +67,7 @@ public class AdminController {
 	
 	@GetMapping("SpringAdmin.ad")
 	public String SpringBoard() {
-		return "SpringBoard";
+		return "SpringAdmin";
 	}
 	@GetMapping("JavaAdmin.ad")
 	public String JavaBoard() {
@@ -84,4 +87,14 @@ public class AdminController {
 		return "adminPage";
 	}
 	
+	@GetMapping("BloggerBoard.ad")
+    public String bloggerBoard() {
+        return "BloggerBoard";
+    }
+
+	@GetMapping("SpringBootAdmin.ad")
+    public String springbootBoard() {
+        return "SpringBootAdmin";
+    }
+
 }

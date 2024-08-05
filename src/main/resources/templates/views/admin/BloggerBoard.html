@@ -21,16 +21,17 @@
        
       }
 
-
-/* 사이드바 스타일 설정 08-05 */
+     /* 사이드바 스타일 설정 */
 .sidebar {
     width: 200px;
     background-color: #333;
     color: white;
-    padding: 20px;
+    padding: 20px 0 20px   ;
     height: 100%;
     border-radius: 20px;
-    margin-left: 80px;
+    left-margin: 200px;
+    
+    
 }
 .sidebar h3 {
     text-align: center;
@@ -196,12 +197,12 @@
 <aside class="sidebar">
     <h3>관리자메뉴</h3>
     <ul>
-        <li><a href="UserAdmin.ad" class="active">방문자게시판</a></li>
-        <li><a href="ImageAdmin.ad">Image</a></li>
-        <li><a href="SpringAdmin.ad">Spring</a></li>
-        <li><a href="JavaAdmin.ad">Java</a></li>
-        <li><a href="JavaScriptAdmin.ad">JavaScript</a></li>
-        <li><a href="ErrorAdmin.ad">Error 모음집</a></li>
+        <li><a href="#">방문자게시판</a></li>
+        <li><a href="#">Image</a></li>
+        <li><a href="#">Spring</a></li>
+        <li><a href="#">Java</a></li>
+        <li><a href="#" class="active">JavaScript</a></li>
+        <li><a href="#">Error 모음집</a></li>
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 회원정보수정
@@ -219,7 +220,7 @@
     <div class="content-wrapper">
       <div class="main-content-container">
         <div class="content-container">
-          <h2>방문자 게시판</h2>
+          <h2>Blogger 게시판</h2>
           <!-- 테이블 -->
           <table class="table">
             <thead>
@@ -238,7 +239,11 @@
               <tr>
                 <td>
                   <input
-                    class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    id="flexCheckDefault"
+                  />
                 </td>
                 <td scope="row">13</td>
                 <td>방문자</td>
@@ -281,12 +286,10 @@
           </table>
           <!-- 버튼 영역 -->
           <div class="buttons-container">
-            <button class="btn btn-primary" type="button" id="write_button"
-            	onclick="location.href='writeBoard.bo'">
+            <button class="btn btn-primary" type="button" id="write_button">
               쓰기
             </button>
-            <button class="btn btn-primary" type="button" id="update_button"
-            	onclick="location.href='BoardDetail.bo'">
+            <button class="btn btn-primary" type="button" id="update_button">
               수정
             </button>
             <button class="btn btn-primary" type="button" id="delete_button">

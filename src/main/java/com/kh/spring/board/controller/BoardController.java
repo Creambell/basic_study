@@ -99,7 +99,10 @@ public class BoardController{
 		return "ErrorBoard";
 	}
 	
-	
+	@GetMapping("SpringBootBoard.bo")
+    public String springbootBoard() {
+        return "SpringbootBoard";
+    }
 	
 	
 	}

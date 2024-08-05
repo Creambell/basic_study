@@ -14,7 +14,7 @@
             display: flex;
             align-items: center;
             background-color: white;            
-			justify-content: space-between;
+            justify-content: space-between;
             padding: 10px 20px;
             border-bottom: 1px solid #ddd;
         }
@@ -28,6 +28,14 @@
             text-decoration: none;
             color: #333;
             font-weight: bold;
+        }
+         .nav-link {
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .nav a:visited {
+            color: #333;
         }
         .content {
             display: flex;
@@ -45,6 +53,10 @@
         }
         .content .img-container {
             border: none;
+        }
+        .href {
+        	color: #333; 
+        	text-decoration: none;
         }
         .content img {
             width: 100%;
@@ -83,28 +95,28 @@
     </div>
     <div class="content">    
         <div>
-            <h3>자바 게시판</h3>
+            <h3><a th:href="@{/JavaBoard}" class="nav-link">자바 게시판</a></h3>
             <p>1. 자바에 대해서</p>
             <p>2. 자바의 공부법</p>
             <p>3. 내가 배운 자바</p>
             <p>4. 자바 게시판 완성</p>
         </div>
         <div>
-            <h3>자바 스크립트 게시판</h3>
+            <h3><a th:href="@{/JavaScriptBoard}" class="nav-link">자바 스크립트 게시판</a></h3>
             <p>1. 자바에 대해서</p>
             <p>2. 자바의 공부법</p>
             <p>3. 내가 배운 자바</p>
             <p>4. 자바 게시판 완성</p>
         </div>
         <div>
-            <h3>스프링 게시판</h3>
+            <h3><a th:href="@{/SpringBoard}" class="nav-link">스프링 게시판</a></h3>
             <p>1. 자바에 대해서</p>
             <p>2. 자바의 공부법</p>
             <p>3. 내가 배운 자바</p>
             <p>4. 자바 게시판 완성</p>
         </div>
         <div>
-            <h3>스프링 부트 게시판</h3>
+            <h3><a th:href="@{/SpringbootBoard}" class="nav-link">스프링 부트 게시판</a></h3>
             <p>1. 자바에 대해서</p>
             <p>2. 자바의 공부법</p>
             <p>3. 내가 배운 자바</p>
@@ -113,28 +125,28 @@
     </div>
     <div class="content">
         <div>
-            <h3>에러 게시판</h3>
+            <h3><a th:href="@{/ErrorBoard}" class="nav-link">에러 게시판</a></h3>
             <p>1. 자바에 대해서</p>
             <p>2. 자바의 공부법</p>
             <p>3. 내가 배운 자바</p>
             <p>4. 자바 게시판 완성</p>
         </div>
         <div>
-            <h3>방문자 게시판</h3>
+            <h3><a th:href="@{/UserBoard}" class="nav-link">방문자 게시판</a></h3>
             <p>1. 자바에 대해서</p>
             <p>2. 자바의 공부법</p>
             <p>3. 내가 배운 자바</p>
             <p>4. 자바 게시판 완성</p>
         </div>
         <div>
-            <h3>이미지 게시판</h3>
+            <h3><a th:href="@{/ImageBoard}" class="nav-link">이미지 게시판</a></h3>
             <p>1. 자바에 대해서</p>
             <p>2. 자바의 공부법</p>
             <p>3. 내가 배운 자바</p>
             <p>4. 자바 게시판 완성</p>
         </div>
         <div>
-            <h3>QnA 게시판</h3>
+            <h3><a th:href="@{/BloggerBoard}" class="nav-link">블로거 게시판</a></h3>
             <p>1. 자바에 대해서</p>
             <p>2. 자바의 공부법</p>
             <p>3. 내가 배운 자바</p>
@@ -164,7 +176,8 @@
         <a th:href="@{JavaAdmin.ad}">자바</a>
         <a th:href="@{JavaScriptAdmin.ad}">자바 스크립트</a>
         <a th:href="@{ErrorAdmin.ad}">에러 모음집</a>
-        <a th:href="@{AdminPage.ad}">블로거 페이지</a>
+        <a th:href="@{AdminPage.ad}">회원 정보 수정</a>
+        <a th:href="@{SpringBootAdmin.ad}">블로거 페이지</a>
     </div>
     
     <div class="nav">
@@ -175,6 +188,7 @@
         <a th:href="@{JavaBoard.bo}">자바</a>
         <a th:href="@{JavaScriptBoard.bo}">자바 스크립트</a>
         <a th:href="@{ErrorBoard.bo}">에러 모음집</a>
+        <a th:href="@{SpringBootBoard.bo}">스프링 부트</a>
     </div>
     
     <div th:replace="~{common/footer :: footer}"></div>
