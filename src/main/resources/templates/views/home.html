@@ -156,15 +156,17 @@
         <a th:href="@{writeImageBoard.bo}">글+이미지 쓰기 페이지</a>
     </div>
     
-    <div class="nav"> 
-        <a th:href="@{UserBoard.ad}">방문자게시판</a>
-        <a th:href="@{ImageBoard.ad}">이미지</a>
-        <a th:href="@{SpringBoard.ad}">스프링</a>
-        <a th:href="@{JavaBoard.ad}">자바</a>
-        <a th:href="@{JavaScriptBoard.ad}">자바 스크립트</a>
-        <a th:href="@{ErrorBoard.ad}">에러 모음집</a>
-        <a th:href="@{AdminPage.ad}">블로거 게시판</a>
+    <div class="nav">
+    	<p>관리자페이지</p> 
+        <a th:href="@{UserAdmin.ad}">방문자게시판</a>
+        <a th:href="@{ImageAdmin.ad}">이미지</a>
+        <a th:href="@{SpringAdmin.ad}">스프링</a>
+        <a th:href="@{JavaAdmin.ad}">자바</a>
+        <a th:href="@{JavaScriptAdmin.ad}">자바 스크립트</a>
+        <a th:href="@{ErrorAdmin.ad}">에러 모음집</a>
+        <a th:href="@{AdminPage.ad}">블로거 페이지</a>
     </div>
+    
     <div class="nav">
     	<p>일반 페이지</p> 
         <a th:href="@{UserBoard.bo}">방문자게시판</a>
@@ -174,6 +176,7 @@
         <a th:href="@{JavaScriptBoard.bo}">자바 스크립트</a>
         <a th:href="@{ErrorBoard.bo}">에러 모음집</a>
     </div>
+    
     <div th:replace="~{common/footer :: footer}"></div>
 </body>
 </html>
