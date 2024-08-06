@@ -2,14 +2,25 @@ package com.kh.spring.admin.controller;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.spring.admin.model.service.AdminService;
+import com.kh.spring.board.model.exception.BoardException;
+import com.kh.spring.board.model.vo.Board;
+import com.kh.spring.board.model.vo.PageInfo;
+import com.kh.spring.common.Pagination;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class AdminController {
@@ -53,11 +64,48 @@ public class AdminController {
 	}
 	
 	@GetMapping("UserAdmin.ad")
-	public String UserBoard() {
+	public String UserBoard(@RequestParam(value="page", defaultValue="1") int currentPage, Model model,
+            HttpServletRequest request) { // 게시글에 대한 전체목록으로 넘어가려는 페이지 니까 => 데이터 필요!(게시글에 대한 전체 정보) => DB에 갖다와야 한다는 것
+		// 결합도를 낮추기 위해, 객체를 필드를 빼거나(근데 빼기만 하면 객체를 직접 만들기 때문에), 객체를 framework가 처리하게 하기 위해, 인터페이스 만들기.
 		
+		int listCount = aService.getListCount(100);// 100 방문자게시판
+		System.out.println(listCount);
 		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 5);
+		ArrayList<Board> list = aService.selectBoardList(pi, 100);
+		
+		if(list != null) {
+		model.addAttribute("board", list);
+		model.addAttribute("pi", pi);
 		
 		return "UserAdmin";
+		} else {
+		throw new BoardException("게시글 조회를 실패하였습니다.");
+		}
+		
+	}
+	
+	@GetMapping("selectBoard.ad")
+	public String selectBoard(@RequestParam("bId")int bId,@RequestParam("page")int page,
+			HttpSession session,Model model) {
+		
+		String id = null;
+		
+		Board board = aService.selectBoard(bId,id);
+		System.out.println(board);
+		if(board != null) {
+			model.addAttribute("b",board);
+			model.addAttribute("page",page);
+			return "UserAdmin";
+		}else {
+			throw new BoardException("게시글 보기 실패");
+		}
+	}
+	
+	@PostMapping("insertBoard.ad")
+	public String insertBoard() {
+		
+	    return "redirect: Admin.ad";
 	}
 	
 	@GetMapping("ImageAdmin.ad")
@@ -96,5 +144,16 @@ public class AdminController {
     public String springbootBoard() {
         return "SpringBootAdmin";
     }
+	
+	@GetMapping("writeAdmin.ad")
+	public String writeAdmin() {
+		return "writeAdmin";
+	}
+	
+	@GetMapping("writeImageAdmin.ad")
+	public String writeImageAdmin() {
+		return "writeImageAdmin";
+	}
+	
 
 }

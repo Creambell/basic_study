@@ -36,8 +36,8 @@
             border-right: 1px solid #ddd;
             padding-right: 20px;
             background-color: #e8f1f9;
-    		padding: 10px 0;
-   			text-align: center;
+            padding: 10px 0;
+            text-align: center;
         }
         .main {
             width: 900px;
@@ -48,12 +48,12 @@
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
         }
-         h2 {
-   			border-left: 5px solid black;
-    		padding-left: 10px;
-    		display: inline-block;
-    		margin-bottom: 15px;
-		} 
+        h2 {
+            border-left: 5px solid black;
+            padding-left: 10px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
         .sidebar ul {
             list-style: none;
             padding: 0;
@@ -66,9 +66,9 @@
             color: #333;
         }
         .sidebar .active {
-    		font-weight: bold;
-    		font-size: 1.4em;
-		}
+            font-weight: bold;
+            font-size: 1.4em;
+        }
         .main table {
             width: 100%;
             border-collapse: collapse;
@@ -112,14 +112,14 @@
     </style>
 </head>
 <body id="myComment"> 
-	<div th:replace="~{common/header :: header}" ></div>
+    <div th:replace="~{common/header :: header}" ></div>
     <br>
     <div class="content">
         <div class="sidebar">
             <ul>
-                 <li><a th:href="@{editPage.me}" id="link-editPage">내 정보 수정</a></li>
-                 <li><a th:href="@{myComment.me}" id="link-myComment">내 댓글 보기</a></li>
-                 <li><a th:href="@{myPost.me}" id="link-myPost">내 게시글 보기</a></li>
+                <li><a th:href="@{editPage.me}" id="link-editPage">내 정보 수정</a></li>
+                <li><a th:href="@{myComment.me}" id="link-myComment">내 댓글 보기</a></li>
+                <li><a th:href="@{myPost.me}" id="link-myPost">내 게시글 보기</a></li>
             </ul>
         </div>
         <div class="main">
@@ -127,24 +127,24 @@
             <table>
                 <thead>
                     <tr>
-                        <th><input type="checkbox"></th>
+                        <th><input type="checkbox" id="selectAll"></th>
                         <th>제목</th>
                         <th>내용</th>
                         <th>작성 일자</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="commentTableBody">
                     <tr>
-                        <td><input type="checkbox"></td>
-                        <td>안녕하세요.</td>
-                        <td>좋은 하루예요</td>
+                        <td><input type="checkbox" class="commentCheckbox"></td>
+                        <td contenteditable="true">안녕하세요.</td>
+                        <td contenteditable="true">좋은 하루예요</td>
                         <td>2024-07-23</td>
                     </tr>
                 </tbody>
             </table>
             <div class="button-container">
-                <button type="submit">수정하기</button>
-                <button type="submit">삭제하기</button>
+                <button type="button" onclick="updateComments()">수정하기</button>
+                <button type="button" onclick="deleteComments()">삭제하기</button>
             </div>
         </div>
     </div>
@@ -174,14 +174,37 @@
     </div>
     
     <div>
-		<div th:replace="~{common/footer :: footer}"></div>
-	</div>
+        <div th:replace="~{common/footer :: footer}"></div>
+    </div>
 
     <script>
         const currentPageId = document.body.id;
         const activeLink = document.getElementById('link-' + currentPageId);
         if (activeLink) {
             activeLink.classList.add('active');
+        }
+
+        document.getElementById('selectAll').addEventListener('change', function(e) {
+            const checkboxes = document.querySelectorAll('.commentCheckbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = e.target.checked;
+            });
+        });
+
+        document.querySelectorAll('.commentCheckbox').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const allCheckboxes = document.querySelectorAll('.commentCheckbox');
+                const allChecked = Array.from(allCheckboxes).every(chk => chk.checked);
+                document.getElementById('selectAll').checked = allChecked;
+            });
+        });
+
+        function updateComments() {
+        }
+
+        function deleteComments() {
+            if(confirm('정말로 삭제하시겠습니까?')) {
+            }
         }
     </script>
 </body>

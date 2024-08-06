@@ -68,7 +68,7 @@
 	<div th:replace="~{common/header :: header}"></div>
 
 <div class="bmain">
-    <form th:action="@{insertBoard}" method="post">
+    <form th:action="@{insertBoard.ad}" method="post">
         <div class="bheader">
             <input type="text" name="title" placeholder="게시글 제목" required>
             <span th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"></span>

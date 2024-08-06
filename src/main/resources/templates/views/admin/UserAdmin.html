@@ -222,71 +222,36 @@
           <h2>방문자 게시판</h2>
           <!-- 테이블 -->
           <table class="table">
-            <thead>
-              <tr>
-                <th scope="col" style="width: 3%">
-                  <input class="form-check-input" type="checkbox" id="checkAll" />
-                </th>
-                <th scope="col" style="width: 8%">글 번호</th>
-                <th scope="col" style="width: 50%">글 제목</th>
-                <th scope="col" style="width: 10%">작성자</th>
-                <th scope="col" style="width: 10%">작성일</th>
-                <th scope="col" style="width: 12%">조회수</th>
-              </tr>
-            </thead>
-            <tbody class="table-group-divider">
-              <tr>
-                <td>
-                  <input
-                    class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                </td>
-                <td scope="row">13</td>
-                <td>방문자</td>
-                <td>관리자</td>
-                <td>2024.06.18</td>
-                <td>20</td>
-              </tr>
-              <tr>
-                <td>
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    value=""
-                    id="flexCheckDefault"
-                  />
-                </td>
-                <td scope="row">12</td>
-                <td>방문자</td>
-                <td>관리자</td>
-                <td>2024.06.18</td>
-                <td>20</td>
-              </tr>
-              <tr>
-                <td>
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    value=""
-                    id="flexCheckDefault"
-                  />
-                </td>
-                <td scope="row">11</td>
-                <td>방문자</td>
-                <td>관리자</td>
-                <td>2024.06.18</td>
-                <td>20</td>
-              </tr>
-              <!-- 기존 10개의 게시글 -->
-            </tbody>
-          </table>
+			  <thead>
+			    <tr>
+			      <th scope="col" style="width: 3%">
+			        <input class="form-check-input" type="checkbox" id="checkAll" />
+			      </th>
+			      <th scope="col" style="width: 8%">글 번호</th>
+			      <th scope="col" style="width: 50%">글 제목</th>
+			      <th scope="col" style="width: 10%">작성자</th>
+			      <th scope="col" style="width: 10%">작성일</th>
+			      <th scope="col" style="width: 12%">조회수</th>
+			    </tr>
+			  </thead>
+			  <tbody class="table-group-divider">
+			    <tr th:each="board : ${board}">
+			      <td scope="row" th:text="${board.boardNo}"></td>
+			      <td th:text="${board.boardTitle}"></td>
+			      <td th:text="${board.boardWriterName}"></td>
+			      <td th:text="${board.updateDate}"></td>
+			      <td th:text="${board.boardCount}"></td>
+			    </tr>
+			  </tbody>
+			</table>
           <!-- 버튼 영역 -->
           <div class="buttons-container">
             <button class="btn btn-primary" type="button" id="write_button"
-            	onclick="location.href='writeBoard.bo'">
+            	onclick="location.href='writeAdmin.ad'">
               쓰기
             </button>
             <button class="btn btn-primary" type="button" id="update_button"
-            	onclick="location.href='BoardDetail.bo'">
+            	onclick="location.href='BoardAdminDetail.bo'">
               수정
             </button>
             <button class="btn btn-primary" type="button" id="delete_button">

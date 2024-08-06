@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.kh.spring.admin.model.dao.AdminMapper">
+	
+	<select id="getListCount" resultType="_int">
+	SELECT COUNT(*)
+	FROM board
+	WHERE BOARD_STATUS = 'Y' AND CATE_NO = #{i}
+	</select>
+	
+	<select id="selectBoardList" resultType="Board">
+	SELECT *
+	FROM board
+	JOIN "USER" ON (BOARD_WRITER_NO = USER_NO)
+	WHERE BOARD_STATUS = 'Y'
+	AND CATE_NO = #{i}
+	ORDER BY BOARD_NO DESC
+	</select>
+	
+	<select id="selectBoard" resultType="Board">
+	SELECT *
+	FROM board
+	JOIN "USER" ON (BOARD_WRITER_NO = USER_NO)
+	WHERE BOARD_STATUS = 'Y' AND BOARD_NO = #{id}
+	AND CATE_NO = #{i}
+	</select>
 
 </mapper>
