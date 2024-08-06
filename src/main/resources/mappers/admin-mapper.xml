@@ -10,19 +10,17 @@
 	
 	<select id="selectBoardList" resultType="Board">
 	SELECT *
-	FROM board
-	JOIN "USER" ON (BOARD_WRITER_NO = USER_NO)
-	WHERE BOARD_STATUS = 'Y'
-	AND CATE_NO = #{i}
-	ORDER BY BOARD_NO DESC
+    FROM BOARD
+    WHERE BOARD_STATUS = 'Y' AND CATE_NO = #{cateNo}
+    ORDER BY BOARD_NO DESC
 	</select>
 	
 	<select id="selectBoard" resultType="Board">
 	SELECT *
-	FROM board
-	JOIN "USER" ON (BOARD_WRITER_NO = USER_NO)
-	WHERE BOARD_STATUS = 'Y' AND BOARD_NO = #{id}
-	AND CATE_NO = #{i}
+    FROM board
+    WHERE BOARD_STATUS = 'Y' 
+    AND BOARD_NO = #{id}
+    AND CATE_NO = #{i}
 	</select>
 
 </mapper>

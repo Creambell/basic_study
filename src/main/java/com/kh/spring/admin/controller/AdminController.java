@@ -74,14 +74,15 @@ public class AdminController {
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 5);
 		ArrayList<Board> list = aService.selectBoardList(pi, 100);
 		
-		if(list != null) {
-		model.addAttribute("board", list);
-		model.addAttribute("pi", pi);
-		
-		return "UserAdmin";
+		if(list != null && !list.isEmpty()) {
+		    model.addAttribute("board", list);
+		    model.addAttribute("pi", pi);
 		} else {
-		throw new BoardException("게시글 조회를 실패하였습니다.");
+		    System.out.println("데이터를 가져오지 못했거나 리스트가 비어있습니다.");
+		    model.addAttribute("board", new ArrayList<Board>());
+		    model.addAttribute("pi", pi);
 		}
+		return "UserAdmin";
 		
 	}
 	
