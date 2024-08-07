@@ -13,5 +13,8 @@ public interface AdminService {
 
 	ArrayList<Board> selectBoardList(PageInfo pi, int i);
 
+	int insertBoard(Board b);
+
+
 
 }

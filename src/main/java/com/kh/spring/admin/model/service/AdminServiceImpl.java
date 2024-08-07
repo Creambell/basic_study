@@ -32,4 +32,9 @@ public class AdminServiceImpl implements AdminService{
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return aMapper.selectBoardList(i, rowBounds);
 	}
+
+	@Override
+	public int insertBoard(Board b) {
+		return aMapper.insertBoard(b);
+	}
 }

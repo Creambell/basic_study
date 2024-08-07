@@ -17,5 +17,7 @@ public interface AdminMapper {
 
 	ArrayList<Board> selectBoardList(int i, RowBounds rowBounds);
 
+	int insertBoard(Board b);
+
 
 }

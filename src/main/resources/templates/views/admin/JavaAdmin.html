@@ -191,18 +191,20 @@
     <!-- 헤더 추가 -->
     <header th:replace="~{common/header :: header}"></header>
 
-    <!-- 사이드바 -->
+<!-- 사이드바 -->
 <aside class="sidebar">
     <h3>관리자메뉴</h3>
     <ul>
-        <li><a href="#">방문자게시판</a></li>
-        <li><a href="#">Image</a></li>
-        <li><a href="#">Spring</a></li>
-        <li><a href="#" class="active">Java</a></li>
-        <li><a href="#">JavaScript</a></li>
-        <li><a href="#">Error 모음집</a></li>
+        <li><a href="UserAdmin.ad" class="active">방문자 게시판</a></li>
+        <li><a href="ImageAdmin.ad">Image</a></li>
+        <li><a href="SpringAdmin.ad">Spring</a></li>
+        <li><a href="SpringBootAdmin.ad">SpringBoot</a></li>
+        <li><a href="JavaAdmin.ad">Java</a></li>
+        <li><a href="JavaScriptAdmin.ad">JavaScript</a></li>
+        <li><a href="ErrorAdmin.ad">Error 모음집</a></li>
+        <li><a href="BloggerBoard.ad">블로거 게시판</a></li>
         <li class="dropdown">
-            <a href="#" class="dropdown-toggle" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a href="AdminPage.ad" class="dropdown-toggle" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 회원정보수정
             </a>
             <ul class="dropdown-menu" aria-labelledby="userDropdown">

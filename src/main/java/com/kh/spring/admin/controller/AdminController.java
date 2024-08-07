@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -71,7 +72,7 @@ public class AdminController {
 		int listCount = aService.getListCount(100);// 100 방문자게시판
 		System.out.println(listCount);
 		
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 5);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
 		ArrayList<Board> list = aService.selectBoardList(pi, 100);
 		
 		if(list != null && !list.isEmpty()) {
@@ -103,11 +104,30 @@ public class AdminController {
 		}
 	}
 	
+	//글쓰기 페이지로 단순 이동
+			@GetMapping("writeAdmin.ad")
+			public String writeAdmin() {
+				return "writeAdmin";
+			}
+			
+	//글쓰기 기능
 	@PostMapping("insertBoard.ad")
-	public String insertBoard() {
+	public String insertBoard(@ModelAttribute Board b) {
 		
-	    return "redirect: Admin.ad";
+		b.setBoardWriterNo(1);
+		b.setCateNo(100);
+		b.setBoardStatus("Y");
+		b.setBoardWriterName("임시 사용자");
+		int result = aService.insertBoard(b);
+		
+		if(result > 0) {
+			return "home";
+		} else {
+			throw new BoardException("게시글 작성 실패");
+		}
+	    
 	}
+	
 	
 	@GetMapping("ImageAdmin.ad")
 	public String ImageBoard() {
@@ -145,11 +165,6 @@ public class AdminController {
     public String springbootBoard() {
         return "SpringBootAdmin";
     }
-	
-	@GetMapping("writeAdmin.ad")
-	public String writeAdmin() {
-		return "writeAdmin";
-	}
 	
 	@GetMapping("writeImageAdmin.ad")
 	public String writeImageAdmin() {

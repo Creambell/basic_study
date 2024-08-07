@@ -21,17 +21,15 @@
        
       }
 
-     /* 사이드바 스타일 설정 */
+/* 사이드바 스타일 설정 08-05 */
 .sidebar {
     width: 200px;
     background-color: #333;
     color: white;
-    padding: 20px 0 20px   ;
+    padding: 20px;
     height: 100%;
     border-radius: 20px;
-    left-margin: 200px;
-    
-    
+    margin-left: 80px;
 }
 .sidebar h3 {
     text-align: center;
@@ -193,18 +191,20 @@
     <!-- 헤더 추가 -->
     <header th:replace="~{common/header :: header}"></header>
 
-    <!-- 사이드바 -->
+<!-- 사이드바 -->
 <aside class="sidebar">
     <h3>관리자메뉴</h3>
     <ul>
-        <li><a href="#">방문자게시판</a></li>
-        <li><a href="#">Image</a></li>
-        <li><a href="#">Spring</a></li>
-        <li><a href="#">Java</a></li>
-        <li><a href="#" class="active">JavaScript</a></li>
-        <li><a href="#">Error 모음집</a></li>
+        <li><a href="UserAdmin.ad" class="active">방문자 게시판</a></li>
+        <li><a href="ImageAdmin.ad">Image</a></li>
+        <li><a href="SpringAdmin.ad">Spring</a></li>
+        <li><a href="SpringBootAdmin.ad">SpringBoot</a></li>
+        <li><a href="JavaAdmin.ad">Java</a></li>
+        <li><a href="JavaScriptAdmin.ad">JavaScript</a></li>
+        <li><a href="ErrorAdmin.ad">Error 모음집</a></li>
+        <li><a href="BloggerBoard.ad">블로거 게시판</a></li>
         <li class="dropdown">
-            <a href="#" class="dropdown-toggle" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a href="AdminPage.ad" class="dropdown-toggle" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 회원정보수정
             </a>
             <ul class="dropdown-menu" aria-labelledby="userDropdown">
@@ -220,7 +220,7 @@
     <div class="content-wrapper">
       <div class="main-content-container">
         <div class="content-container">
-          <h2>Blogger 게시판</h2>
+          <h2>블로거 게시판</h2>
           <!-- 테이블 -->
           <table class="table">
             <thead>

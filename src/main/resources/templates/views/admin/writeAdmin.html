@@ -70,12 +70,12 @@
 <div class="bmain">
     <form th:action="@{insertBoard.ad}" method="post">
         <div class="bheader">
-            <input type="text" name="title" placeholder="게시글 제목" required>
+            <input type="text" name="boardTitle" placeholder="게시글 제목" required>
             <span th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"></span>
         </div>
 
-        <textarea class="bcontainer" name="content" required></textarea>
-        
+        <textarea class="bcontainer" name="boardContent" required></textarea>
+
         <div class="bheader">
             <div></div>
             <div>

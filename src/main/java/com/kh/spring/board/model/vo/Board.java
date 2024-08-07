@@ -22,7 +22,7 @@ public class Board {
     private String boardTitle;
     private String boardContent;
     private int boardCount;
-    private char boardStatus;
+    private String boardStatus;
     private Date createDate;
     private Date updateDate;
 }

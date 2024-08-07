@@ -115,11 +115,11 @@ a:focus, a:visited, a:active, a:link {
     <div class="content">
 	  	 <div class="login-area">
     	    <h2>| 로그인</h2>
-        	    <form>
+        	    <form action="login.me" method="post">
             	    <label for="id">아이디</label>
-                	<input type="text" id="id" placeholder="아이디를 입력해주세요.">
+                	<input type="text" id="id" name="userId" placeholder="아이디를 입력해주세요.">
                 	<label for="password">비밀번호</label>
-                	<input type="text" id="password" placeholder="비밀번호를 입력해주세요.">
+                	<input type="password" id="password" name="userPwd" placeholder="비밀번호를 입력해주세요.">
                 	<button id="login-button" type="submit" >로그인</button>
                 	<button id="back-button" type="submit" onclick="javascript:history.back();">뒤로 가기</button>
      		        <button type="button" class="btn btn-primary" id="join-button" onclick="location.href='joinMember.me'">회원가입하기</button>
