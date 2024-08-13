@@ -1,0 +1,11 @@
+// 내 정보 보기
+	@GetMapping("myInfo.me")
+	public String myInfo() {
+		return "myInfo";
+	}
+	
+	// 내 정보 수정
+	@GetMapping("editMyInfo.me")
+	public String editMyInfo() {
+		return "editMyInfo";
+	}

@@ -1,0 +1,15 @@
+@GetMapping("AdminPage.ad")
+	public String AdminPage(Model model) {
+		ArrayList<Member>list = aService.selectMember();
+	
+		for (Member member : list) {
+			
+			int postCount = aService.countMemberPost(member.getUserNo());
+			int ReplyCount = aService.countMemberReply(member.getUserNo());
+			member.setPostCount(postCount);
+			member.setReplyCount(ReplyCount);
+		}
+		model.addAttribute("list",list);
+		
+		return "adminPage";
+	}

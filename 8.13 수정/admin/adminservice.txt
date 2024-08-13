@@ -1,0 +1,7 @@
+ArrayList<Member> selectMember();
+	
+
+	// 작성한 글 수
+	int countMemberPost(int i);
+	// 작성한 댓글 수    
+	int countMemberReply(int i);

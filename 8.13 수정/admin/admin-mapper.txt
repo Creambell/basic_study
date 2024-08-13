@@ -1,0 +1,20 @@
+
+	<select id="selectMember" resultType="Member">
+		select * 
+		from "USER"
+	</select>
+	
+	<!-- 아직 적는 중  -->
+	<select id="countMemberPost" resultType="int" parameterType="int"> 
+		SELECT COUNT(*) 
+		FROM board 
+		JOIN "USER" ON board_writer_no = user_no
+		WHERE user_no = #{userNo}
+	</select>
+	
+	<select id="countMemberReply" resultType="int" parameterType="int"> 
+		SELECT COUNT(*) 
+		FROM reply 
+		JOIN "USER" ON re_writer_no = user_no
+		WHERE user_no = #{userNo}
+	</select>

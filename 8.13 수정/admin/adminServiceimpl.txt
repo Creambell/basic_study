@@ -1,0 +1,14 @@
+@Override
+	public ArrayList<Member> selectMember() {
+		return aMapper.selectMember();
+	}
+
+	@Override
+	public int countMemberPost(int i) {
+		return aMapper.countMemberPost(i);
+	}
+
+	@Override
+	public int countMemberReply(int i) {
+		return aMapper.countMemberReply(i);
+	}
