@@ -21,6 +21,11 @@ public class Member {
     private String userEmail;
     private String userPhone;
     private String userStatus;
-    private String userGrade;
+    private String isAdmin;
     private Date userJoinDate;
+    
+    private int postCount;
+    private int replyCount;
+    
+    
 }

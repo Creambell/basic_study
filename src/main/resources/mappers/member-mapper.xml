@@ -3,10 +3,12 @@
 <mapper namespace="com.kh.spring.member.model.dao.MemberMapper">
 	
 	 <!--  user는 예약어라서 ""사이에 적어줘야 인식됨.	 -->
+	 
+<!-- 비밀번호 확인도 where절에 추가하자 -->	 
   <select id="login" resultType="Member">
 	  	select * 
 	  	from "USER"
-	  	where user_status = 'Y' and user_id = #{userId}
+	  	where user_status = 'Y' and user_id = #{userId} 
   </select>
 	
   <insert id="insertMember">
@@ -22,7 +24,12 @@
 		where user_id = #{userId}
   </select>
 	
-	
+  <select id="selectMyList" resultType="Member">
+		select *
+		from "USER"
+		where user_id = #{userId}
+  </select>
  	
+	
 	
 </mapper>

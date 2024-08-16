@@ -21,6 +21,7 @@
        
       }
 
+
 /* 사이드바 스타일 설정 08-05 */
 .sidebar {
     width: 200px;
@@ -69,11 +70,11 @@
       .content-container {
         width: 900px;
         margin: 20px auto;
-        padding: 20px;
+        padding: 50px;
         background-color: #ffffff;
         border-radius: 10px;
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        height: 750px;
+        height: auto;
       }
       h2 {
         border-left: 5px solid black; /* 테두리 색상 설정 */
@@ -136,15 +137,13 @@
       }
 
       /* 페이지네이션 스타일 설정 */
-      .pagination-container {
+      .pagination {
         display: flex;
         justify-content: center;
         align-items: center;
         margin-top: 20px;
       }
-      .pagination-container .prev-button,
-      .pagination-container .next-button,
-      .pagination-container .number-button-wrapper {
+      .pagination{
         padding: 10px;
         cursor: pointer;
       }
@@ -195,12 +194,12 @@
 <aside class="sidebar">
     <h3>관리자메뉴</h3>
     <ul>
-        <li><a href="UserAdmin.ad" class="active">방문자 게시판</a></li>
+        <li><a href="UserAdmin.ad">방문자 게시판</a></li>
         <li><a href="ImageAdmin.ad">Image</a></li>
         <li><a href="SpringAdmin.ad">Spring</a></li>
         <li><a href="SpringBootAdmin.ad">SpringBoot</a></li>
         <li><a href="JavaAdmin.ad">Java</a></li>
-        <li><a href="JavaScriptAdmin.ad">JavaScript</a></li>
+        <li><a href="JavaScriptAdmin.ad" class="active">JavaScript</a></li>
         <li><a href="ErrorAdmin.ad">Error 모음집</a></li>
         <li><a href="BloggerBoard.ad">블로거 게시판</a></li>
         <li class="dropdown">
@@ -215,125 +214,169 @@
         </li>
     </ul>
 </aside>
-    
+<!-- 테이블 내용 -->
+  
     <!-- 메인 컨텐츠 -->
     <div class="content-wrapper">
       <div class="main-content-container">
         <div class="content-container">
-          <h2>JavaScript 게시판</h2>
+          <h2>Java Script 게시판</h2>
           <!-- 테이블 -->
           <table class="table">
             <thead>
               <tr>
-                <th scope="col" style="width: 3%">
+                <th scope="col" style="width: auto">
                   <input class="form-check-input" type="checkbox" id="checkAll" />
                 </th>
-                <th scope="col" style="width: 8%">글 번호</th>
-                <th scope="col" style="width: 50%">글 제목</th>
-                <th scope="col" style="width: 10%">작성자</th>
-                <th scope="col" style="width: 10%">작성일</th>
-                <th scope="col" style="width: 12%">조회수</th>
+                <th scope="col" style="width: 10%">글 번호</th>
+                <th scope="col" style="width: 40%">글 제목</th>
+                <th scope="col" style="width: 15%">작성자</th>
+                <th scope="col" style="width: 20%">작성일</th>
+                <th scope="col" style="width: 15%">조회수</th>
               </tr>
             </thead>
             <tbody class="table-group-divider">
-              <tr>
-                <td>
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    value=""
-                    id="flexCheckDefault"
-                  />
-                </td>
-                <td scope="row">13</td>
-                <td>방문자</td>
-                <td>관리자</td>
-                <td>2024.06.18</td>
-                <td>20</td>
-              </tr>
-              <tr>
-                <td>
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    value=""
-                    id="flexCheckDefault"
-                  />
-                </td>
-                <td scope="row">12</td>
-                <td>방문자</td>
-                <td>관리자</td>
-                <td>2024.06.18</td>
-                <td>20</td>
-              </tr>
-              <tr>
-                <td>
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    value=""
-                    id="flexCheckDefault"
-                  />
-                </td>
-                <td scope="row">11</td>
-                <td>방문자</td>
-                <td>관리자</td>
-                <td>2024.06.18</td>
-                <td>20</td>
-              </tr>
-              <!-- 기존 10개의 게시글 -->
-            </tbody>
-          </table>
-          <!-- 버튼 영역 -->
-          <div class="buttons-container">
-            <button class="btn btn-primary" type="button" id="write_button">
-              쓰기
-            </button>
-            <button class="btn btn-primary" type="button" id="update_button">
-              수정
-            </button>
-            <button class="btn btn-primary" type="button" id="delete_button">
-              삭제
-            </button>
-          </div>
-          <!-- 검색 영역 -->
-          <div class="search-container">
-            <select class="form-select" aria-label="Default select example">
-              <option selected>----</option>
-              <option value="1">작성자</option>
-              <option value="2">제목</option>
-              <option value="3">글 번호</option>
-            </select>
-            <div class="search">
-              <input type="text" placeholder="검색어 입력" />
-            </div>
-            <button class="search-button">검색</button>
-          </div>
-          <!-- 페이지네이션 -->
-          <div class="pagination-container">
-            <div class="prev-button">&lt;</div>
-            <div class="number-button-wrapper">
-              <span class="number-button">1</span>
-            </div>
-            <div class="number-button-wrapper">
-              <span class="number-button">2</span>
-            </div>
-            <div class="number-button-wrapper">
-              <span class="number-button">3</span>
-            </div>
-            <div class="number-button-wrapper">
-              <span class="number-button">4</span>
-            </div>
-            <div class="number-button-wrapper">
-              <span class="number-button">5</span>
-            </div>
-            <div class="next-button">&gt;</div>
-          </div>
+	            <tr th:each="board : ${board}">
+	                <td>
+	                    <input class="form-check-input board-checkbox" type="checkbox" th:value="${board.boardNo}" />
+	                </td>
+	                <td scope="row" th:text="${board.boardNo}"></td>
+	                <td th:text="${board.boardTitle}" class="board-title" th:data-id="${board.boardNo}"></td>
+	                <td th:text="${board.boardWriterName}"></td>
+	                <td th:text="${board.updateDate}"></td>
+	                <td th:text="${board.boardCount}"></td>
+	            </tr>
+	        </tbody>
+	    </table>
+	    <div class="buttons-container">
+	        <button class="btn btn-primary" type="button" id="write_button" th:onclick="'location.href=\'writeAdmin.ad?cateNo=105\''">쓰기</button>
+	        <button class="btn btn-primary" type="button" id="update_button">수정</button>
+	        <button class="btn btn-primary" type="button" id="delete_button">삭제</button>
+        </div>
+        
+       <!-- 검색 영역 분리 완료 -->
+		<form id="searchForm" th:action="@{searchList.ad}" method="get">
+			<input type="hidden" name="cateNo" value="105">
+			<div class="search-container">
+				<select name="condition" class="searchOption"
+					aria-label="Default select example">
+					<option value="#">---</option>
+					<option value="title">제목</option>
+					<option value="content">내용</option>
+					<option value="writer">작성자</option>
+				</select>
+				<div class="search">
+					<input type="text" name="search" placeholder="검색어 입력" />
+				</div>
+				<button type="submit" class="search-button" id="searchIcon">검색</button>
+			</div>
+		</form>
+				
+		<!-- 페이지네이션 -->
+		<nav aria-label="Standard pagination example" style="float: right; margin-right:350px;">
+			<ul class="pagination" th:with="loc=${loc}">
+			    <li class="page-item">
+			    	<a class="page-link" th:href="@{${loc}(page=${pi.currentPage-1})}" aria-label="Previous">
+			    		<span aria-hidden="true">&laquo;</span>
+			      	</a>
+			    </li>
+			    <li class="page-item" th:each="p : ${#numbers.sequence(pi.startPage, pi.endPage)}">
+			           <a class="page-link" th:href="@{${loc}(p)}">[[${ p }]]</a>
+			       </li>
+			    <li class="page-item">
+			    	<a class="page-link" th:href="@{${loc}(page=${pi.currentPage + 1})}" aria-label="Next">
+			    		<span aria-hidden="true">&raquo;</span>
+			    	</a>
+			    </li>
+			</ul>
+		</nav>   
         </div>
       </div>
     </div>
 
     <!-- 푸터 추가 -->
     <footer th:replace="~{common/footer :: footer}"></footer>
+    
+   <script th:inline="javascript">
+		// 체크박스 전체 선택
+		document.querySelector('input[id="checkAll"]').addEventListener('change', function() {
+		    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+		    checkboxes.forEach(checkbox => {
+		        checkbox.checked = this.checked;
+		    });    
+		});
+		
+		// 검색 기능
+		document.getElementById('searchForm').addEventListener('submit', function(event) {
+		    event.preventDefault();
+		    performSearch();
+		});
+		
+		function performSearch() {
+		    const form = document.getElementById('searchForm');
+		    const condition = form.querySelector('[name="condition"]').value;
+		    const search = form.querySelector('[name="search"]').value;
+		    const cateNo = form.querySelector('[name="cateNo"]').value;
+		    const currentPage = 1; // 검색 시 첫 페이지로 이동
+		
+		    if (condition === '#' || search.trim() === '') {
+		        alert('검색 조건과 검색어를 모두 입력해주세요.');
+		        return;
+		    }
+		
+		    const url = `${form.action}?condition=${encodeURIComponent(condition)}&search=${encodeURIComponent(search)}&page=${currentPage}&cateNo=${cateNo}`;
+		    window.location.href = url;
+		}
+		
+		// 검색 버튼 클릭 이벤트
+		document.getElementById('searchIcon').addEventListener('click', function(event) {
+		    event.preventDefault();
+		    performSearch();
+		});
+		
+		// 엔터 키 이벤트
+		document.querySelector('.search input').addEventListener('keyup', function(event) {
+		    if (event.key === 'Enter') {
+		        event.preventDefault();
+		        performSearch();
+		    }
+		});
+		
+		// 게시글 제목 클릭 이벤트
+		document.addEventListener('DOMContentLoaded', function() {
+		    const boardTitles = document.querySelectorAll('.board-title');
+		    boardTitles.forEach(title => {
+		        title.addEventListener('click', function(event) {
+		            event.preventDefault();
+		            const boardNo = this.getAttribute('data-id');
+		            window.location.href = `BoardAdminDetail.ad?bId=${boardNo}&page=1&cateNo=105`;
+		        });
+		    });
+		});
+		
+		// 수정 버튼 클릭 시
+		document.getElementById('update_button').addEventListener('click', function() {
+		    const selectedBoards = document.querySelectorAll('.board-checkbox:checked');
+		    if (selectedBoards.length === 1) {
+		        const boardNo = selectedBoards[0].value;
+		        window.location.href = `BoardAdminDetail.ad?bId=${boardNo}&page=1&cateNo=105`;
+		    } else {
+		        alert('수정할 게시글을 하나만 선택해주세요.');
+		    }
+		});
+		
+		// 삭제 버튼 클릭 시
+		document.getElementById('delete_button').addEventListener('click', function() {
+		    const selectedBoards = document.querySelectorAll('.board-checkbox:checked');
+		    if(confirm("정말로 삭제하시겠습니까?")){
+		        if (selectedBoards.length === 1) {
+		            const boardNo = selectedBoards[0].value;
+		            window.location.href = `deleteBoard.ad?bId=${boardNo}&page=1&cateNo=105`;
+		        } else {
+		            alert('삭제할 게시글을 하나만 선택해주세요.');
+		        }
+		    }
+		});
+	</script>
   </body>
 </html>

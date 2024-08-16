@@ -14,13 +14,13 @@ import lombok.ToString;
 @Setter
 @ToString
 public class User {
-	private int userNo;
+   private int userNo;
     private String userName;
     private String userId;
     private String userPwd;
     private String userEmail;
     private String userPhone;
-    private char userStatus;
-    private String userGrade;
+    private String userStatus;
+    private String isAdmin;
     private Date userJoinDate;
 }

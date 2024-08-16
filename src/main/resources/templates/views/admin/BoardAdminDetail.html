@@ -1,146 +1,290 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>게시글 작성</title>
-<style>
-    .bmain {
-        width: 900px;
-        height: auto;
-        margin: 0 auto;
-        margin-top : 80px;
-        background-color:white;
-        padding: 20px;
-        border-radius:10px;
-    }
-    .bheader {
-        display: flex;
-        justify-content: space-between;
-    }
-    .bcontainer {
-        border: 1px solid #ccc;
-        width: 100%;
-        height: 600px;
-        margin-bottom: 10px;
-        border-radius: 25px;
-    }
-    .bbuttons {
-        text-align: center;
-        margin-bottom: 20px;
-        
-    }
-    .btng {
-        border: 1px solid #ccc;
-        padding: 5px 10px;
-        cursor: pointer;
-        background-color: #4CAF50;
-        color:white;
-    }
-    .btnd{
-    	border: 1px solid #ccc;
-        padding: 5px 10px;
-        cursor: pointer;
-        background-color: #E57373;
-        color:white;
-    }
-    .btnw{
-    	border: 1px solid #ccc;
-        padding: 5px 10px;
-        cursor: pointer;
-        background-color: #FFB74D;
-        color:white;
-    }
-    .bcomments {
-        padding: 10px;
-    }
-    textarea {
-        width: 100%;
-        resize: none;
-    }
-    .bnameop{
-    	margin-left:550px;
-    	margin-bottom: 5px;
-    }
-</style>
+    <meta charset="UTF-8">
+    <title>게시글 상세</title>
+    <!-- Bootstrap CSS -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <style>
+        .bmain {
+            width: 900px;
+            height: auto;
+            margin: 0 auto;
+            margin-top: 80px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .bheader {
+            display: flex;
+            justify-content: space-between;
+        }
+        .bcontainer {
+            border: 1px solid #ccc;
+            width: 100%;
+            min-height: 300px;
+            margin-bottom: 10px;
+            border-radius: 25px;
+            padding: 20px;
+        }
+        .bbuttons {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .btn-custom {
+            border: 1px solid black;
+            padding: 5px 10px;
+            cursor: pointer;
+            color: white;
+            text-decoration: none;
+        }
+        .btng {
+            border: 1px solid #adb5bd;
+            padding: 5px 10px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+        }
+        .btnd {
+            border: 1px solid #adb5bd;
+            padding: 5px 10px;
+            cursor: pointer;
+            background-color: #E57373;
+            color: white;
+            text-decoration: none;
+        }
+        .btnw {
+            border: 1px solid #adb5bd;
+            padding: 5px 10px;
+            cursor: pointer;
+            background-color: #FFB74D;
+            color: white;
+            text-decoration: none;
+        }
+        .comment-section {
+            margin-top: 40px;
+        }
+        .comment-form {
+            margin-top: 20px;
+            display: none;
+        }
+        .comment-form textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+        .comment-list table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .comment-list th, .comment-list td {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
+    <div th:replace="~{common/header :: header}"></div>
 
-	<div th:replace="~{common/header :: header}" ></div>
+    <div class="bmain">
+        <div class="bheader">
+            <h2 th:text="${board.boardTitle}"></h2>
+            <span th:text="${board.boardWriterName + ' / ' + #dates.format(board.createDate, 'yyyy-MM-dd')}"></span>
+        </div>
 
-<div class="bmain">
-    <div class="bheader">
-        <span>게시글 제목</span>
-        <span>이름 / 2023-02-14</span>
-    </div>
-    
-    <textarea class="bcontainer">
-    	
-    </textarea>
-    
-    
-    
-    
-    <div class="bheader">
-	    <input type="checkbox" style="margin-right: 10px;">
-	    <span style="width: 10%;">댓글 번호</span>
-	    <span style="width: 60%;">내용</span>
-	    <span style="width: 20%;">작성자</span>
-	</div>
-	
-	<hr>
-	
-	
-	<div class="bheader">
-	    <input type="checkbox" style="margin-right: 10px;">
-	    <span style="width: 10%;">1</span>
-	    <span style="width: 50%;">첫 번째 댓글입니다.</span>
-	    <span style="width: 20%;">조호선</span>
-	</div>
-	
-	<hr>
-	
-	<div class="bheader">
-	    <input type="checkbox" style="margin-right: 10px;">
-	    <span style="width: 10%;">2</span>
-	    <span style="width: 50%;">두 번째 댓글입니다.</span>
-	    <span style="width: 20%;">조호썬</span>
-	</div>
-    
-    <hr>
-    
-    <div class="writeButton" style='text-align:right; margin-top:30px;'>
-	    <button type="button" class="btng" style='padding:10px;'>쓰기</button>
-	    <button type="button" class="btnw" style='padding:10px;'>수정</button>
-	    <button type="button" class="btnd" style='padding:10px;'>삭제</button>
-    </div>
-    
-    <div class="bcomments">
-        <textarea rows="3" placeholder="작성된 댓글이 없습니다." style='text-align:center; padding-top:30px;'></textarea>
-        <div style="text-align: right; margin-top: 5px;">
-            <button type="button" class="btng" style='padding:10px;'>쓰기</button>
-            <button type ="button" class="btnd" style='padding:10px;'>취소</button>
+        <div class="bcontainer" th:text="${board.boardContent}">
+        </div>
+		
+        <div style="text-align:right;">
+            <a th:href="@{editBoard.ad(bId=${board.boardNo}, page=${page}, cateNo=${board.cateNo})}" class="btng">게시글 수정</a>
+            <a href="#" id="backButton" class="btnw">이전 게시판으로</a>
+        </div>
+        
+        <br><br><br><br>
+        
+       <div class="comment-section">
+            <h3>댓글</h3>
+            <div class="button-group" style='text-align:right; margin-top:30px;'>
+                <button id="writeButton" type="button" class="btng" style='padding:10px;'>쓰기</button>
+                <button id="editButton" type="button" class="btnw" style='padding:10px;'>수정</button>
+                <button id="deleteButton" type="button" class="btnd" style='padding:10px;'>삭제</button>
+            </div>
+            <div class="comment-form" style="display:none;">
+                <textarea id="replyContent" rows="3" placeholder="댓글을 입력하세요"></textarea>
+                <button id="replySubmit" class="btng">댓글 작성</button>
+            </div>
+            <div class="comment-list">
+                <div class="bheader">
+                    <input type="checkbox" id="selectAllCheckbox" style="margin-right: 10px;">
+                    <span style="width: 10%;">댓글 번호</span>
+                    <span style="width: 60%;">내용</span>
+                    <span style="width: 20%;">작성자</span>
+                    <span style="width: 10%;">작성일</span>
+                </div>
+                <hr>
+                <table>
+                    <tbody id="replyList">
+                        <tr th:each="r:${list}">
+                            <td>
+                                <input type="checkbox" class="reply-checkbox" th:value="${r.reNo}">
+                            </td>
+                            <td th:text="${r.reNo}"></td>
+                            <td th:text="${r.replyContent}"></td>
+                            <td th:text="${r.reWriterName}"></td>
+                            <td th:text="${r.replyModifyDate}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     
-   
-</div>
-<br><br><br><br><br>
- 
-	<div style='text-align:right; padding-right: 120px;'>
-    	<a href="javascript:history.back();" class="btng" style='padding:10px;'>뒤로가기</a>
-    </div>
+    <div th:replace="~{common/footer :: footer}"></div>
+	
+	<script th:inline="javascript">
+/*<![CDATA[*/
+$(document).ready(function() {
+    var boardNo = /*[[${board.boardNo}]]*/ 0;
 
-<br><br><br><br><br>
-	<script>
-		document.getElementByClassName('buttons').addEventListener('click',()=>{
-			
-			console.log(document.getElementById('formFile').value)
-		})
-	</script>
-	
-<div>
-	<div th:replace="~{common/footer :: footer}"></div>
-</div>
-	
+    // 댓글 쓰기 버튼 클릭 이벤트
+    $('#writeButton').click(function() {
+        $('.comment-form').toggle();
+    });
+
+    // 댓글 제출 버튼 클릭 이벤트
+    $('#replySubmit').click(function() {
+        var content = $('#replyContent').val();
+        
+        $.ajax({
+            url: 'insertReply.ad',
+            method: 'POST',
+            data: { 
+                boardNo: boardNo,
+                replyContent: content
+            },
+            success: function(response) {
+                if(response === 'success') {
+                    alert('댓글이 성공적으로 등록되었습니다.');
+                    $('#replyContent').val('');
+                    loadComments(boardNo);
+                } else if(response === 'login_required') {
+                    alert('로그인이 필요합니다.');
+                } else {
+                    alert('댓글 등록에 실패했습니다.');
+                }
+            },
+            error: function() {
+                alert('서버 오류가 발생했습니다.');
+            }
+        });
+    });
+
+    // 댓글 목록 불러오기 함수
+    function loadComments(boardNo) {
+        $.ajax({
+            url: 'getReplyList.ad',
+            method: 'GET',
+            data: { boardNo: boardNo },
+            success: function(replies) {
+                var replyList = $('#replyList');
+                replyList.empty();
+                
+                replies.forEach(function(reply) {
+                    var row = $('<tr>');
+                    row.append($('<td>').html('<input type="checkbox" class="reply-checkbox" value="' + reply.reNo + '">'));
+                    row.append($('<td>').text(reply.reNo));
+                    row.append($('<td>').text(reply.reContent));
+                    row.append($('<td>').text(reply.reWriterNo));
+                    row.append($('<td>').text(new Date(reply.createDate).toLocaleDateString()));
+                    replyList.append(row);
+                });
+            },
+            error: function() {
+                console.log('댓글조회실패 or 댓글이 존재하지 않음.');
+                alert('댓글을 불러오는데 실패했습니다.');
+            }
+        });
+    }
+
+    // 페이지 로드 시 댓글 목록 불러오기
+    loadComments(boardNo);
+
+    // 전체 선택 체크박스
+    $('#selectAllCheckbox').change(function() {
+        $('.reply-checkbox').prop('checked', $(this).is(':checked'));
+    });
+
+    // 댓글 수정 버튼 클릭 이벤트
+    $('#editButton').click(function() {
+        var selectedReply = $('.reply-checkbox:checked');
+        if(selectedReply.length !== 1) {
+            alert('수정할 댓글을 하나만 선택해주세요.');
+            return;
+        }
+        var replyId = selectedReply.val();
+        var content = selectedReply.closest('tr').find('td:eq(2)').text();
+        
+        var newContent = prompt('댓글을 수정해주세요:', content);
+        if(newContent !== null) {
+            $.ajax({
+                url: 'updateReply.ad',
+                method: 'POST',
+                data: { 
+                    replyId: replyId,
+                    content: newContent
+                },
+                success: function(response) {
+                    if(response === 'success') {
+                        alert('댓글이 성공적으로 수정되었습니다.');
+                        loadComments(boardNo);
+                    } else {
+                        alert('댓글 수정에 실패했습니다.');
+                    }
+                },
+                error: function() {
+                    alert('수정 실패.');
+                }
+            });
+        }
+    });
+
+    // 댓글 삭제 버튼 클릭 이벤트
+    $('#deleteButton').click(function() {
+        var selectedReplies = $('.reply-checkbox:checked');
+        if(selectedReplies.length === 0) {
+            alert('삭제할 댓글을 선택해주세요.');
+            return;
+        }
+        
+        if(confirm('선택한 댓글을 삭제하시겠습니까?')) {
+            var replyIds = selectedReplies.map(function() {
+                return $(this).val();
+            }).get();
+            
+            $.ajax({
+                url: 'deleteReply.ad',
+                method: 'POST',
+                data: { replyIds: replyIds },
+                success: function(response) {
+                    if(response === 'success') {
+                        alert('선택한 댓글이 삭제되었습니다.');
+                        loadComments(boardNo);
+                    } else {
+                        alert('댓글 삭제에 실패했습니다.');
+                    }
+                },
+                error: function() {
+                    alert('삭제 실패.');
+                }
+            });
+        }
+    });
+});
+/*]]>*/
+</script>
 </body>
 </html>

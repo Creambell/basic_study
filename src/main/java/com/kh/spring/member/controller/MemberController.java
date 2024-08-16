@@ -83,11 +83,7 @@ public class MemberController {
 		return "redirect:home.do";
 	}
 	
-	// 내 정보 수정 페이지
-	@GetMapping("editPage.me")
-	public String moveEditPage() {
-		return "editPage";
-	}
+
 	
 	// 내 댓글 보기 페이지
 	@GetMapping("myComment.me")
@@ -101,5 +97,16 @@ public class MemberController {
 		return "myPost";
 	}
 	
+	// 내 정보 보기
+		@GetMapping("myInfo.me")
+		public String myInfo() {
+			return "myInfo";
+		}
+		
+	// 내 정보 수정
+	@GetMapping("editMyInfo.me")
+	public String editMyInfo() {
+		return "editMyInfo";
+	}
 
 }

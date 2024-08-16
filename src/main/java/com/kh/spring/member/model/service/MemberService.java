@@ -1,5 +1,8 @@
 package com.kh.spring.member.model.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import com.kh.spring.member.model.vo.Member;
 
 public interface MemberService {
@@ -9,4 +12,14 @@ public interface MemberService {
 	int insertMember(Member m);
 
 	int checkId(String userId);
+
+	ArrayList<HashMap<String, Object>> selectMyList(String userId);
+
+	
+	
+	
+	
+	
+	
+
 }
