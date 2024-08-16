@@ -2,6 +2,7 @@ package com.kh.spring.member.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,5 +35,32 @@ public class MemberServiceImple implements MemberService {
 	public ArrayList<HashMap<String, Object>> selectMyList(String userId) {
 		return mMapper.selectMyList(userId);
 	}
+
+	@Override
+	public int countMemberPost(int userNo) {
+		return mMapper.countMemberPost(userNo);
+
+	}
+
+	@Override
+	public int countMemberReply(int userNo) {
+		return mMapper.countMemberReply(userNo);
+	}
+
+	@Override
+	public int deleteMember(int userNo) {
+		return mMapper.deleteMember(userNo);
+	}
+
+	@Override
+	public int updateMember(Member m) {
+		return mMapper.updateMember(m);
+	}
+	
+	@Override
+	public int checkIdExceptCurrent(String userId, int currentUserNo) {
+	    return mMapper.checkIdExceptCurrent(userId, currentUserNo);
+	}
+	
 
 }

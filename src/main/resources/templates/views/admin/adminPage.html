@@ -53,6 +53,7 @@
             width: 100%;
             flex-grow: 1;
             padding: 20px;
+            padding-bottom: 100px;
             display: flex;
             justify-content: center;
             align-items: flex-start;
@@ -67,7 +68,6 @@
             padding-left: 30px !important;
             background-color: white;
             border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             height: 100%;
             display: table;
         }
@@ -206,7 +206,7 @@
                     <!--5번 이상인 회원은 탈퇴처리되게 함. -->
                     <!--블로그에 들어가면 팝업이 떠서 신고누적으로 인한 탈퇴처리 안내함. -->
                     <!--공지와 관련한 별도 게시판도 하나 만들자. -->
-                    <!-- 팝업은 팝업인데, 그간 누적된 공지도 하나 있긴 해야할거같음. -->
+                    <!-- 팝업은 팝업인데, 그간 누적된 공지 보여주는 게시판도 하나 있긴 해야할거같음. -->
                     <li><a class="dropdown-item" href="#">신고 처리</a></li> 
                      
                 </ul>
@@ -217,6 +217,41 @@
     <article class="main-container">
         <div class="container">
             <h2 id="board-title"> 회원 관리</h2>
+            
+            <!-- 내 정보 -->
+<!--             <table class="my table"> -->
+<!--             	<thead> -->
+<!--                     <tr>  -->
+<!--                         <th scope="col" style="width: 5%;">회원 ID</th> -->
+<!--                         <th scope="col" style="width: 5%;">이름</th> -->
+<!--                         <th scope="col" style="width: 10%">이메일</th> -->
+<!--                         <th scope="col" style="width: 6%;">작성한 글</th> -->
+<!--                         <th scope="col" style="width: 6%">작성한 댓글</th> -->
+<!--                         <th scope="col" style="width: 8%">활성화 여부</th> -->
+<!--                         <th scope="col" style="width: 8%">블로거 여부</th> -->
+<!--                         <th scope="col" style="width: 10%">가입일자</th> -->
+<!--                     </tr> -->
+<!--                 </thead> -->
+<!-- 	            	<tr> -->
+<!--                         <td>[[${session.loginUser.userId}]]</td> -->
+<!--                         <td>[[${session.loginUser.userName}]]</td> -->
+<!--                         <td>[[${session.loginUser.userEmail}]]</td> -->
+<!--                         <td>[[${session.loginUser.postCount}]]개</td> -->
+<!--                         <td>[[${session.loginUser.replyCount}]]개</td> -->
+<!--                         <td> -->
+<!--                             <button class="yes-or-no" style="background-color:green">Y</button> -->
+<!--                             <button class="yes-or-no" style="background-color:red">N</button> -->
+<!--                         </td> -->
+<!--                         <td> -->
+<!--                             <button class="yes-or-no" style="background-color:green">Y</button> -->
+<!--                             <button class="yes-or-no" style="background-color:red">N</button> -->
+<!--                         </td> -->
+<!--                         <td>[[${session.loginUser.userJoinDate}]]</td> -->
+<!--                   </tr> -->
+<!--             </table> -->
+<!--             <br><hr><br> -->
+            
+            <!-- 회원 정보 -->
             <table class="table">
                 <thead>
                     <tr> 
@@ -258,7 +293,7 @@
                 <button id="delete_button" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     탈퇴
                 </button>
-                <!-- Modal -->
+                <!-- 모달 부분 회원 상세조회 페이지로 넘길거임  -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -309,21 +344,22 @@
         
     	// 드롭다운 
     	document.addEventListener('click', function (e) {
-            var target = e.target;
+            const target = e.target;
             if (target.classList.contains('dropdown-toggle')) {
-                var dropdown = new bootstrap.Dropdown(target);
+                const dropdown = new bootstrap.Dropdown(target);
                 dropdown.toggle();
             }
         });
         document.addEventListener('click', function (e) {
-            var target = e.target;
+            const target = e.target;
             if (target.classList.contains('dropdown-menu')) {	
-                var dropdown = new bootstrap.Dropdown(target);
+                const dropdown = new bootstrap.Dropdown(target);
                 dropdown.toggle();
             }
         });
         
-        // 검색 AJAX
+        // 검색 AJAX로 구현하자
+        
         
         
         
