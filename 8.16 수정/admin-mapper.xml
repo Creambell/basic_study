@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kh.spring.admin.model.dao.AdminMapper">
+	
+	<select id="getListCount" resultType="_int">
+	    SELECT COUNT(*)
+	    FROM board
+	    WHERE BOARD_STATUS = 'Y' AND CATE_NO = #{cateNo}
+	</select>
+	
+	<select id="selectBoardList" resultType="Board">
+	    SELECT *
+	    FROM BOARD
+	    WHERE BOARD_STATUS = 'Y' AND CATE_NO = #{cateNo}
+	    ORDER BY BOARD_NO DESC
+	</select>
+	
+	<select id="selectBoard" resultType="Board">
+	    SELECT *
+	    FROM board
+	    WHERE BOARD_STATUS = 'Y'
+	    AND BOARD_NO = #{boardNo}
+	    <if test="cateNo != null">
+	        AND CATE_NO = #{cateNo}
+	    </if>
+	</select>
+	
+	<insert id="insertBoard">
+	    insert into board
+	    values(BOARD_SEQ.nextval, #{cateNo}, 1, #{boardWriterName},
+	    #{boardTitle}, #{boardContent}, 0, #{boardStatus},
+	    SYSDATE, SYSDATE)
+	</insert>
+	
+	<update id="updateBoard">
+	    update board
+	    set board_title = #{boardTitle}, board_content = #{boardContent}, CREATE_DATE = sysdate, CATE_NO = #{cateNo}
+	    where board_NO = #{boardNo}
+	</update>
+	
+	<update id="deleteBoard">
+		update board
+		set board_status = 'N'
+		where board_NO = #{bId}
+	</update>
+	
+	<!-- 검색어 게시글 수 조회 -->
+	<select id="listSearchCount" resultType="_int">
+		select count(*) from board where cate_No = #{cateNo} and BOARD_STATUS
+		= 'Y'
+		<if test="condition == 'title'">and board_title like '%' || #{search} || '%'</if>
+		<if test="condition == 'content'">and board_content like '%' || #{search} || '%'</if>
+	</select>
+	<!-- 검색어 게시글 수 조회 -->
+
+   <!-- 후기리스트 검색어 리스트 조회 -->
+	<select id="searchQuBoBoard" resultType="Board">
+		select * from board where cate_No = #{cateNo} and BOARD_STATUS = 'Y'
+		<if test="condition == 'title'">and board_title like '%' || #{search} || '%'</if>
+		<if test="condition == 'content'">and board_content like '%' || #{search} || '%'</if>
+		<if test="condition == 'writer'">and board_writer_name like '%' || #{search} || '%'</if>
+	</select>
+	<!-- 후기리스트 검색어 리스트 조회 -->
+	
+	<select id="selectMember" resultType="Member">
+		select * 
+		from "USER"
+	</select>
+	
+	<!-- 아직 적는 중  -->
+	<select id="countMemberPost" resultType="int" parameterType="int"> 
+		SELECT COUNT(*) 
+		FROM board 
+		JOIN "USER" ON board_writer_no = user_no
+		WHERE user_no = #{userNo}
+	</select>
+	
+	<select id="countMemberReply" resultType="int" parameterType="int"> 
+		SELECT COUNT(*) 
+		FROM reply 
+		JOIN "USER" ON re_writer_no = user_no
+		WHERE user_no = #{userNo}
+	</select>
+	
+	
+
+</mapper>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	
+    <style>
+
+        body {
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .content {
+            width: 70%;
+            height: 100%;
+            margin: 20px auto;
+            padding: 50px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .join-area {
+            width: 500px;
+            padding: 20px;
+            border: 1px solid silver;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .join-area form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .join-area label {
+            margin: 10px 0 5px;
+        }
+
+        .join-area input {
+            padding: 13px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+
+        .join-area button {
+            padding: 13px;
+            background-color: grey;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        #join-button {
+            margin-bottom: 5px;
+            margin-top: 20px;
+			text-align: center;
+            margin-top: 10px;
+            background-color: tomato;
+            
+        }
+
+        #join-button:hover, #back-button:hover {
+            font-weight: bold;
+        }
+
+        a:focus, a:visited, a:active, a:link {
+            text-decoration: none;
+            color: darkgray;
+            font-weight: bold;
+            font-size: 13px;
+        }
+ 		
+ 		input:valid{   
+	  border-color: green !important;  
+	  border-weight: bold;    
+		}  
+
+		input:not(:placeholder-shown):invalid {
+	  border-color: red;
+	  border-width: 2px;  
+		}
+
+
+    </style>
+</head>
+<body>	
+    <div th:replace="~{common/header :: header}"></div>
+    
+    <div class="main-container">
+        <div class="content">
+            <div class="join-area">
+                <h2>| 회원가입</h2>
+                
+				<!-- ^[\d\w!@#$%^&*]{8,}$ -->
+				<!-- ^ = 문자열 시작 -->
+				<!-- \d = 숫자 -->
+				<!-- a-zA-Z = 알파벳 대소문자 -->
+				<!-- !@#$%^&* = 허용된 특수문자 -->
+				<!-- {8,} = 8자 이상 -->
+				<!-- $ = 문자열 끝              
+				   -->
+                <form action="insertMember.me" method="POST">
+                    <label for="name" >이름</label> 	
+                    <input type="text" id="name" name="userName" placeholder="1~5자의 한글이나 1~10자의 영문" 
+						   pattern="^[가-힣]{1,5}|[a-zA-Z]{1,10}$"	
+						   title="1~5자의 한글이나 1~10자의 영문으로 특수문자를 제외하고 입력해주세요."
+					 required>
+
+                    <label for="id">아이디
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
+                    <span  id="idCheckResult" style="font-size: 12px;"></span></label>
+                    <input type="text" id="id" name="userId" placeholder="2~10자의 영문 대소문자,숫자" 
+       					   pattern="^[a-zA-Z0-9]{2,10}$"
+                    	   title="특수문자를 제외한 2~10자의 영문 대소문자,숫자로 입력해주세요." 
+                    required>
+                    
+                    <label for="password">비밀번호</label>
+                    <input type="password" id="password" name="userPwd" placeholder="4~20자의 영문 대소문자, 숫자, 특수문자"  
+             	           pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_-+=[]{}~?:;`|/]).{4,20}$"
+             	           title="비밀번호는 4~20자의 영문 대소문자, 숫자, 특수문자를 포함해야 합니다." 
+                    required>	
+                    
+                    <label for="confirm-password">비밀번호 확인</label>
+                    <input type="password" id="userPwdConfirm" name="userPwdConfirm" placeholder="비밀번호를 다시 입력해주세요."
+                    	   pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_-+=[]{}~?:;`|/]).{4,20}$"
+                    	   title="비밀번호는 4~20자의 영문 대소문자, 숫자, 특수문자를 포함해야 합니다." 
+                    required>
+                    
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="userEmail" placeholder="example@gmail.com" 
+                    required>
+
+					<!--10자에서 11자 인풋타입 넘버는 패턴이 안먹힌다-->                    
+                    <label for="phone">휴대폰 번호</label>
+                    <input type="tel" id="phone" name="userPhone" placeholder="'-' 없이 숫자만 입력해주세요."
+                    	   pattern="[0-9]{10,11}"
+                    	   title="휴대폰 번호 전체를 입력해주세요."
+                    required> 
+                    
+                    <button id="join-button" type="submit">가입하기</button>
+                    <button id="back-button" type="button" onclick="javascript:history.back();">뒤로 가기</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div th:replace="~{common/footer :: footer}"></div>
+    
+    
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    // id 체크   ++ 글자수 제한, 영문 숫자 안내, 팝업으로 추가하자 에이잭스 if문 수정, 렝스로?
+  window.onload=()=>{
+			document.getElementById('id').addEventListener('change', function(){
+				const idResult = document.getElementById('idCheckResult');
+				
+				if(this.value.trim() == ''){
+					idResult.innerText = "다시 아이디를 확인해주세요.";
+					idResult.style.color = 'black';
+				}else{
+					$.ajax({
+						url:'checkId.me', 				//key:value, key,value : url은 필수 속성.
+						data: {id:this.value.trim()}, 
+						success: (data) =>{
+							console.log(data);							//넘어온 데이터 yes/no -> u can/cant use this
+						if(data == 'yes'){
+							idResult.innerText = "";
+							idResult.style.color = 'green';								
+						}else{
+							idResult.innerText = "	이미 사용중인 아이디입니다";
+							idResult.style.color = 'red';
+						}
+					},
+						error: data => console.log(data) 
+					});
+				}
+			});	
+  		}
+  	
+  
+  
+  
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
