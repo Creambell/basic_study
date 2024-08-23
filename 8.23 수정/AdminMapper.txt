@@ -1,0 +1,5 @@
+	int updateMemberStatus(Member member);
+
+	int getUserListCount();
+	
+	ArrayList<Member> selectMember(RowBounds rowBounds);

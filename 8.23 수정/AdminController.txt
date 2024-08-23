@@ -1,0 +1,34 @@
+
+	@GetMapping("adminPage.ad")
+	public String AdminPage(Model model, @RequestParam(value="page", defaultValue="1") int currentPage) {
+		int listCount = aService.getUserListCount();
+	    PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
+	    ArrayList<Member> list = aService.selectMember(pi);
+
+	    if(list != null && !list.isEmpty()) {
+	        for (Member member : list) {
+	            int postCount = aService.countMemberPost(member.getUserNo());
+	            int replyCount = aService.countMemberReply(member.getUserNo());
+	            member.setPostCount(postCount);
+	            member.setReplyCount(replyCount);
+	        }
+	        model.addAttribute("list", list);
+	        model.addAttribute("pi", pi);
+	        return "adminPage";
+	    } else {
+            throw new MemberException("회원 불러오기를 실패했습니다.");
+	    }
+	}
+	
+	
+	@PostMapping("updateMemberStatus.adm")
+    @ResponseBody
+    public String updateMemberStatus(@RequestParam("userId") String userId, @RequestParam("userStatus") String userStatus) {
+        Member member = new Member();
+        member.setUserId(userId);
+        member.setUserStatus(userStatus);
+
+        int result = aService.updateMemberStatus(member);
+
+        return result == 1 ? "success" : "fail";
+    }

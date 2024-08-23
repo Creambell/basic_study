@@ -1,0 +1,17 @@
+
+	@Override
+	public int updateMemberStatus(Member member) {
+		return aMapper.updateMemberStatus(member);
+	}
+
+	@Override
+	public int getUserListCount() {
+		return aMapper.getUserListCount();
+	}
+	
+	  @Override
+	    public ArrayList<Member> selectMember(PageInfo pi) {
+	        int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+	        RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+	        return aMapper.selectMember(rowBounds);
+	    }

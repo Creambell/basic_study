@@ -1,0 +1,20 @@
+
+	<!-- 지금 작업 중 -->
+	<select id="getUserListCount" resultType="int">
+		select count(*) 
+		from "USER"
+		order by user_no desc
+	</select>
+	
+	<select id="selectMember" resultType="Member">
+		select * 
+		from "USER"
+		order by user_no DESC
+	</select>
+	
+	<update id="updateMemberStatus">
+	    UPDATE "USER"
+	    SET USER_STATUS = #{userStatus}
+	    WHERE USER_ID = #{userId}
+	</update>
+	
