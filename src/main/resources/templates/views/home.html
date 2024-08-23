@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Study 개인 공부 블로그</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            color: #333;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            background-color: white;            
+            justify-content: space-between;
+            padding: 10px 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        .nav {
+            background-color: #e8f1f9;
+            padding: 40px 0;
+            text-align: center;
+        }
+        .nav a {
+            margin: 0 25px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+         .nav-link {
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .nav a:visited {
+            color: #333;
+        }
+        .content {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+            background-color: white;
+        }
+        .content div {
+            padding-bottom: 10px;
+            width: 20%;
+            text-align: center;
+            border-radius: 15px;
+            border: 1px solid #ddd;
+            background-color: white; 
+        }
+        .content .img-container {
+            border: none;
+        }
+        .href {
+        	color: #333; 
+        	text-decoration: none;
+        }
+        .content img {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+        }
+        .footer {
+            background-color: white; 
+            padding: 10px 20px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+        }
+        .notice {
+            background-color: white;
+            padding: 10px 20px;
+            text-align: left;
+            border-top: 1px solid #ddd;
+    </style>
+</head>
+<body style="background-color: white;">
+    <div th:replace="~{common/header :: header}"></div>
+    <br>
+    <div class="content">
+        <div class="img-container">
+            <img th:src="@{eclipse.jpg}" alt="Eclipse">
+        </div>
+        <div class="img-container">
+            <img th:src="@{java.jpg}" alt="Java">
+        </div>
+        <div class="img-container">
+            <img th:src="@{spring.jpg}" alt="Spring">
+        </div>
+        <div class="img-container">
+            <img th:src="@{springboot.jpg}" alt="SpringBoot">
+        </div>
+    </div>
+    <div class="content">    
+        <div>
+            <h3><a th:href="@{JavaBoard.bo}" class="nav-link">자바 게시판</a></h3>
+            <p>1. 자바에 대해서</p>
+            <p>2. 자바의 공부법</p>
+            <p>3. 내가 배운 자바</p>
+            <p>4. 자바 게시판 완성</p>
+        </div>
+        <div>
+            <h3><a th:href="@{JavaScriptBoard.bo}" class="nav-link">자바 스크립트 게시판</a></h3>
+            <p>1. 자바에 대해서</p>
+            <p>2. 자바의 공부법</p>
+            <p>3. 내가 배운 자바</p>
+            <p>4. 자바 게시판 완성</p>
+        </div>
+        <div>
+            <h3><a th:href="@{SpringBoard.bo}" class="nav-link">스프링 게시판</a></h3>
+            <p>1. 자바에 대해서</p>
+            <p>2. 자바의 공부법</p>
+            <p>3. 내가 배운 자바</p>
+            <p>4. 자바 게시판 완성</p>
+        </div>
+        <div>
+            <h3><a th:href="@{SpringbootBoard.bo}" class="nav-link">스프링 부트 게시판</a></h3>
+            <p>1. 자바에 대해서</p>
+            <p>2. 자바의 공부법</p>
+            <p>3. 내가 배운 자바</p>
+            <p>4. 자바 게시판 완성</p>
+        </div>
+    </div>
+    <div class="content">
+        <div>
+            <h3><a th:href="@{ErrorBoard.bo}" class="nav-link">에러 게시판</a></h3>
+            <p>1. 자바에 대해서</p>
+            <p>2. 자바의 공부법</p>
+            <p>3. 내가 배운 자바</p>
+            <p>4. 자바 게시판 완성</p>
+        </div>
+        <div>
+            <h3><a th:href="@{UserBoard.bo}" class="nav-link">방문자 게시판</a></h3>
+            <p>1. 자바에 대해서</p>
+            <p>2. 자바의 공부법</p>
+            <p>3. 내가 배운 자바</p>
+            <p>4. 자바 게시판 완성</p>
+        </div>
+        <div>
+            <h3><a th:href="@{ImageBoard.bo}" class="nav-link">이미지 게시판</a></h3>
+            <p>1. 자바에 대해서</p>
+            <p>2. 자바의 공부법</p>
+            <p>3. 내가 배운 자바</p>
+            <p>4. 자바 게시판 완성</p>
+        </div>
+        <div>
+            <h3><a th:href="@{BloggerBoard.ad}" class="nav-link">블로거 게시판</a></h3>
+            <p>1. 자바에 대해서</p>
+            <p>2. 자바의 공부법</p>
+            <p>3. 내가 배운 자바</p>
+            <p>4. 자바 게시판 완성</p>
+        </div>
+    </div>
+    <br>
+    
+    <!-- 페이지 중간점검을 위한 링크 멤버컨트롤러에 연결만 된 상태입니다. -->
+    <div class="nav"> 
+        <a th:href="@{editPage.me}">내 정보 수정</a>
+        <a th:href="@{myComment.me}">내 댓글 보기</a>
+        <a th:href="@{myPost.me}">내 게시글 보기</a>
+    </div>
+    
+    <div class="nav"> 
+        <a th:href="@{BoardDetail.bo}">글 상세 페이지</a>
+        <a th:href="@{writeBoard.bo}">글쓰기 페이지</a>
+        <a th:href="@{writeImageBoard.bo}">글+이미지 쓰기 페이지</a>
+    </div>
+    
+    <div class="nav">
+    	<p>관리자페이지</p> 
+        <a th:href="@{UserAdmin.ad}">방문자게시판</a>
+        <a th:href="@{ImageAdmin.ad}">이미지</a>
+        <a th:href="@{SpringAdmin.ad}">스프링</a>
+        <a th:href="@{SpringBootAdmin.ad}">스프링 부트</a>
+        <a th:href="@{JavaAdmin.ad}">자바</a>
+        <a th:href="@{JavaScriptAdmin.ad}">자바 스크립트</a>
+        <a th:href="@{ErrorAdmin.ad}">에러 모음집</a>
+        <a th:href="@{AdminPage.ad}">회원 정보 수정</a>
+        <a th:href="@{BloggerBoard.ad}">블로거 페이지</a>
+    </div>
+    
+    <div class="nav">
+    	<p>일반 페이지</p> 
+        <a th:href="@{UserBoard.bo}">방문자게시판</a>
+        <a th:href="@{ImageBoard.bo}">이미지</a>
+        <a th:href="@{SpringBoard.bo}">스프링</a>
+        <a th:href="@{SpringBootBoard.bo}">스프링 부트</a>
+        <a th:href="@{JavaBoard.bo}">자바</a>
+        <a th:href="@{JavaScriptBoard.bo}">자바 스크립트</a>
+        <a th:href="@{ErrorBoard.bo}">에러 모음집</a>
+    </div>
+    
+    
+    <div th:replace="~{common/footer :: footer}"></div>
+</body>
+</html>

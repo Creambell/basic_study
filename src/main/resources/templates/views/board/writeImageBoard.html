@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>게시글 작성</title>
+<style>
+    .bmain {
+        width: 900px;
+        height: auto;
+        margin: 0 auto;
+        margin-top : 80px;
+        background-color:white;
+        padding: 20px;
+        border-radius:10px;
+    }
+    .bheader {
+        display: flex;
+        justify-content: space-between;
+    }
+    .bcontainer {
+        border: 1px solid #ccc;
+        width: 100%;
+        height: 600px;
+        margin-bottom: 10px;
+        border-radius: 25px;
+    }
+    .bbuttons {
+        text-align: center;
+        margin-bottom: 20px;
+        
+    }
+    .btng {
+        border: 1px solid #ccc;
+        padding: 5px 10px;
+        cursor: pointer;
+        background-color: #4CAF50;
+        color:white;
+    }
+    .btnd{
+    	border: 1px solid #ccc;
+        padding: 5px 10px;
+        cursor: pointer;
+        background-color: #E57373;
+        color:white;
+    }
+    .btnw{
+    	border: 1px solid #ccc;
+        padding: 5px 10px;
+        cursor: pointer;
+        background-color: #FFB74D;
+        color:white;
+    }
+    .bcomments {
+        padding: 10px;
+    }
+    textarea {
+        width: 100%;
+        resize: none;
+    }
+    .bnameop{
+    	margin-left:550px;
+    	margin-bottom: 5px;
+    }
+</style>
+</head>
+<body>
+
+	<div th:replace="~{common/header :: header}"></div>
+
+<div class="bmain">
+    <div class="bheader">
+        <span>게시글 제목</span>
+        <span>이름 / 2023-02-14</span>
+    </div>
+    
+    <textarea class="bcontainer">
+    	
+    </textarea>
+    <div class="bheader">
+    <div class="bbuttons">
+	        <input class="form-control" width='100px' type="file" id="formFile" name='img'>
+	    </div>
+	    <div>
+	        <button type="button" class="btng" style='padding:10px;'>쓰기</button>
+	        <button type="button" class="btnd" style='padding:10px;'>삭제</button>
+	    </div>	
+    </div>
+	
+	<div class="writeButton" style='text-align:right; margin-top:30px;'>
+		<p>수정  페이지 클릭시 
+	    <button type="button" class="btnw" style='padding:10px;'>수정</button>
+	    <button type="button" class="btnd" style='padding:10px;'>삭제</button>
+    </div>
+</div>
+
+<br><br><br><br><br>
+ 
+	<div style='text-align:right; padding-right: 120px;'>
+    	<a href="javascript:history.back();" class="btng" style='padding:10px;'>뒤로가기</a>
+    </div>
+
+<br><br><br><br><br>
+<div>
+	<div th:replace="~{common/footer :: footer}"></div>
+</div>
+</body>
+</html>

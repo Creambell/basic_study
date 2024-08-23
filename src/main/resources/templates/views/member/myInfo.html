@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	
+    <style>
+
+        body {
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .content {
+            width: 70%;
+            height: 100%;
+            margin: 20px auto;
+            padding: 50px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .view-area {
+            width: 500px;
+            padding: 20px;
+            border: 1px solid silver;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .view-area form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .view-area label {
+            margin: 10px 0 5px;
+        }
+
+        .view-area input {
+            padding: 13px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+
+        .view-area button {
+            padding: 13px;
+            background-color: grey;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        #edit-button {
+            margin-bottom: 5px;
+            margin-top: 20px;
+			text-align: center;
+            margin-top: 10px;
+            background-color: tomato;
+            
+        }
+        
+         #delete_button {
+            margin-bottom: 5px;
+            margin-top: 20px;
+			text-align: center;
+            margin-top: 10px;
+            background-color: #2F4F4F;
+            
+        }
+
+        #edit-button:hover, #back-button:hover {
+            font-weight: bold;
+        }
+
+        a:focus, a:visited, a:active, a:link {
+            text-decoration: none;
+            color: darkgray;
+            font-weight: bold;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>	
+    <div th:replace="~{common/header :: header}"></div>
+    
+    <div class="main-container">
+        <div class="content">
+            <div class="view-area">
+                <h2>| 내 정보 조회</h2>
+                <form action="editMyInfo.me" >
+                    <label for="name">이름: [[${loginUser.userName}]]</label> 
+                    <label for="id">아이디: [[${loginUser.userId}]]</label>
+                    <label for="email">이메일: [[${loginUser.userEmail}]]</label>
+                    <label for="phone">휴대폰 번호: [[${loginUser.userPhone}]]</label>
+					<label for="postCount">작성한 글: [[${postCount}]]</label>
+					<label for="postCount">작성한 댓글: [[${replyCount}]]</label>
+					<label for="userJoinDate">가입일: [[${loginUser.userJoinDate}]]</label>
+                    <br>
+                    <button id="edit-button" type="submit" onclick="location.href='editMyInfo.me'">내 정보 수정</button>
+                    
+                    <button id="back-button" type="button" onclick="javascript:history.back();">뒤로 가기</button>
+                    <br>
+                    <button id="delete_button" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    탈퇴하기
+                </button>
+                    
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    
+     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel"><i class="fa-solid fa-triangle-exclamation fa-beat"></i> 경고</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                정말 탈퇴하시겠습니까? 탈퇴 시 계정은 삭제되며 복구되지 않습니다. 
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요.</button>
+                                <button type="button" class="btn btn-primary" onclick="location.href='deleteMember.me'">네. 확인했습니다.</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+    <div th:replace="~{common/footer :: footer}"></div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

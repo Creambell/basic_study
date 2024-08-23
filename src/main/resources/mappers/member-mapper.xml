@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kh.spring.member.model.dao.MemberMapper">
+	
+	 <!--  user는 예약어라서 ""사이에 적어줘야 인식됨.	 -->
+	 
+<!-- 비밀번호 확인도 where절에 추가하자 -->	 
+  <select id="login" resultType="Member">
+	  	select * 
+	  	from "USER"
+	  	where user_status = 'Y' and user_id = #{userId} 
+  </select>
+	
+  <insert id="insertMember">
+		insert into "USER"
+		values(USER_SEQ.NEXTVAL, #{userName}, #{userId}, #{userPwd}, #{userEmail}, 
+		#{userPhone}, default, default, sysdate) 
+  </insert>
+	
+  
+  <select id="checkId" resultType="_int">
+		select count(*)
+		from "USER"
+		where user_id = #{userId}
+  </select>
+  
+  
+  
+  
+  
+	
+  <select id="selectMyList" resultType="Member">
+		select *
+		from "USER"
+		where user_id = #{userId}
+  </select>
+ 	
+	<select id="countMemberPost" resultType="int" parameterType="int"> 
+		SELECT COUNT(*) 
+		FROM board 
+		JOIN "USER" ON board_writer_no = user_no
+		WHERE user_no = #{userNo}
+	</select>
+	
+	<select id="countMemberReply" resultType="int" parameterType="int"> 
+		SELECT COUNT(*) 
+		FROM reply 
+		JOIN "USER" ON re_writer_no = user_no
+		WHERE user_no = #{userNo}
+	</select>
+	
+	<update id="deleteMember">	
+		update "USER"
+		set user_status = 'N'
+		where user_no = #{userNo}
+	</update>
+	
+<!-- 	<update id = "updateMember"> -->
+<!-- 		update "USER" -->
+<!-- 		set  -->
+<!-- 			user_id=#{userId},  -->
+<!-- 			user_pwd=#{userPwd},  -->
+<!-- 			user_email=#{userEmail}, -->
+<!-- 			user_phone=#{userPhone} -->
+<!-- 		where  -->
+<!-- 			user_no=#{userNo}  -->
+<!-- 	</update> -->
+	<update id="updateMember" parameterType="Member">
+	    UPDATE "USER"
+	    SET 
+	        USER_ID = #{userId},
+	        USER_EMAIL = #{userEmail},
+	        USER_PHONE = #{userPhone}
+	        <if test="userPwd != null and userPwd != ''">
+	        , USER_PWD = #{userPwd}
+	        </if>
+	    WHERE USER_NO = #{userNo}
+	</update>
+	
+	
+	
+	<select id="checkIdExceptCurrent" resultType="_int">
+    SELECT COUNT(*)
+    FROM "USER"
+    WHERE user_id = #{userId} AND user_no != #{currentUserNo}
+</select>
+	  
+</mapper>

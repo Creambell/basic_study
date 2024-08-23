@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>게시글 상세</title>
+<!-- Bootstrap CSS -->
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<style>
+.bmain {
+	width: 900px;
+	height: auto;
+	margin: 0 auto;
+	margin-top: 80px;
+	background-color: white;
+	padding: 20px;
+	border-radius: 10px;
+}
+
+.bheader {
+	display: flex;
+	y justify-content: space-between;
+}
+
+.bcontainer {
+	border: 1px solid #ccc;
+	width: 100%;
+	min-height: 300px;
+	margin-bottom: 10px;
+	border-radius: 25px;
+	padding: 20px;
+}
+
+.bbuttons {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.btn-custom {
+	border: 1px solid black;
+	padding: 5px 10px;
+	cursor: pointer;
+	color: white;
+	text-decoration: none;
+}
+
+.btng {
+	border: 1px solid #adb5bd;
+	padding: 5px 10px;
+	cursor: pointer;
+	background-color: #4CAF50;
+	color: white;
+	text-decoration: none;
+}
+
+.btnd {
+	border: 1px solid #adb5bd;
+	padding: 5px 10px;
+	cursor: pointer;
+	background-color: #E57373;
+	color: white;
+	text-decoration: none;
+}
+
+.btnw {
+	border: 1px solid #adb5bd;
+	padding: 5px 10px;
+	cursor: pointer;
+	background-color: #FFB74D;
+	color: white;
+	text-decoration: none;
+}
+
+.comment-section {
+	margin-top: 40px;
+}
+
+.comment-form {
+	margin-top: 20px;
+	display: none;
+}
+
+.comment-form textarea {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	resize: vertical;
+}
+
+.comment-list table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.comment-list th, .comment-list td {
+	padding: 10px;
+	border-bottom: 1px solid #eee;
+	text-align: left;
+}
+</style>
+</head>
+<body>
+	<div th:replace="~{common/header :: header}"></div>
+
+	<div class="bmain">
+		<div class="bheader">
+			<h2 th:text="${board.boardTitle}"></h2>
+			<span
+				th:text="${board.boardWriterName + ' / ' + #dates.format(board.createDate, 'yyyy-MM-dd')}"></span>
+		</div>
+
+		<div class="bcontainer" th:text="${board.boardContent}"></div>
+
+		<div style="text-align: right;">
+			<a
+				th:href="@{editBoard.ad(bId=${board.boardNo}, page=${page}, cateNo=${board.cateNo})}"
+				class="btng">게시글 수정</a> <a href="#" id="backButton" class="btnw">이전
+				게시판으로</a>
+		</div>
+
+		<div class="comment-section">
+			<h3>댓글</h3>
+			<div class="button-group"
+				style='text-align: right; margin-top: 30px;'>
+				<button id="writeButton" type="button" class="btng"
+					style='padding: 10px;'>쓰기</button>
+				<button id="editButton" type="button" class="btnw"
+					style='padding: 10px;'>수정</button>
+				<button id="deleteButton" type="button" class="btnd"
+					style='padding: 10px;'>삭제</button>
+			</div>
+			<div class="comment-form" style="display: none;">
+				<textarea id="replyContent" rows="3" placeholder="댓글을 입력하세요"></textarea>
+				<button id="replySubmit" class="btng">댓글 작성</button>
+			</div>
+			<div class="comment-list">
+				<table>
+					<thead>
+						<tr>
+							<th><input type="checkbox" id="selectAllCheckbox"></th>
+							<th>댓글 번호</th>
+							<th>내용</th>
+							<th>작성자</th>
+							<th>작성일</th>
+						</tr>
+					</thead>
+					<tbody id="replyList">
+						<!-- 댓글 목록이 여기에 동적으로 추가됩니다 -->
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div th:replace="~{common/footer :: footer}"></div>
+
+	<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(document).ready(function() {
+        var boardNo = /*[[${board.boardNo}]]*/ 0;
+        
+     // 쓰기 버튼 클릭 이벤트 추가
+        $('#writeButton').click(function() {
+            $('.comment-form').toggle();
+        });
+     
+     // 전체 선택 체크박스 이벤트 핸들러 추가
+        $('#selectAllCheckbox').change(function() {
+            $('.reply-checkbox').prop('checked', $(this).is(':checked'));
+        });
+
+        // 댓글 목록 불러오기 함수
+        function loadComments(boardNo) {
+            $.ajax({
+                url: 'getReplyList.ad',
+                method: 'GET',
+                data: { boardNo: boardNo },
+                success: function(replies) {
+                    var replyList = $('#replyList');
+                    replyList.empty();
+                    
+                    replies.forEach(function(reply) {
+                        var row = $('<tr>');
+                        row.append($('<td>').html('<input type="checkbox" class="reply-checkbox" value="' + reply.reNo + '">'));
+                        row.append($('<td>').text(reply.reNo));
+                        row.append($('<td>').text(reply.reContent));
+                        row.append($('<td>').text(reply.userName));
+                        row.append($('<td>').text(new Date(reply.createDate).toLocaleDateString()));
+                        replyList.append(row);
+                    });
+                },
+                error: function() {
+                    console.log('댓글을 불러오는데 실패했습니다.');
+                }
+            });
+        }
+
+        // 페이지 로드 시 댓글 목록 불러오기
+        loadComments(boardNo);
+
+        // 댓글 작성 버튼 클릭 이벤트
+         $('#replySubmit').click(function() {
+        var content = $('#replyContent').val();
+        
+        $.ajax({
+            url: 'insertReply.ad',
+            method: 'POST',
+            data: { 
+                boardNo: boardNo,
+                replyContent: content
+            },
+            success: function(response) {
+                if(response === 'success') {
+                    alert('댓글이 성공적으로 등록되었습니다.');
+                    $('#replyContent').val('');
+                    $('.comment-form').hide(); // 댓글 작성 후 폼 숨기기
+                    loadComments(boardNo);
+                } else if(response === 'login_required') {
+                    alert('로그인이 필요합니다.');
+                } else {
+                    alert('댓글 등록에 실패했습니다.');
+                }
+            },
+            error: function() {
+                alert('서버 오류가 발생했습니다.');
+            }
+        });
+    });
+
+        // 댓글 수정 버튼 클릭 이벤트
+        $('#editButton').click(function() {
+            var selectedReply = $('.reply-checkbox:checked');
+            if(selectedReply.length !== 1) {
+                alert('수정할 댓글을 하나만 선택해주세요.');
+                return;
+            }
+            var reNo = selectedReply.val();
+            var content = selectedReply.closest('tr').find('td:eq(2)').text();
+            
+            var newContent = prompt('댓글을 수정해주세요:', content);
+            if(newContent !== null) {
+                $.ajax({
+                    url: 'updateReply.ad',
+                    method: 'POST',
+                    data: { 
+                        reNo: reNo,
+                        reContent: newContent
+                    },
+                    success: function(response) {
+                        if(response === 'success') {
+                            alert('댓글이 성공적으로 수정되었습니다.');
+                            loadComments(boardNo);
+                        } else {
+                            alert('댓글 수정에 실패했습니다.');
+                        }
+                    },
+                    error: function() {
+                        alert('서버 오류가 발생했습니다.');
+                    }
+                });
+            }
+        });
+
+        // 댓글 삭제 버튼 클릭 이벤트
+        $('#deleteButton').click(function() {
+            var selectedReplies = $('.reply-checkbox:checked');
+            if(selectedReplies.length === 0) {
+                alert('삭제할 댓글을 선택해주세요.');
+                return;
+            }
+            
+            if(confirm('선택한 댓글을 삭제하시겠습니까?')) {
+                var reNo = selectedReplies.val();
+                
+                $.ajax({
+                    url: 'deleteReply.ad',
+                    method: 'POST',
+                    data: { reNo: reNo },
+                    success: function(response) {
+                        if(response === 'success') {
+                            alert('선택한 댓글이 삭제되었습니다.');
+                            loadComments(boardNo);
+                        } else {
+                            alert('댓글 삭제에 실패했습니다.');
+                        }
+                    },
+                    error: function() {
+                        alert('서버 오류가 발생했습니다.');
+                    }
+                });
+            }
+        });
+
+        // 기타 이벤트 핸들러 (예: 전체 선택 체크박스, 댓글 쓰기 버튼 토글 등)
+    });
+    /*]]>*/
+    </script>
+</body>
+</html>

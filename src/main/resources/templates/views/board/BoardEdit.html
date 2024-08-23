@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>게시글 수정</title>
+<style>
+.edit-main {
+	width: 900px;
+	height: auto;
+	margin: 0 auto;
+	margin-top: 80px;
+	background-color: white;
+	padding: 20px;
+	border-radius: 10px;
+}
+
+.edit-header {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 20px;
+}
+
+.edit-container {
+	border: 1px solid #ccc;
+	width: 100%;
+	margin-bottom: 10px;
+	border-radius: 25px;
+}
+
+.edit-input {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+
+.edit-textarea {
+	width: 100%;
+	height: 300px;
+	padding: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	resize: vertical;
+}
+
+.edit-btn {
+	border: 1px solid #ccc;
+	padding: 5px 10px;
+	cursor: pointer;
+	color: white;
+	border-radius: 5px;
+}
+
+.edit-btn-green {
+	background-color: #4CAF50;
+}
+
+.edit-btn-red {
+	background-color: #E57373;
+}
+</style>
+</head>
+<body>
+
+	<div th:replace="~{common/header :: header}"></div>
+	
+	<div class="edit-main">
+		<div class="edit-header">
+			<h2>바꿀 제목과 내용을 적어주세요.</h2>
+		</div>
+		<div>
+			<form th:action="@{/updateBoard.ad}" method="post" id="editForm">
+				<input type="hidden" name="boardNo" th:value="${board.boardNo}">
+				<input type="hidden" name="page" th:value="${page}"> <input
+					type="hidden" name="cateNo" th:value="${board.cateNo}"> <input
+					type="text" class="edit-input" id="editBoardTitle" name="boardTitle"
+					th:value="${board.boardTitle}" required>
+	
+				<textarea class="edit-textarea" id="editBoardContent"
+					name="boardContent" required th:text="${board.boardContent}"></textarea>
+	
+				<div>
+					<button type="submit" class="edit-btn edit-btn-green">수정 완료</button>
+					<a href="#" id="cancelButton" class="edit-btn edit-btn-red">취소</a>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+	<div th:replace="~{common/footer :: footer}"></div>
+	
+	<script th:inline="javascript">
+		document.addEventListener('DOMContentLoaded', function() {
+		    const form = document.getElementById('editForm');
+		    const titleInput = document.getElementById('editBoardTitle');
+		    const contentTextarea = document.getElementById('editBoardContent');
+		    const cancelButton = document.getElementById('cancelButton');
+		    const cateNo = [[${board.cateNo}]];
+		
+		    function redirectToBoard() {
+		        switch(cateNo) {
+		            case 100:
+		                window.location.href = '/UserAdmin.ad';
+		                break;
+		            case 102:
+		                window.location.href = '/SpringAdmin.ad';
+		                break;
+		            case 103:
+		                window.location.href = '/SpringBootAdmin.ad';
+		                break;
+		            case 104:
+		                window.location.href = '/JavaAdmin.ad';
+		                break;
+		            case 105:
+		                window.location.href = '/JavaScriptAdmin.ad';
+		                break;
+		            case 106:
+		                window.location.href = '/ErrorAdmin.ad';
+		                break;
+		            case 107:
+		                window.location.href = '/BloggerBoard.ad';
+		                break;
+		            default:
+		                window.location.href = '/UserAdmin.ad';
+		        }
+		    }
+		
+		    form.addEventListener('submit', function(e) {
+		        e.preventDefault();
+		        if(titleInput.value.trim() === '' || contentTextarea.value.trim() === '') {
+		            alert('제목과 내용을 모두 입력해주세요.');
+		            return;
+		        }
+		        this.submit();
+		        // 폼 제출 후 해당 게시판으로 이동
+		        setTimeout(redirectToBoard, 100);
+		    });
+		
+		    cancelButton.addEventListener('click', function(e) {
+		        e.preventDefault();
+		        redirectToBoard();
+		    });
+		});
+	</script>
+</body>
+</html>
