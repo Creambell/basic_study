@@ -1,0 +1,32 @@
+<!-- 내 작성글 수 세기 -->
+<select id="getMyBoardCount" resultType="_int">
+    select count(*)
+    from board
+    join "USER" on board_writer_no = user_no
+    where user_id = #{userId} and board_status='Y' 
+</select>
+
+<select id="selectMyBoardList" resultType="Board">
+	select *
+    from board
+    join "USER" on board_writer_no = user_no
+    where user_id = #{userId} and board_status='Y'
+    order by board_no DESC
+</select>
+
+<!-- 내 댓글 세기 -->
+<select id="getMyReplyCount" resultType="_int">
+	select count(*)
+    from reply
+    join "USER" on re_writer_no = user_no
+    where user_id = #{userId} and re_status='Y'
+</select>
+
+<select id="selectMyReplyList" resultType="Reply">
+	SELECT R.*, B.BOARD_TITLE, U.USER_NAME
+    FROM REPLY R
+    JOIN BOARD B ON R.BOARD_NO = B.BOARD_NO
+    JOIN "USER" U ON R.RE_WRITER_NO = U.USER_NO
+    WHERE U.USER_ID = #{userId} AND R.RE_STATUS = 'Y'
+    ORDER BY R.RE_NO DESC
+</select>

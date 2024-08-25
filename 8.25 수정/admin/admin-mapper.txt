@@ -1,0 +1,5 @@
+<update id="updateMemberStatus">
+	    UPDATE "USER"
+	    SET USER_STATUS = #{userStatus}
+	    WHERE USER_ID = #{userId}
+	</update>

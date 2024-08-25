@@ -1,0 +1,11 @@
+@PostMapping("updateAdminStatus.adm")
+    @ResponseBody
+    public String updateAdminStatus(@RequestParam("userId") String userId, @RequestParam("isAdmin") String isAdmin) {
+        Member member = new Member();
+        member.setUserId(userId);
+        member.setIsAdmin(isAdmin);
+
+        int result = aService.updateAdminStatus(member);
+
+        return result == 1 ? "success" : "fail";
+    }

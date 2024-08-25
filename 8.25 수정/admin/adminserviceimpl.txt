@@ -1,0 +1,4 @@
+@Override
+	public int updateAdminStatus(Member member) {
+		return aMapper.updateAdminStatus(member);
+	}

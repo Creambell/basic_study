@@ -1,0 +1,4 @@
+ArrayList<Member> selectMember(RowBounds rowBounds);
+// 기존 selectMember 지우고 이걸로 넣어주세요 
+
+	int updateAdminStatus(Member member);

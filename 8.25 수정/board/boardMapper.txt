@@ -1,0 +1,7 @@
+	int getMyBoardCount(String userId);
+
+    ArrayList<Board> selectMyBoardList(@Param("rowBounds") RowBounds rowBounds, @Param("userId") String userId);
+
+	int getMyReplyCount(String userId);
+	
+    ArrayList<Reply> selectMyReplyList(@Param("rowBounds") RowBounds rowBounds, @Param("userId") String userId);

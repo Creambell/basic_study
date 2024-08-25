@@ -1,0 +1,23 @@
+@Override
+	public int getMyBoardCount(String userId) {
+		return bMapper.getMyBoardCount(userId);
+	}
+
+	@Override
+	public ArrayList<Board> selectMyBoardList(PageInfo pi, String userId) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+        RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+        return bMapper.selectMyBoardList(rowBounds,userId);
+	}
+
+	@Override
+	public int getMyReplyCount(String userId) {
+		return bMapper.getMyReplyCount(userId);
+	}
+
+	@Override
+	public ArrayList<Reply> selectMyReplyList(PageInfo pi, String userId) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+        RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+        return bMapper.selectMyReplyList(rowBounds,userId);
+	}

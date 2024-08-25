@@ -1,0 +1,55 @@
+@GetMapping("myReply.me")
+	public String MyReply(@RequestParam(value="page", defaultValue="1") int currentPage,
+			HttpSession session,
+			Model model) {
+		
+		Member loginUser = (Member) session.getAttribute("loginUser");
+	    if (loginUser == null) {
+	        return "redirect:login.me"; 
+	    }
+        String userId = ((Member)session.getAttribute("loginUser")).getUserId();
+        
+		int listCount = bService.getMyReplyCount(userId);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
+		    
+		ArrayList<Reply> list = bService.selectMyReplyList(pi,userId);
+		
+		System.out.println(list);
+		
+		if(list != null) {
+			model.addAttribute("list", list);
+			model.addAttribute("pi", pi);
+			return "myReply";
+		}else {
+			throw new BoardException("내 글 조회 실패.");
+		}
+	}
+	
+	// 내 게시글 보기 페이지
+	@GetMapping("myBoard.me")
+	public String MyBoard(@RequestParam(value="page", defaultValue="1") int currentPage,
+			HttpSession session,
+			Model model) {
+		
+		Member loginUser = (Member) session.getAttribute("loginUser");
+	    if (loginUser == null) {
+	        return "redirect:login.me"; 
+	    }
+        String userId = ((Member)session.getAttribute("loginUser")).getUserId();
+        
+		int listCount = bService.getMyBoardCount(userId);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
+		    
+		ArrayList<Board> list = bService.selectMyBoardList(pi,userId);
+		
+		if(list != null) {
+			model.addAttribute("list", list);
+			model.addAttribute("pi", pi);
+			return "myBoard";
+		}else {
+			throw new BoardException("내 글 조회 실패.");
+		}
+	}
+	
