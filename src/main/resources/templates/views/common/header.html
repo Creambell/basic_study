@@ -9,7 +9,7 @@
 body {
 /*헤더 간격 조절 상단!*/
     padding-top: 160px; 
-     font-family: 'NanumSquareRound', sans-serif;
+    font-family: 'NanumSquareRound', sans-serif;
 }
 
 #header {
@@ -31,13 +31,13 @@ body {
 }
 
 .top-nav {
-/*	원래 파란색*/
+/*   원래 파란색*/
 /*     background-color: #e8f1f9; */
-	/*바꾼 색*/
-	background-color: white;  
-/* 	바꾼 색*/
-/* 	background-color: #adb5bd;  */
-/* 	background-color: 	#FF826B; */
+   /*바꾼 색*/
+   background-color: white;  
+/*    바꾼 색*/
+/*    background-color: #adb5bd;  */
+/*    background-color:    #FF826B; */
     padding: 10px 0;
     text-align: center;
     justify-content: space-around;
@@ -53,7 +53,7 @@ body {
     font-size: 18px;
 }
  #welcome-comment{
- 	width: 230px;
+    min-width: 250px;
     background-color: tomato;
     color: white !important;
     border: none;
@@ -78,20 +78,20 @@ body {
 </style>
 </head>
 <body style="font-family: Arial, sans-serif; 
-			 background-color: #adb5bd;	 
-/* 			 background-color: white; */
-			 height: auto;
-  			 min-height: 100%;
-  			 /*헤더 간격 조절 하단!*/
-  			 padding-bottom: 70px;
-			 
-			 ">
+          background-color: #fff8e1;    /* html들 body 배경색깔 크림으로 통일 */
+/*           background-color: white; */
+          height: auto;
+            min-height: 100%;
+            /*헤더 간격 조절 하단!*/
+            padding-bottom: 70px;
+          
+          ">
 
 <header id="header">
     <div id="header-first">
         <div class="header-title">
         
-<a href="home.do"><img th:src="@{블로그.png}" width="300px"height="80px"/></a> 
+<a href="home.do"><img th:src="@{image/basic_study_logo.png}" width="300px"height="80px"/></a> 
         </div>
 <!-- 로그인 전 -->
         <div id="header-buttons" class="btn-group" role="group" aria-label="Basic example" th:if="${session.loginUser == null}">
@@ -99,42 +99,56 @@ body {
             <button type="button" class="btn btn-primary" id="header-join" onclick="location.href='joinMember.me'">회원가입</button>
         </div>
 
-<!-- 로그인 후 -->
+<!-- 방문자 로그인 후 -->
         <div class="btn-group"  th:if="${session.loginUser != null && session.loginUser.isAdmin == 'N'}">
-			<button id="welcome-comment" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-				<span th:text="${session.loginUser.userName}"></span>님 환영합니다.
-			</button>
-			<ul class="dropdown-menu dropdown-menu-end">
-				<li><button class="dropdown-item" type="button" onclick="location.href='myInfo.me'">내 정보 보기</button></li>
-				<li><button class="dropdown-item" type="button" onclick="location.href='editMyInfo.me'">내 정보 수정</button></li>
-				<li><button class="dropdown-item" type="button">내가 쓴 글 보기</button></li>
-				<li><button class="dropdown-item" type="button">내가 쓴 댓글 보기</button></li>
-				<li><button class="dropdown-item" type="button" onclick="location.href='logout.me'">로그아웃</button></li>
-			</ul>
-		</div>
+         <button id="welcome-comment" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <span th:text="${session.loginUser.userName}"></span>님 환영합니다.
+         </button>
+         <ul class="dropdown-menu dropdown-menu-end">
+            <li><button class="dropdown-item" type="button" onclick="location.href='myInfo.me'">내 정보 보기</button></li>
+            <li><button class="dropdown-item" type="button" onclick="location.href='editMyInfo.me'">내 정보 수정</button></li>
+            <li><button class="dropdown-item" type="button" onclick="location.href='myBoard.me'">내가 쓴 글 보기</button></li>
+            <li><button class="dropdown-item" type="button" onclick="location.href='myReply.me'">내가 쓴 댓글 보기</button></li>
+            <li><button class="dropdown-item" type="button" onclick="location.href='logout.me'">로그아웃</button></li>
+         </ul>
+      </div>
 <!-- 블로거 로그인한 경우  -->
     <div class="btn-group"  th:if="${session.loginUser != null && session.loginUser.isAdmin == 'Y'}">
-			<button id="welcome-comment" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-				<i class="fa-brands fa-vaadin fa-flip"></i>  <span th:text="${session.loginUser.userName}"></span>님 환영합니다.
-			</button>
-			<ul class="dropdown-menu dropdown-menu-end">
-				<li><button class="dropdown-item" type="button" onclick="location.href='myInfo.me'">내 정보 보기</button></li>
-				<li><button class="dropdown-item" type="button" onclick="location.href='editMyInfo.me'">내 정보 수정</button></li>
-				<li><button class="dropdown-item" type="button" onclick="location.href='AdminPage.ad'">회원 관리</button></li>
-				<li><button class="dropdown-item" type="button" onclick="location.href='logout.me'">로그아웃</button></li>
-			</ul>
-		</div>
+         <button id="welcome-comment" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-brands fa-vaadin fa-flip"></i>  <span th:text="${session.loginUser.userName}"></span>님 환영합니다.
+         </button>
+         <ul class="dropdown-menu dropdown-menu-end">
+            <li><button class="dropdown-item" type="button" onclick="location.href='myInfo.me'">내 정보 보기</button></li>
+            <li><button class="dropdown-item" type="button" onclick="location.href='myBoard.me'">내가 쓴 글 보기</button></li>
+            <li><button class="dropdown-item" type="button" onclick="location.href='myReply.me'">내가 쓴 댓글 보기</button></li>
+            <li><button class="dropdown-item" type="button" onclick="location.href='editMyInfo.me'">내 정보 수정</button></li>
+            <li><button class="dropdown-item" type="button" onclick="location.href='adminPage.ad'">회원 관리</button></li>
+            <li><button class="dropdown-item" type="button" onclick="location.href='logout.me'">로그아웃</button></li>
+         </ul>
+      </div>
     </div>
     
-<!-- 헤더 메뉴바 -->	
-    <div class="top-nav">
-        <a href="#">Client</a>
-        <a href="#">Image</a>
-        <a href="#">Spring</a>
-        <a href="#">Java</a>
-        <a href="#">JavaScript</a>
-        <a href="#">Error</a>
+<!-- 헤더 메뉴바  -- 일반인 .bo로  -->   
+    <div class="top-nav" th:if="${session.loginUser != null && session.loginUser.isAdmin == 'N'}">
+        <a href="UserBoard.bo">방문자 게시판</a>
+        <a href="ImageBoard.bo">Image</a>
+        <a href="SpringBoard.bo">Spring</a>
+        <a href="SpringBootBoard.bo">SpringBoot</a>
+        <a href="JavaBoard.bo">Java</a>
+        <a href="JavaScriptBoard.bo">JavaScript</a>
+        <a href="ErrorBoard.bo">Error</a>
     </div>
+    
+    <div class="top-nav" th:if="${session.loginUser != null && session.loginUser.isAdmin == 'Y'}">
+        <a href="UserAdmin.ad">블로거 게시판</a>
+        <a href="ImageAdmin.ad">Image</a>
+        <a href="SpringAdmin.ad">Spring</a>
+        <a href="SpringBootAdmin.ad">SpringBoot</a>
+        <a href="JavaAdmin.ad">Java</a>
+        <a href="JavaScriptAdmin.ad">JavaScript</a>
+        <a href="ErrorAdmin.ad">Error</a>
+    </div>
+    
 </header>
 
 <script>

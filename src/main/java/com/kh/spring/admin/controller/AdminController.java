@@ -3,10 +3,14 @@ package com.kh.spring.admin.controller;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,10 +24,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.spring.admin.model.service.AdminService;
 import com.kh.spring.board.model.exception.BoardException;
+import com.kh.spring.board.model.service.BoardService;
 import com.kh.spring.board.model.vo.Board;
+import com.kh.spring.board.model.vo.Image;
 import com.kh.spring.board.model.vo.PageInfo;
 import com.kh.spring.board.model.vo.Reply;
 import com.kh.spring.common.Pagination;
+import com.kh.spring.member.controller.MemberController;
+import com.kh.spring.member.model.exception.MemberException;
 import com.kh.spring.member.model.vo.Member;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,6 +42,11 @@ public class AdminController {
 	
 	@Autowired
 	private AdminService aService;
+	
+	@Autowired
+	private BoardService bService;
+	
+	private Logger logger = LoggerFactory.getLogger(MemberController.class);
 	
 	public String[] saveFile(MultipartFile upload) {
 		String savePath = "C:\\uploadFiles"; // 자기 파일 경로 설정해주세요.
@@ -75,8 +88,9 @@ public class AdminController {
 	public String UserBoard(@RequestParam(value="page", defaultValue="1") int currentPage, Model model,
             HttpServletRequest request) { // 게시글에 대한 전체목록으로 넘어가려는 페이지 니까 => 데이터 필요!(게시글에 대한 전체 정보) => DB에 갖다와야 한다는 것
 		// 결합도를 낮추기 위해, 객체를 필드를 빼거나(근데 빼기만 하면 객체를 직접 만들기 때문에), 객체를 framework가 처리하게 하기 위해, 인터페이스 만들기.
-		
+        
 		int listCount = aService.getListCount(100);// 100 방문자게시판
+		
 		System.out.println(listCount);
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
@@ -86,10 +100,9 @@ public class AdminController {
 		    model.addAttribute("board", list);
 		    model.addAttribute("pi", pi);
 		} else {
-		    System.out.println("데이터를 가져오지 못했거나 리스트가 비어있습니다.");
-		    model.addAttribute("board", new ArrayList<Board>());
-		    model.addAttribute("pi", pi);
-		}
+            model.addAttribute("board", new ArrayList<Board>());
+            model.addAttribute("pi", pi);
+        }
 		return "UserAdmin";
 		
 	}
@@ -206,7 +219,14 @@ public class AdminController {
     @GetMapping("selectBoard.ad")
     public String selectBoard(@RequestParam("bId") int bId, @RequestParam("page") int page,
                               @RequestParam("cateNo") int cateNo, HttpSession session, Model model) {
-        Board board = aService.selectBoard(bId, cateNo);
+        // 현재 로그인한 사용자의 번호를 가져옵니다.
+        int currentUserNo = 0; // 비로그인 사용자의 경우 0으로 설정
+        Member loginUser = (Member) session.getAttribute("loginUser");
+        if(loginUser != null) {
+            currentUserNo = loginUser.getUserNo(); // getUserNo()는 Member 클래스에 있다고 가정합니다.
+        }
+
+        Board board = aService.selectBoard(bId, cateNo, currentUserNo);
         if(board != null) {
             model.addAttribute("b", board);
             model.addAttribute("page", page);
@@ -218,13 +238,20 @@ public class AdminController {
     
     // 게시글 삽입
     @PostMapping("insertBoard.ad")
-    public String insertBoard(@ModelAttribute Board b, @RequestParam("cateNo") int cateNo) {
-        b.setBoardWriterNo(1);
-        b.setCateNo(cateNo);
-        b.setBoardStatus("Y");
-        b.setBoardWriterName("블로거");
-        int result = aService.insertBoard(b);
+    public String insertBoard(@ModelAttribute Board b, 
+                              @RequestParam("cateNo") int cateNo,
+                              HttpSession session) {
+        Member loginUser = (Member) session.getAttribute("loginUser");
         
+        // 로그인한 사용자 정보로 게시글 작성자 설정
+        b.setBoardWriterNo(loginUser.getUserNo());
+        b.setBoardWriterName(loginUser.getUserName());
+        
+        b.setCateNo(cateNo); // 카테고리는 맞춰서
+        b.setBoardStatus("Y"); // Y로 초기설정
+        
+        int result = aService.insertBoard(b);
+
         if(result > 0) {
             return getBoardRedirect(cateNo);
         } else {
@@ -258,7 +285,23 @@ public class AdminController {
             throw new BoardException("게시글 삭제 실패");
         }
     }
-	
+    
+    // 컨트롤러 메서드 수정
+    @GetMapping("deleteManyBoards.ad")
+    public String deleteManyBoards(@RequestParam("bIds") String bIds, 
+                                   @RequestParam("cateNo") int cateNo, 
+                                   RedirectAttributes ra) {
+        List<Integer> boardIds = Arrays.stream(bIds.split(","))
+                                       .map(Integer::parseInt)
+                                       .collect(Collectors.toList());
+        int result = aService.deleteManyBoards(boardIds);
+        if(result == boardIds.size()) {
+            ra.addFlashAttribute("message", "선택한 게시글이 성공적으로 삭제되었습니다.");
+            return getBoardRedirect(cateNo);
+        } else {
+            throw new BoardException("일부 게시글 삭제에 실패했습니다.");
+        }
+    }
 
     // cateNo 이전페이지 반환값
     private String getBoardRedirect(int cateNo) {
@@ -291,8 +334,13 @@ public class AdminController {
     // 게시판 보기
     @GetMapping("BoardAdminDetail.ad")
     public String boardDetail(@RequestParam("bId") int bId, @RequestParam("page") int page, 
-                              @RequestParam("cateNo") int cateNo, Model model) {
-        Board board = aService.selectBoard(bId, cateNo);
+                              @RequestParam("cateNo") int cateNo, Model model, HttpSession session) {
+        
+        Member loginUser = (Member) session.getAttribute("loginUser");
+        
+        // 조회수 증가 
+        Board board = bService.selectBoardAndIncrementCount(bId, cateNo, loginUser);
+        
         if(board != null) {
             model.addAttribute("board", board);
             model.addAttribute("page", page);
@@ -325,31 +373,185 @@ public class AdminController {
         return "writeAdmin";
     }
 			
-	@GetMapping("ImageAdmin.ad")
-	public String ImageBoard() {
-		return "ImageAdmin";
-	}
+    // 이미지
+    @GetMapping("ImageAdmin.ad")
+    public String imageList(@RequestParam(value="page", defaultValue="1") int currentPage, Model model) {
+        int listCount = aService.getListCount(101); // 이미지 게시판 카테고리 번호
+        PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 9);
+        ArrayList<Board> list = aService.selectImageBoardList(pi);
+        
+        // 각 게시글의 대표 이미지 정보를 가져옵니다.
+        for (Board board : list) {
+            Image image = aService.getMainImageForBoard(board.getBoardNo());
+            if (image != null) {
+                board.setImageUrl("uploadFiles/" + image.getImgRename());
+            }
+        }
+
+        model.addAttribute("bList", list);
+        model.addAttribute("pi", pi);
+        return "ImageAdmin";
+    }
+    
+    @GetMapping("writeImageAdmin.ad")
+    public String writeImageAdmin() {
+        return "writeImageAdmin";
+    }
+
+    @PostMapping("insertImageBoard.ad")
+    public String insertImageBoard(@ModelAttribute Board board, 
+                                   @RequestParam("file") MultipartFile file, 
+                                   HttpServletRequest request) {
+        Member loginUser = (Member) request.getSession().getAttribute("loginUser");
+        board.setBoardWriterNo(loginUser.getUserNo());
+        board.setBoardWriterName(loginUser.getUserName());
+        board.setCateNo(101); // 이미지 게시판 카테고리 번호
+        board.setBoardStatus("Y");
+
+        Image image = new Image();
+        if(file != null && !file.isEmpty()) {
+            String[] returnArr = saveFile(file);
+            
+            image.setImgPath(returnArr[0]);
+            image.setImgName(file.getOriginalFilename());
+            image.setImgRename(returnArr[1]);
+            image.setImgActive('Y');
+            image.setImgRefType("BOARD");
+            image.setImgTitle(1); // 썸네일로 설정
+        }
+
+        try {
+            int result = aService.insertImageBoard(board, image);
+            if(result > 0) {
+                return "redirect:ImageAdmin.ad";
+            } else {
+                throw new BoardException("이미지 게시글 작성 실패");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new BoardException("이미지 게시글 작성 중 오류 발생: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("selectImageBoard.ad")
+    public String selectImageBoard(@RequestParam("bId") int bId, @RequestParam("page") int page, Model model, HttpSession session) {
+        Member loginUser = (Member) session.getAttribute("loginUser");
+        int currentUserNo = loginUser != null ? loginUser.getUserNo() : 0;
+
+        // 조회수 증가와 함께 게시글 정보를 가져옵니다.
+        Board board = aService.selectImageBoardAndIncrementCount(bId, currentUserNo);
+        Image image = aService.getMainImageForBoard(bId);
+        
+        if (board != null) {
+            if (image != null) {
+                board.setImageUrl("/uploadFiles/" + image.getImgRename());
+                logger.debug("Image URL for board {}: {}", bId, board.getImageUrl());
+            } else {
+                logger.warn("No image found for board {}", bId);
+            }
+            
+            model.addAttribute("board", board);
+            model.addAttribute("image", image);
+            model.addAttribute("page", page);
+            return "imageDetail";
+        } else {
+            throw new BoardException("이미지 게시글 조회 실패");
+        }
+    }
+    
+    @GetMapping("editImageBoard.ad")
+    public String editImageBoard(@RequestParam("bId") int bId, @RequestParam("page") int page, Model model) {
+        Board board = aService.selectImageBoard(bId);
+        Image image = aService.getMainImageForBoard(bId);
+        
+        if (image != null) {
+            board.setImageUrl("/uploadFiles/" + image.getImgRename());
+        }
+        
+        model.addAttribute("board", board);
+        model.addAttribute("page", page);
+        return "editImageBoard";
+    }
+
+    @PostMapping("updateImageBoard.ad")
+    public String updateImageBoard(@ModelAttribute Board board, 
+                                   @RequestParam(value = "file", required = false) MultipartFile file, 
+                                   @RequestParam("page") int page,
+                                   @RequestParam("cateNo") int cateNo, // 카테고리 번호 추가
+                                   RedirectAttributes redirectAttributes) {
+        try {
+            board.setCateNo(cateNo); // 카테고리 번호 설정
+            aService.updateImageBoard(board, file);
+            redirectAttributes.addFlashAttribute("message", "게시글이 성공적으로 수정되었습니다.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "게시글 수정 중 오류가 발생했습니다: " + e.getMessage());
+        }
+        return "redirect:ImageAdmin.ad?page=" + page;
+    }
+
+    @GetMapping("deleteImageBoard.ad")
+    public String deleteImageBoard(@RequestParam("bId") int bId, @RequestParam("page") int page) {
+        aService.deleteImageBoard(bId);
+        return "redirect:ImageAdmin.ad?page=" + page;
+    }
+    
+    
+    
+    
+    @GetMapping("adminPage.ad")
+	public String AdminPage(Model model, 
+			@RequestParam(value="page", defaultValue="1") int currentPage,
+			@RequestParam(value="searchKeyword", required = false) String searchKeyword
+			) {
+    	
+		//유저 수 세기
+    	int listCount = aService.getUserListCount(searchKeyword);
+    	
+	    PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
+	    
+	    // 검색 결과 리스트 가져오기
+	    ArrayList<Member> list = aService.selectUserList(pi,searchKeyword);
+
+	    if(list != null && !list.isEmpty()) {
+	        for (Member member : list) {	
+	            int postCount = aService.countMemberPost(member.getUserNo());
+	            int replyCount = aService.countMemberReply(member.getUserNo());
+	            member.setPostCount(postCount);
+	            member.setReplyCount(replyCount);
+	        }
+	        model.addAttribute("list", list);
+	        model.addAttribute("pi", pi);
+	        model.addAttribute("searchKeyword", searchKeyword);
+	        
+	        return "adminPage";
+	    } else {
+            throw new MemberException("회원 불러오기를 실패했습니다.");
+	    }
+	}	
 	
-	@GetMapping("AdminPage.ad")
-	public String AdminPage(Model model) {
-		ArrayList<Member>list = aService.selectMember();
+	@PostMapping("updateMemberStatus.adm")
+    @ResponseBody
+    public String updateMemberStatus(@RequestParam("userId") String userId, @RequestParam("userStatus") String userStatus) {
+        Member member = new Member();
+        member.setUserId(userId);
+        member.setUserStatus(userStatus);
+
+        int result = aService.updateMemberStatus(member);
+
+        return result == 1 ? "success" : "fail";
+    }
 	
-		for (Member member : list) {
-			
-			int postCount = aService.countMemberPost(member.getUserNo());
-			int ReplyCount = aService.countMemberReply(member.getUserNo());
-			member.setPostCount(postCount);
-			member.setReplyCount(ReplyCount);
-		}
-		model.addAttribute("list",list);
-		
-		return "adminPage";
-	}
-	
-	@GetMapping("writeImageAdmin.ad")
-	public String writeImageAdmin() {
-		return "writeImageAdmin";
-	}
+	@PostMapping("updateAdminStatus.adm")
+    @ResponseBody
+    public String updateAdminStatus(@RequestParam("userId") String userId, @RequestParam("isAdmin") String isAdmin) {
+        Member member = new Member();
+        member.setUserId(userId);
+        member.setIsAdmin(isAdmin);
+
+        int result = aService.updateAdminStatus(member);
+
+        return result == 1 ? "success" : "fail";
+    }
 	
 	// 검색기능 / import 바람
 	@GetMapping("searchList.ad")
@@ -381,58 +583,72 @@ public class AdminController {
 	    }
 	}
 	
-	@PostMapping("insertReply.ad")
-	@ResponseBody
-	public String insertReply(@RequestParam("boardNo") int boardNo, 
-	                          @RequestParam("replyContent") String replyContent, 
-	                          HttpSession session) {
-	    Member loginUser = (Member) session.getAttribute("loginUser");
-	    if(loginUser == null) {
-	        return "login_required";
-	    }
-	    
-	    Reply reply = new Reply();
-	    reply.setBoardNo(boardNo);
-	    reply.setReContent(replyContent);
-	    reply.setReWriterNo(loginUser.getUserNo());
-	    
-	    int result = aService.insertReply(reply);
-	    
-	    if(result > 0) {
-	        // 댓글 수 갱신
-	        aService.updateReplyCount(boardNo);
-	        return "success";
-	    } else {
-	        return "fail";
-	    }
-	}
-
-	@GetMapping("getReplyList.ad")
-	@ResponseBody
-	public List<Reply> getReplyList(@RequestParam("boardNo") int boardNo) {
-	    return aService.selectReplyList(boardNo);
-	}
-
-	@PostMapping("updateReply.ad")
-	@ResponseBody
-	public String updateReply(@RequestParam("reNo") int reNo, 
-	                          @RequestParam("reContent") String reContent) {
-	    Reply reply = new Reply();
-	    reply.setReNo(reNo);
-	    reply.setReContent(reContent);
-	    
-	    int result = aService.updateReply(reply);
-	    return result > 0 ? "success" : "fail";
-	}
-
-	@PostMapping("deleteReply.ad")
-	@ResponseBody
-	public String deleteReply(@RequestParam("reNo") int reNo) {
-	    int result = aService.deleteReply(reNo);
-	    return result > 0 ? "success" : "fail";
-	}
-
-	
+	// 댓글 목록 가져오기
+    @GetMapping("getReplyList.ad")
+    @ResponseBody
+    public List<Reply> getReplyList(@RequestParam("boardNo") int boardNo) {
+        return aService.selectReplyList(boardNo);
+    }
+    
+    // 댓글 작성
+    @PostMapping("insertReply.ad")
+    @ResponseBody
+    public String insertReply(@RequestParam("boardNo") int boardNo, 
+                              @RequestParam("replyContent") String replyContent, 
+                              HttpSession session) {
+        Member loginUser = (Member) session.getAttribute("loginUser");
+        if(loginUser == null) {
+            return "login_required";
+        }
+        
+        Reply reply = new Reply();
+        reply.setBoardNo(boardNo);
+        reply.setReContent(replyContent);
+        reply.setReWriterNo(loginUser.getUserNo());
+        
+        int result = aService.insertReply(reply);
+        
+        return result > 0 ? "success" : "fail";
+    }
+    
+    // 댓글 수정
+    @PostMapping("updateReply.ad")
+    @ResponseBody
+    public String updateReply(@RequestParam("reNo") int reNo, 
+                              @RequestParam("reContent") String reContent) {
+        Reply reply = new Reply();
+        reply.setReNo(reNo);
+        reply.setReContent(reContent);
+        
+        int result = aService.updateReply(reply);
+        return result > 0 ? "success" : "fail";
+    }
+    
+    // 댓글 삭제
+    @PostMapping("deleteReply.ad")
+    @ResponseBody
+    public String deleteReply(@RequestParam("reNo") int reNo) {
+        int result = aService.deleteReply(reNo);
+        return result > 0 ? "success" : "fail";
+    }
+    
+    // 댓글 여럿 삭제
+    @PostMapping("deleteReplies.ad")
+    @ResponseBody
+    public String deleteReplies(@RequestParam("reNos") String reNos) {
+        String[] reNoArray = reNos.split(",");
+        List<Integer> reNoList = Arrays.stream(reNoArray)
+                                       .map(Integer::parseInt)
+                                       .collect(Collectors.toList());
+        
+        int result = aService.deleteReplies(reNoList);
+        
+        if(result > 0) {
+            return "success";
+        } else {
+            return "fail";
+        }
+    }
 	
 	
 	

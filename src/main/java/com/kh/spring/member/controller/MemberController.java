@@ -2,6 +2,8 @@ package com.kh.spring.member.controller;
 
 import java.io.PrintWriter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -31,6 +33,8 @@ public class MemberController {
 	@Autowired
 	BCryptPasswordEncoder bcrypt;
 	
+	private Logger logger = LoggerFactory.getLogger(MemberController.class);
+	
 	// 로그인 뷰 이동
 	@GetMapping("loginView.me")
 	public String moveLoginView(){
@@ -45,7 +49,10 @@ public class MemberController {
 	    System.out.println("DB: " + loginUser);
 	    
 	    if (loginUser != null && bcrypt.matches(m.getUserPwd(), loginUser.getUserPwd())) {
-	        model.addAttribute("loginUser", loginUser);
+	        // 로그 추가
+	    	logger.info(loginUser.getUserId());
+	    	
+	    	model.addAttribute("loginUser", loginUser);
 	        return "redirect:home.do";
 	    } else {
 	        throw new MemberException("로그인 실패");
@@ -63,8 +70,9 @@ public class MemberController {
 	public String insertMember(@ModelAttribute Member m){
 		
 		m.setUserPwd(bcrypt.encode(m.getUserPwd()));
-
+		// System.out.println(m); 아이디 들어오는지 검사
 		int result = mService.insertMember(m);
+		
 		if (result > 0) {
 			return "redirect:home.do";
 		} else {

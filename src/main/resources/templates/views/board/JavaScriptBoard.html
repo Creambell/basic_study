@@ -2,7 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
-    <title>방문자 게시판</title>
+	      <meta charset="UTF-8" /><link href="../../../static/css/pagination.css" rel="stylesheet" type="text/css">
+
+    <title>자바스크립트 게시판</title>
     <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
@@ -21,7 +23,6 @@
        
       }
 
-
       /* 메인 컨텐츠 스타일 설정 */
       .main-content-container {
         flex-grow: 1;
@@ -30,7 +31,7 @@
         justify-content: center;
         align-items: flex-start;
         overflow: auto;
-        margin-left: 470px;
+        margin-left: 600px;
       }
       .content-container {
         width: 900px;
@@ -161,120 +162,126 @@
     <div class="content-wrapper">
       <div class="main-content-container">
         <div class="content-container">
-          <h2>JavaScript 게시판</h2>
+          <h2>자바 스크립트 게시판</h2>
           <!-- 테이블 -->
           <table class="table">
-            <thead>
-              <tr>
-                <th scope="col" style="width: 3%">
-                  <input class="form-check-input" type="checkbox" id="checkAll" />
-                </th>
-                <th scope="col" style="width: 8%">글 번호</th>
-                <th scope="col" style="width: 50%">글 제목</th>
-                <th scope="col" style="width: 10%">작성자</th>
-                <th scope="col" style="width: 10%">작성일</th>
-                <th scope="col" style="width: 12%">조회수</th>
-              </tr>
-            </thead>
-            <tbody class="table-group-divider">
-              <tr>
-                <td>
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    value=""
-                    id="flexCheckDefault"
-                  />
-                </td>
-                <td scope="row">13</td>
-                <td>방문자</td>
-                <td>관리자</td>
-                <td>2024.06.18</td>
-                <td>20</td>
-              </tr>
-              <tr>
-                <td>
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    value=""
-                    id="flexCheckDefault"
-                  />
-                </td>
-                <td scope="row">12</td>
-                <td>방문자</td>
-                <td>관리자</td>
-                <td>2024.06.18</td>
-                <td>20</td>
-              </tr>
-              <tr>
-                <td>
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    value=""
-                    id="flexCheckDefault"
-                  />
-                </td>
-                <td scope="row">11</td>
-                <td>방문자</td>
-                <td>관리자</td>
-                <td>2024.06.18</td>
-                <td>20</td>
-              </tr>
-              <!-- 기존 10개의 게시글 -->
-            </tbody>
-          </table>
+				<thead>
+					<tr>
+						<th scope="col" style="width: 10%">글 번호</th>
+						<th scope="col" style="width: 40%">글 제목</th>
+						<th scope="col" style="width: 15%">작성자</th>
+						<th scope="col" style="width: 20%">작성일</th>
+						<th scope="col" style="width: 15%">조회수</th>
+					</tr>
+				</thead>
+				<tbody class="table-group-divider">
+					<tr th:each="board : ${board}">
+						<td scope="row" th:text="${board.boardNo}"></td>
+						<td th:text="${board.boardTitle}" class="board-title"
+							th:data-id="${board.boardNo}"></td>
+						<td th:text="${board.boardWriterName}"></td>
+						<td th:text="${board.updateDate}"></td>
+						<td th:text="${board.boardCount}"></td>
+					</tr>
+				</tbody>
+		  </table>
           <!-- 버튼 영역 -->
           <div class="buttons-container">
-            <button class="btn btn-primary" type="button" id="write_button">
-              쓰기
-            </button>
-            <button class="btn btn-primary" type="button" id="update_button">
-              수정
-            </button>
-            <button class="btn btn-primary" type="button" id="delete_button">
-              삭제
-            </button>
-          </div>
-          <!-- 검색 영역 -->
-          <div class="search-container">
-            <select class="form-select" aria-label="Default select example">
-              <option selected>----</option>
-              <option value="1">작성자</option>
-              <option value="2">제목</option>
-              <option value="3">글 번호</option>
-            </select>
-            <div class="search">
-              <input type="text" placeholder="검색어 입력" />
-            </div>
-            <button class="search-button">검색</button>
-          </div>
+				<button class="btn btn-primary" type="button" id="write_button"
+					th:onclick="'location.href=\'writeBoard.bo?cateNo=100\''">쓰기</button>
+				<a href="javascript:history.back();" class="btn btn-primary"
+				   style="background-color: #4caf50; border-color: white; color: white; text-align:right;">뒤로 가기 </a>
+		  </div>
+			<!-- 검색 영역 분리 완료 -->
+	      <form id="searchForm" th:action="@{/searchList.bo}" method="get">
+	          <input type="hidden" name="cateNo" value="105">
+	          <div class="search-container">
+	              <select name="condition" class="searchOption" aria-label="Default select example">
+	                 <option value="#">---</option>
+	                  <option value="title">제목</option>
+	                  <option value="content">내용</option>
+	                  <option value="writer">작성자</option>
+	              </select>
+	              <div class="search">
+	                  <input type="text" name="search" placeholder="검색어 입력" />
+	              </div>
+	              <button type="submit" class="search-button" id="searchIcon">검색</button>
+	          </div>
+	      </form>
           <!-- 페이지네이션 -->
-          <div class="pagination-container">
-            <div class="prev-button">&lt;</div>
-            <div class="number-button-wrapper">
-              <span class="number-button">1</span>
-            </div>
-            <div class="number-button-wrapper">
-              <span class="number-button">2</span>
-            </div>
-            <div class="number-button-wrapper">
-              <span class="number-button">3</span>
-            </div>
-            <div class="number-button-wrapper">
-              <span class="number-button">4</span>
-            </div>
-            <div class="number-button-wrapper">
-              <span class="number-button">5</span>
-            </div>
-            <div class="next-button">&gt;</div>
-          </div>
+		  <nav aria-label="Standard pagination example"
+			  style="float: right; margin-right: 350px;">
+			  <ul class="pagination" th:with="loc=${loc}">
+				  <li class="page-item"><a class="page-link"
+				  	  th:href="@{${loc}(page=${pi.currentPage-1})}"
+					  aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+				  </a></li>
+				  <li class="page-item"
+					  th:each="p : ${#numbers.sequence(pi.startPage, pi.endPage)}">
+					  <a class="page-link" th:href="@{${loc}(page=${p})}">[[${ p }]]</a>
+				  </li>
+				  <li class="page-item"><a class="page-link"
+					  th:href="@{${loc}(page=${pi.currentPage + 1})}" aria-label="Next">
+						  <span aria-hidden="true">&raquo;</span>
+				  </a></li>
+			  </ul>
+		  </nav>
+          
         </div>
       </div>
     </div>
-
     <!-- 푸터 추가 -->
-    <footer th:replace="~{common/footer :: footer}"></footer>
+	<footer th:replace="~{common/footer :: footer}"></footer>
+
+	<script th:inline="javascript">
+		// 검색 기능
+		document.getElementById('searchForm').addEventListener('submit', function(event) {
+		    event.preventDefault();
+		    performSearch();
+		});
+		
+		function performSearch() {
+		    const form = document.getElementById('searchForm');
+		    const condition = form.querySelector('[name="condition"]').value;
+		    const search = form.querySelector('[name="search"]').value;
+		    const cateNo = form.querySelector('[name="cateNo"]').value;
+		    const currentPage = 1; // 검색 시 첫 페이지로 이동
+		
+		    if (condition === '#' || search.trim() === '') {
+		        alert('검색 조건과 검색어를 모두 입력해주세요.');
+		        return;
+		    }
+		
+		    const url = `${form.action}?condition=${encodeURIComponent(condition)}&search=${encodeURIComponent(search)}&page=${currentPage}&cateNo=${cateNo}`;
+		    window.location.href = url;
+		}
+		
+		// 검색 버튼 클릭 이벤트
+		document.getElementById('searchIcon').addEventListener('click', function(event) {
+		    event.preventDefault();
+		    performSearch();
+		});
+		
+		// 엔터 키 이벤트
+		document.querySelector('.search input').addEventListener('keyup', function(event) {
+		    if (event.key === 'Enter') {
+		        event.preventDefault();
+		        performSearch();
+		    }
+		});
+		
+		// 게시글 제목 클릭 이벤트
+		document.addEventListener('DOMContentLoaded', function() {
+		    const boardTitles = document.querySelectorAll('.board-title');
+		    boardTitles.forEach(title => {
+		        title.addEventListener('click', function(event) {
+		            event.preventDefault();
+		            const boardNo = this.getAttribute('data-id');
+		            window.location.href = `BoardDetail.bo?bId=${boardNo}&page=1&cateNo=105`;
+		        });
+		    });
+		});
+		
+	</script>
   </body>
 </html>

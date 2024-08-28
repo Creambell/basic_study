@@ -107,12 +107,12 @@
     <div class="main-container">
         <div class="content">
             <div class="view-area">
-                <h2>| 내 정보 조회</h2>
+                <h2>내 정보 조회</h2>
                 <form action="editMyInfo.me" >
                     <label for="name">이름: [[${loginUser.userName}]]</label> 
                     <label for="id">아이디: [[${loginUser.userId}]]</label>
                     <label for="email">이메일: [[${loginUser.userEmail}]]</label>
-                    <label for="phone">휴대폰 번호: [[${loginUser.userPhone}]]</label>
+                    <label for="phone">휴대폰 번호: <span th:text="${loginUser.userPhone.substring(0, 3)} + '-' + ${loginUser.userPhone.substring(3, 7)} + '-' + ${loginUser.userPhone.substring(7)}"></span></label>
 					<label for="postCount">작성한 글: [[${postCount}]]</label>
 					<label for="postCount">작성한 댓글: [[${replyCount}]]</label>
 					<label for="userJoinDate">가입일: [[${loginUser.userJoinDate}]]</label>
@@ -124,8 +124,6 @@
                     <button id="delete_button" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     탈퇴하기
                 </button>
-                    
-                    
                 </form>
             </div>
         </div>
@@ -143,8 +141,8 @@
                                 정말 탈퇴하시겠습니까? 탈퇴 시 계정은 삭제되며 복구되지 않습니다. 
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요.</button>
-                                <button type="button" class="btn btn-primary" onclick="location.href='deleteMember.me'">네. 확인했습니다.</button>
+                                <button type="button" class="btn btn-primary" style="background-color: #FF5733; border: #FF5733;"onclick="location.href='deleteMember.me'">네. 확인했습니다.</button>
+                                <button type="button" class="btn btn-secondary" style="background-color: grey;border: grey;"data-bs-dismiss="modal">아니요.</button>
                             </div>
                         </div>
                     </div>
@@ -157,7 +155,6 @@
 </script>
 </body>
 </html>
-
 
 
 

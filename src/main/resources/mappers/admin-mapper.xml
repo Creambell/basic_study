@@ -15,6 +15,12 @@
 	    ORDER BY BOARD_NO DESC
 	</select>
 	
+	<update id="updateBoardCount" parameterType="_int">
+	    UPDATE BOARD
+	    SET BOARD_COUNT = BOARD_COUNT + 1
+	    WHERE BOARD_NO = #{bId}
+	</update>
+	
 	<select id="selectBoard" resultType="Board">
 	    SELECT *
 	    FROM board
@@ -25,17 +31,29 @@
 	    </if>
 	</select>
 	
-	<insert id="insertBoard">
+	<!-- <insert id="insertBoard">
 	    insert into board
 	    values(BOARD_SEQ.nextval, #{cateNo}, 1, #{boardWriterName},
 	    #{boardTitle}, #{boardContent}, 0, #{boardStatus},
 	    SYSDATE, SYSDATE)
-	</insert>
+	</insert> -->
 	
 	<update id="updateBoard">
-	    update board
-	    set board_title = #{boardTitle}, board_content = #{boardContent}, CREATE_DATE = sysdate, CATE_NO = #{cateNo}
-	    where board_NO = #{boardNo}
+	    UPDATE board
+	    SET board_title = #{boardTitle}, 
+	        board_content = #{boardContent}, 
+	        UPDATE_DATE = SYSDATE,
+	        CATE_NO = #{cateNo}
+	    WHERE board_NO = #{boardNo}
+	</update>
+	
+	<update id="deleteManyBoards" parameterType="java.util.List">
+	    UPDATE board
+	    SET board_status = 'N'
+	    WHERE board_NO IN
+	    <foreach item="bId" collection="list" open="(" separator="," close=")">
+	        #{bId}
+	    </foreach>
 	</update>
 	
 	<update id="deleteBoard">
@@ -62,12 +80,6 @@
 	</select>
 	<!-- 후기리스트 검색어 리스트 조회 -->
 	
-	
-	<select id="selectMember" resultType="Member">
-		select * 
-		from "USER"
-	</select>
-	
 	<!-- 아직 적는 중  -->
 	<select id="countMemberPost" resultType="int" parameterType="int"> 
 		SELECT COUNT(*) 
@@ -83,36 +95,164 @@
 		WHERE user_no = #{userNo}
 	</select>
 	
-    <!-- 댓글 목록 조회 -->
-	<select id="selectReplyList" resultType="Reply">
-	    SELECT r.RE_NO, r.RE_WRITER_NO, r.BOARD_NO, r.RE_CONTENT, 
-	           r.CREATE_DATE, r.UPDATE_DATE, r.RE_STATUS, r.REPLY_COUNT,
-	           u.USER_NAME AS RE_WRITER_NAME, b.CATE_NO
-	    FROM REPLY r
-	    JOIN "USER" u ON r.RE_WRITER_NO = u.USER_NO
-	    JOIN BOARD b ON r.BOARD_NO = b.BOARD_NO
-	    WHERE r.BOARD_NO = #{boardNo} AND r.RE_STATUS = 'Y'
-	    ORDER BY r.CREATE_DATE DESC
-	</select>
+   <!-- 댓글 목록 조회 -->
+    <select id="selectReplyList" resultType="Reply">
+        SELECT REPLY.RE_NO, REPLY.RE_WRITER_NO, REPLY.BOARD_NO, REPLY.RE_CONTENT, 
+               REPLY.CREATE_DATE, REPLY.UPDATE_DATE, REPLY.RE_STATUS, REPLY.REPLY_COUNT,
+               "USER".USER_NAME AS userName
+        FROM REPLY
+        JOIN "USER" ON REPLY.RE_WRITER_NO = "USER".USER_NO
+        WHERE REPLY.BOARD_NO = #{boardNo} AND REPLY.RE_STATUS = 'Y'
+        ORDER BY REPLY.CREATE_DATE DESC
+    </select>
+    
+    <!-- 댓글 작성 -->
+    <insert id="insertReply">
+        INSERT INTO REPLY (RE_NO, RE_WRITER_NO, BOARD_NO, RE_CONTENT, CREATE_DATE, UPDATE_DATE, RE_STATUS, REPLY_COUNT)
+        VALUES (REPLY_SEQ.NEXTVAL, #{reWriterNo}, #{boardNo}, #{reContent}, SYSDATE, SYSDATE, 'Y', 0)
+    </insert>
+    
+    <!-- 댓글 수정 -->
+    <update id="updateReply">
+        UPDATE REPLY
+        SET RE_CONTENT = #{reContent}, UPDATE_DATE = SYSDATE
+        WHERE RE_NO = #{reNo}
+    </update>
+    
+    <!-- 댓글 삭제 -->
+    <update id="deleteReply">
+        UPDATE REPLY
+        SET RE_STATUS = 'N'
+        WHERE RE_NO = #{reNo}
+    </update>
 	
-	<!-- 댓글 삽입 -->
-	<insert id="insertReply">
-	    INSERT INTO REPLY (RE_NO, RE_WRITER_NO, BOARD_NO, RE_CONTENT, CREATE_DATE, UPDATE_DATE, RE_STATUS, REPLY_COUNT)
-	    VALUES (REPLY_SEQ.NEXTVAL, #{reWriterNo}, #{boardNo}, #{reContent}, SYSDATE, SYSDATE, 'Y', default)
+	 <!-- 여러 댓글 삭제 -->
+    <update id="deleteReplies" parameterType="java.util.List">
+        UPDATE REPLY
+        SET RE_STATUS = 'N'
+        WHERE RE_NO IN
+        <foreach item="reNo" collection="list" open="(" separator="," close=")">
+            #{reNo}
+        </foreach>
+    </update>
+	
+	<!-- 지금 작업 중 -->
+<!-- 	<select id="getUserListCount" resultType="int"> -->
+<!-- 		select count(*)  -->
+<!-- 		from "USER" -->
+<!-- 		order by user_no desc -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="selectMember" resultType="Member"> -->
+<!-- 		select *  -->
+<!-- 		from "USER" -->
+<!-- 		order by user_no DESC -->
+<!-- 	</select> -->
+<select id="getUserListCount" resultType="int">
+    SELECT COUNT(*)
+    FROM "USER"
+    <where>
+        <if test="searchKeyword != null and searchKeyword != ''">
+            user_name LIKE '%' || #{searchKeyword} || '%'
+        </if>
+    </where>
+</select>
+
+<select id="selectUserList" resultType="Member">	
+    SELECT *
+    FROM "USER"
+    <where>
+        <if test="searchKeyword != null and searchKeyword != ''">
+            user_name LIKE '%' || #{searchKeyword} || '%'
+        </if>
+    </where>    
+    ORDER BY user_no DESC
+</select>
+
+	
+	<update id="updateMemberStatus">
+	    UPDATE "USER"
+	    SET USER_STATUS = #{userStatus}
+	    WHERE USER_ID = #{userId}
+	</update>
+	
+	<update id="updateAdminStatus">
+       UPDATE "USER"
+       SET is_admin = #{isAdmin}
+       WHERE USER_ID = #{userId}
+   </update>
+	
+	
+	<!-- 이미지 -->
+	<resultMap id="imageResultMap" type="Image">
+        <id property="imgNo" column="IMG_NO"/>
+        <result property="boardNo" column="BOARD_NO"/>
+        <result property="imgPath" column="IMG_PATH"/>
+        <result property="imgName" column="IMG_NAME"/>
+        <result property="imgRename" column="IMG_RENAME"/>
+        <result property="imgActive" column="IMG_ACTIVE"/>
+        <result property="imgRefNum" column="IMG_REF_NUM"/>
+        <result property="imgRefType" column="IMG_REF_TYPE"/>
+        <result property="imgTitle" column="IMG_TITLE"/>
+    </resultMap>
+
+    <select id="selectImageList" resultMap="imageResultMap">
+        SELECT *
+        FROM IMAGE
+        WHERE IMG_ACTIVE = 'Y'
+        ORDER BY IMG_NO DESC
+    </select>
+
+	<insert id="insertBoard" parameterType="Board">
+	    <selectKey keyProperty="boardNo" resultType="int" order="BEFORE">
+	        SELECT BOARD_SEQ.NEXTVAL FROM DUAL
+	    </selectKey>
+	    INSERT INTO BOARD (BOARD_NO, CATE_NO, BOARD_WRITER_NO, BOARD_WRITER_NAME,
+	    BOARD_TITLE, BOARD_CONTENT, BOARD_COUNT, BOARD_STATUS, CREATE_DATE, UPDATE_DATE)
+	    VALUES (#{boardNo}, #{cateNo}, #{boardWriterNo}, #{boardWriterName},
+	    #{boardTitle}, #{boardContent}, 0, #{boardStatus}, SYSDATE, SYSDATE)
 	</insert>
 	
-	<!-- 게시글별 댓글 수 갱신 -->
-	<update id="updateReplyCount">
-	    UPDATE BOARD
-	    SET REPLY_COUNT = (
-	        SELECT COUNT(*)
-	        FROM REPLY
-	        WHERE BOARD_NO = #{boardNo} AND RE_STATUS = 'Y'
+	<insert id="insertImage" parameterType="Image">
+	    INSERT INTO IMAGE (IMG_NO, BOARD_NO, IMG_PATH, IMG_NAME, IMG_RENAME, IMG_ACTIVE, IMG_REF_TYPE, IMG_TITLE)
+	    VALUES (
+	        (SELECT NVL(MAX(IMG_NO), 0) + 1 FROM IMAGE),
+	        #{boardNo},
+	        #{imgPath},
+	        #{imgName},
+	        #{imgRename},
+	        #{imgActive},
+	        #{imgRefType},
+	        #{imgTitle}
 	    )
+	</insert>
+
+	<select id="getMainImageForBoard" resultType="Image">
+	    SELECT * FROM IMAGE
+	    WHERE BOARD_NO = #{boardNo} AND IMG_TITLE = 1
+	    AND ROWNUM = 1
+	</select>
+	    
+    <select id="selectImage" parameterType="int" resultMap="imageResultMap">
+	    SELECT *
+	    FROM IMAGE
+	    WHERE BOARD_NO = #{bId} AND IMG_ACTIVE = 'Y'
+	</select>
+
+	<delete id="deleteImage">
+	    DELETE FROM IMAGE WHERE BOARD_NO = #{boardNo}
+	</delete>
+	
+	<update id="updateImageBoard">
+	    UPDATE BOARD
+	    SET BOARD_TITLE = #{boardTitle}, BOARD_CONTENT = #{boardContent}, UPDATE_DATE = SYSDATE
 	    WHERE BOARD_NO = #{boardNo}
 	</update>
-
-
 	
-
+	<select id="selectImageBoard" resultType="Board">
+	    SELECT *
+	    FROM board
+	    WHERE BOARD_STATUS = 'Y' AND BOARD_NO = #{bId} AND CATE_NO = 101
+	</select>
+	
 </mapper>

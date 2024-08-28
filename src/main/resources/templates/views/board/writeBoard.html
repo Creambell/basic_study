@@ -67,34 +67,58 @@
 
 	<div th:replace="~{common/header :: header}"></div>
 
-<div class="bmain">
-    <form th:action="@{insertBoard}" method="post">
-        <div class="bheader">
-            <input type="text" name="title" placeholder="게시글 제목" required>
-            <span th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"></span>
-        </div>
+	<div class="bmain">
+		<form th:action="@{insertBoard.bo}" method="post">
+			<input type="hidden" name="cateNo" th:value="${cateNo}" />
+			<div class="bheader">
+				<input type="text" name="boardTitle" placeholder="게시글 제목" required>
+				<span th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"></span>
+			</div>
 
-        <textarea class="bcontainer" name="content" required></textarea>
-        
-        <div class="bheader">
-            <div></div>
-            <div>
-                <button type="submit" class="btng" style='padding:10px;'>쓰기</button>
-                <button type="button" class="btnd" style='padding:10px;' onclick="history.back()">취소</button>
-            </div>
-        </div>
-    </form>
-</div>
+			<textarea class="bcontainer" name="boardContent" required></textarea>
 
-<br><br><br><br><br>
- 
-	<div style='text-align:right; padding-right: 120px;'>
-    	<a href="javascript:history.back();" class="btng" style='padding:10px;'>뒤로가기</a>
-    </div>
+			<div class="bheader">
+				<div></div>
+				<div>
+					<button type="submit" class="btng" style='padding: 10px;'>쓰기</button>
+					<button type="button" class="btnd" style='padding: 10px;'
+						onclick="history.back()">취소</button>
+				</div>
+			</div>
+		</form>
+	</div>
 
-<br><br><br><br><br>
-<div>
-	<div th:replace="~{common/footer :: footer}"></div>
-</div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+
+	<div style='text-align: right; padding-right: 120px;'>
+		<a href="javascript:history.back();" class="btng"
+			style='padding: 10px;'>뒤로가기</a>
+	</div>
+
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<div>
+		<div th:replace="~{common/footer :: footer}"></div>
+	</div>
+
+	<script th:inline="javascript">
+/*<![CDATA[*/
+    // 페이지 로드 시 URL에서 cateNo 파라미터를 가져와 hidden input에 설정
+    window.onload = function() {
+        var urlParams = new URLSearchParams(window.location.search);
+        var cateNo = urlParams.get('cateNo');
+        if(cateNo) {
+            document.querySelector('input[name="cateNo"]').value = cateNo;
+        }
+    }
+/*]]>*/
+</script>
 </body>
 </html>

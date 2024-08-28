@@ -14,7 +14,7 @@
   <insert id="insertMember">
 		insert into "USER"
 		values(USER_SEQ.NEXTVAL, #{userName}, #{userId}, #{userPwd}, #{userEmail}, 
-		#{userPhone}, default, default, sysdate) 
+		#{userPhone}, default, default, sysdate, default) 
   </insert>
 	
   

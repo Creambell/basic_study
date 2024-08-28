@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="pagination">
+
+
+<style>
+
+/* 페이지네이션 스타일 설정 */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+}
+
+.page-item {
+    margin: 0 5px;
+}
+
+.page-link {
+    color: black !important; 
+    background-color: transparent !important; 
+    border: none !important; 
+    padding: 5px 10px;
+}
+
+.page-link:hover {
+    text-decoration: underline;
+}
+
+.page-item.active .page-link {
+    font-weight: bold !important;
+    text-decoration: underline; 
+    color: tomato !important;
+}
+
+.page-item:first-child .page-link,
+.page-item:last-child .page-link {
+    border: 1px solid #dee2e6 !important;
+    border-radius: 5px; 
+}
+
+
+
+</style>
+<body>
+    <div class="pagination-container">
+			    <nav aria-label="Standard pagination example">
+			        <ul class="pagination" th:with="loc=${loc}">
+			            <li class="page-item" th:classappend="${p == pi.currentPage} ? 'active' : ''"
+			            >
+			                <a class="page-link"
+			                   th:href="@{${loc}(page=${pi.currentPage > 1 ? pi.currentPage - 1 : 1})}"
+			                   th:onclick="return ${pi.currentPage > 1}" aria-label="Previous">
+			                    <span aria-hidden="true">&laquo;</span>
+			                </a>
+			            </li>
+			            <li class="page-item" th:classappend="${p == pi.currentPage} ? 'active' : ''"
+			                th:each="p : ${#numbers.sequence(pi.startPage, pi.endPage)}">
+			                <a class="page-link" th:href="@{${loc}(page=${p})}">[[${p}]]</a>
+			            </li>
+			            <li class="page-item" th:classappend="${p == pi.currentPage} ? 'active' : ''">
+			                <a class="page-link"
+			                   th:href="@{${loc}(page=${pi.currentPage < pi.maxPage ? pi.currentPage + 1 : pi.maxPage})}"
+			                   th:onclick="return ${pi.currentPage < pi.maxPage}" aria-label="Next">
+			                    <span aria-hidden="true">&raquo;</span>
+			                </a>
+			            </li>
+			        </ul>
+			    </nav>
+			</div>
+</body>
+</html>

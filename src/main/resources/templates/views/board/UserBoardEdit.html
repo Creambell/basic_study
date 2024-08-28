@@ -82,7 +82,7 @@
 			<h2>바꿀 제목과 내용을 적어주세요.</h2>
 		</div>
 		<div>
-			<form th:action="@{/updateBoard.ad}" method="post" id="editForm">
+			<form th:action="@{/updateBoard.bo}" method="post" id="editForm">
 				<input type="hidden" name="boardNo" th:value="${board.boardNo}">
 				<input type="hidden" name="page" th:value="${page}"> <input
 					type="hidden" name="cateNo" th:value="${board.cateNo}"> <input
@@ -113,28 +113,28 @@
 		    function redirectToBoard() {
 		        switch(cateNo) {
 		            case 100:
-		                window.location.href = '/UserAdmin.ad';
+		                window.location.href = '/UserBoard.bo';
 		                break;
 		            case 102:
-		                window.location.href = '/SpringAdmin.ad';
+		                window.location.href = '/SpringBoard.bo';
 		                break;
 		            case 103:
-		                window.location.href = '/SpringBootAdmin.ad';
+		                window.location.href = '/SpringBootBoard.bo';
 		                break;
 		            case 104:
-		                window.location.href = '/JavaAdmin.ad';
+		                window.location.href = '/JavaBoard.bo';
 		                break;
 		            case 105:
-		                window.location.href = '/JavaScriptAdmin.ad';
+		                window.location.href = '/JavaScriptBoard.bo';
 		                break;
 		            case 106:
-		                window.location.href = '/ErrorAdmin.ad';
+		                window.location.href = '/ErrorBoard.bo';
 		                break;
 		            case 107:
 		                window.location.href = '/BloggerBoard.ad';
 		                break;
 		            default:
-		                window.location.href = '/UserAdmin.ad';
+		                window.location.href = '/UserBoard.bo';
 		        }
 		    }
 		

@@ -25,4 +25,5 @@ public class Board {
     private String boardStatus;
     private Date createDate;
     private Date updateDate;
+    private String imageUrl;
 }

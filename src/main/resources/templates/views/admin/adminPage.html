@@ -50,13 +50,16 @@
         }
         /* 메인 컨텐츠 스타일 설정 */
         .main-container {
+        	margin-bottom: 120px;
             width: 100%;
             flex-grow: 1;
             padding: 20px;
-            padding-bottom: 100px;
             display: flex;
             justify-content: center;
             align-items: flex-start;
+            
+           	margin-bottom: 120px;
+            
         }
         .container {
             width: 100% !important;	
@@ -179,193 +182,273 @@
             background-color: grey;	
         }
     </style>
-    <title>방문자 게시판</title>
+    <title>회원 관리</title>
 </head>
 <body>
     <div th:replace="~{common/header :: header}"></div>
     <!-- 사이드바 -->
-    <aside class="sidebar">
-        <h3>관리자메뉴</h3>
-        <ul>
-            <li><a href="#">방문자게시판</a></li>
-            <li><a href="#">Image</a></li>
-            <li><a href="#">Spring</a></li>
-            <li><a href="#">Java</a></li>
-            <li><a href="#">JavaScript</a></li>
-            <li><a href="#" class="active">Error 모음집</a></li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    회원정보수정
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="userDropdown" style="background-color: grey;">
-                    <li><a class="dropdown-item" href="#">회원관리</a></li>
-                    <li><a class="dropdown-item" href="#">게시글 관리</a></li>
-                    <li><a class="dropdown-item" href="#">댓글 관리</a></li>
-                    <!--회원이 다른 게시글이나 댓글을 신고할 수 있다. 신고하면 카운트가 쌓이고, 이걸 정리하는 곳.-->
-                    <!--신고당한 게시글, 댓글은 테이블에 분류된다. 신고처리가 5번 이상이면 회원 이름 부분이 빨간 색으로 변함-->
-                    <!--5번 이상인 회원은 탈퇴처리되게 함. -->
-                    <!--블로그에 들어가면 팝업이 떠서 신고누적으로 인한 탈퇴처리 안내함. -->
-                    <!--공지와 관련한 별도 게시판도 하나 만들자. -->
-                    <!-- 팝업은 팝업인데, 그간 누적된 공지 보여주는 게시판도 하나 있긴 해야할거같음. -->
-                    <li><a class="dropdown-item" href="#">신고 처리</a></li> 
-                     
-                </ul>
-            </li>
-        </ul>	
-    </aside>
+	<aside class="sidebar">
+	    <h3>관리자메뉴</h3>
+	    <ul>
+	        <li><a href="UserAdmin.ad">방문자 게시판</a></li>
+	        <li><a href="ImageAdmin.ad">Image</a></li>
+	        <li><a href="SpringAdmin.ad">Spring</a></li>
+	        <li><a href="SpringBootAdmin.ad">SpringBoot</a></li>
+	        <li><a href="JavaAdmin.ad">Java</a></li>
+	        <li><a href="JavaScriptAdmin.ad">JavaScript</a></li>
+	        <li><a href="ErrorAdmin.ad">Error 모음집</a></li>
+	        <li><a href="BloggerBoard.ad">블로거 게시판</a></li>
+	         <li><a href="adminPage.ad" class="active">회원관리</a></li>
+	      </ul>
+	</aside>
     <!-- 메인 컨텐츠 -->
     <article class="main-container">
         <div class="container">
             <h2 id="board-title"> 회원 관리</h2>
             
-            <!-- 내 정보 -->
-<!--             <table class="my table"> -->
-<!--             	<thead> -->
-<!--                     <tr>  -->
-<!--                         <th scope="col" style="width: 5%;">회원 ID</th> -->
-<!--                         <th scope="col" style="width: 5%;">이름</th> -->
-<!--                         <th scope="col" style="width: 10%">이메일</th> -->
-<!--                         <th scope="col" style="width: 6%;">작성한 글</th> -->
-<!--                         <th scope="col" style="width: 6%">작성한 댓글</th> -->
-<!--                         <th scope="col" style="width: 8%">활성화 여부</th> -->
-<!--                         <th scope="col" style="width: 8%">블로거 여부</th> -->
-<!--                         <th scope="col" style="width: 10%">가입일자</th> -->
-<!--                     </tr> -->
-<!--                 </thead> -->
-<!-- 	            	<tr> -->
-<!--                         <td>[[${session.loginUser.userId}]]</td> -->
-<!--                         <td>[[${session.loginUser.userName}]]</td> -->
-<!--                         <td>[[${session.loginUser.userEmail}]]</td> -->
-<!--                         <td>[[${session.loginUser.postCount}]]개</td> -->
-<!--                         <td>[[${session.loginUser.replyCount}]]개</td> -->
-<!--                         <td> -->
-<!--                             <button class="yes-or-no" style="background-color:green">Y</button> -->
-<!--                             <button class="yes-or-no" style="background-color:red">N</button> -->
-<!--                         </td> -->
-<!--                         <td> -->
-<!--                             <button class="yes-or-no" style="background-color:green">Y</button> -->
-<!--                             <button class="yes-or-no" style="background-color:red">N</button> -->
-<!--                         </td> -->
-<!--                         <td>[[${session.loginUser.userJoinDate}]]</td> -->
-<!--                   </tr> -->
-<!--             </table> -->
-<!--             <br><hr><br> -->
-            
             <!-- 회원 정보 -->
             <table class="table">
                 <thead>
                     <tr> 
-                        <th scope="col" style="width: 3%"><input class="form-check-input" type="checkbox" id="checkAll"></th>
                         <th scope="col" style="width: 5%;">회원 ID</th>
                         <th scope="col" style="width: 5%;">이름</th>
                         <th scope="col" style="width: 10%">이메일</th>
                         <th scope="col" style="width: 6%;">작성한 글</th>
                         <th scope="col" style="width: 6%">작성한 댓글</th>
-                        <th scope="col" style="width: 8%">활성화 여부</th>
-                        <th scope="col" style="width: 8%">블로거 여부</th>
-                        <th scope="col" style="width: 10%">가입일자</th>
+                        <th scope="col" style="width: 8%">회원 상태</th>
+                        <th scope="col" style="width: 6%">블로거 설정</th>
+                        <th scope="col" style="width: 10%">휴대폰 번호</th>
+                        <th scope="col" style="width: 6%">가입일자</th>
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
                     <tr th:each="m:${list}" >
-                        <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
                         <td>[[${m.userId}]]</td>
                         <td>[[${m.userName}]]</td>
                         <td>[[${m.userEmail}]]</td>
                         <td>[[${m.postCount}]]개</td>
                         <td>[[${m.replyCount}]]개</td>
                         <td>
-                            <button class="yes-or-no" style="background-color:green">Y</button>
-                            <button class="yes-or-no" style="background-color:red">N</button>
+                       <div class="form-check form-switch">
+					        <input class="form-check-input status-switch" id="statusSwitch" type="checkbox" role="switch" style="background-color: orange; border:grey;" 
+					               
+					               th:id="${'flexSwitchCheck' + m.userId}"
+					               
+					               th:checked="${m.userStatus == 'Y'}"
+					               
+					               th:data-userId="${m.userId}"
+					               >
+					        <label class="form-check-label" th:for="${'flexSwitchCheck' + m.userId}">
+					            활성화 여부
+					        </label>
+					    </div>
                         </td>
-                        <td>
-                            <button class="yes-or-no" style="background-color:green">Y</button>
-                            <button class="yes-or-no" style="background-color:red">N</button>
+                        <td>	
+                            <input class="form-check-input admin-switch" id="adminSwitch" type="checkbox"  style="background-color: orange; border:grey; zoom:1.7;" 
+					               
+					               th:id="${'flexSwitchCheck' + m.userId}"
+					               
+					               th:checked="${m.isAdmin == 'Y'}"
+					               
+					               th:data-userId="${m.userId}"
+					               >
                         </td>
+						<td ><span th:text="${m.userPhone.substring(0, 3)} + '-' + ${m.userPhone.substring(3, 7)} + '-' + ${m.userPhone.substring(7)}"></span>
+						</td>
                         <td>[[${m.userJoinDate}]]</td>
                     </tr>
-
                 </tbody>
             </table>
-            <div class="buttons-container">
-                <button class="btn btn-success" type="button" id="write_button">저장</button>
+            
+            <!--  모달 -->
+         	 <div class="buttons-container">
+<!--                 <button class="btn btn-success" type="button" id="write_button">저장</button> -->
                 <!-- Button trigger modal -->
-                <button id="delete_button" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    탈퇴
-                </button>
-                <!-- 모달 부분 회원 상세조회 페이지로 넘길거임  -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!--                 <button id="delete_button" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#statusModal"> -->
+<!--                     탈퇴 -->
+<!--                 </button> -->
+            <!-- userStatus 상태 변경  -->
+                <div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel"><i class="fa-solid fa-triangle-exclamation fa-beat"></i> 경고</h5>
+                                <h5 class="modal-title" id="statusModalLabel"><i class="fa-solid fa-triangle-exclamation fa-beat"></i> 경고</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                회원을 정말 탈퇴시키겠습니까?	
+                                해당 회원의 상태를 변경하시겠습니까?	
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요.</button>
-                                <button type="button" class="btn btn-primary">네. 확인했습니다.</button>
+                                <button type="button" class="btn btn-primary" style="background-color: #FF5733; border: #FF5733;">네. 변경하겠습니다.</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color: grey;border: grey;">아니요.</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+				<!-- isAdmin 권한 부여 -->                
+                <div class="modal fade" id="adminModal" tabindex="-1" aria-labelledby="adminModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="adminModalLabel"><i class="fa-solid fa-triangle-exclamation fa-beat"></i> 경고</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                해당 회원의 블로거 권한을 변경하시겠습니까?	
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" style="background-color: #FF5733; border: #FF5733;">네. 변경하겠습니다.</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color: grey;border: grey;">아니요.</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            
+            <!-- 검색 폼 -->
+		 <form>           
             <div class="search-container">
                 <div class="search">
-                    <input type="text" placeholder="이름으로 검색해주세요.">
+            <input type="text" name="searchKeyword" th:value="${searchKeyword}" placeholder="이름을 입력해주세요.">
                 </div>
                 <button class="search-button">검색</button>
-            </div>
-            <div class="pagination-container">
-                <div class="prev-button">&lt;</div>
-                <div class="number-button-wrapper">
-                    <span class="number-button">1</span>
-                </div>
-                <div class="number-button-wrapper">
-                    <span class="number-button">2</span>
-                </div>
-                <div class="number-button-wrapper">
-                    <span class="number-button">3</span>
-                </div>
-                <div class="number-button-wrapper">
-                    <span class="number-button">4</span>
-                </div>
-                <div class="number-button-wrapper">
-                    <span class="number-button">5</span>
-                </div>
-                <div class="next-button">&gt;</div>
-            </div>
-        </div>
-    </article>
-    <div th:replace="~{common/footer :: footer}"></div>
+           </div>
+         </form> 
+         
+	<div th:replace="~{common/pagination :: pagination}"></div>
+		
+		</div>
+    </article>    
+  	<div th:replace="~{common/footer :: footer}"></div>
+  	
     <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 회원 상태 변경.
+        const statusSwitches = document.querySelectorAll('.status-switch');
+
+        // 블로거 권한 부여.
+        const adminSwitches = document.querySelectorAll('.admin-switch');
         
-    	// 드롭다운 
-    	document.addEventListener('click', function (e) {
-            const target = e.target;
-            if (target.classList.contains('dropdown-toggle')) {
-                const dropdown = new bootstrap.Dropdown(target);
-                dropdown.toggle();
-            }
+        // 모달 창
+        const statusModal = new bootstrap.Modal(document.getElementById('statusModal'));
+        const adminModal = new bootstrap.Modal(document.getElementById('adminModal'));
+
+        let currentSwitch = null;
+
+        // 회원 상태 변경 이벤트
+        statusSwitches.forEach(statusSwitch => {
+            statusSwitch.addEventListener('click', function(e) {
+                e.preventDefault();
+                currentSwitch = this;
+                statusModal.show();
+            });
         });
-        document.addEventListener('click', function (e) {
-            const target = e.target;
-            if (target.classList.contains('dropdown-menu')) {	
-                const dropdown = new bootstrap.Dropdown(target);
-                dropdown.toggle();
-            }
+
+        // 블로거 권한 부여 이벤트
+        adminSwitches.forEach(adminSwitch => {
+            adminSwitch.addEventListener('click', function(e) {
+                e.preventDefault();
+                currentSwitch = this;
+                adminModal.show();
+            });
         });
-        
+
+        // 모달의 "네" 버튼에 이벤트 리스너 추가 (회원 상태 변경)
+        const confirmStatusButton = document.querySelector('#statusModal .btn-primary');
+        confirmStatusButton.onclick = () => {
+            if (currentSwitch) {
+                const userId = currentSwitch.getAttribute('data-userId');
+                const newStatus = currentSwitch.checked ? 'N' : 'Y';
+
+                // AJAX 요청 (회원 상태 변경)
+                $.ajax({
+                    url: 'updateMemberStatus.adm',
+                    method: 'POST',
+                    data: {
+                        userId: userId,
+                        userStatus: newStatus
+                    },
+                    success: function(response) {
+                        if (response === 'success') {
+                            currentSwitch.checked = !currentSwitch.checked;
+                            statusModal.hide();
+                        } else {
+                            alert('회원 상태 변경에 실패했습니다.');
+                        }
+                    },
+                    error: function() {
+                        alert('서버 오류가 발생했습니다.');
+                    }
+                });
+            }
+            statusModal.hide();
+        };
+
+        // 모달의 "네" 버튼에 이벤트 리스너 추가 (블로거 권한 부여)
+        const confirmAdminButton = document.querySelector('#adminModal .btn-primary');
+        confirmAdminButton.onclick = () => {
+            if (currentSwitch) {
+                const userId = currentSwitch.getAttribute('data-userId');
+                const isAdmin = currentSwitch.checked ? 'N' : 'Y';
+
+                // AJAX 요청 (블로거 권한 부여)
+                $.ajax({
+                    url: 'updateAdminStatus.adm',
+                    method: 'POST',
+                    data: {
+                        userId: userId,
+                        isAdmin: isAdmin
+                    },
+                    success: function(response) {
+                        if (response === 'success') {
+                            currentSwitch.checked = !currentSwitch.checked;
+                            adminModal.hide();
+                        } else {
+                            alert('블로거 권한 변경에 실패했습니다.');
+                        }
+                    },
+                    error: function() {
+                        alert('서버 오류가 발생했습니다.');
+                    }
+                });
+            }
+            adminModal.hide();
+        };
+
+        // 모달의 "아니요" 버튼과 닫기 버튼에 이벤트 리스너 추가
+        const cancelStatusButton = document.querySelector('#statusModal .btn-secondary');
+        const closeStatusButton = document.querySelector('#statusModal .btn-close');
+        const cancelAdminButton = document.querySelector('#adminModal .btn-secondary');
+        const closeAdminButton = document.querySelector('#adminModal .btn-close');
+
+        const closeModal = () => {
+            currentSwitch = null;
+        };
+
+        cancelStatusButton.onclick = closeModal;
+        closeStatusButton.onclick = closeModal;
+        cancelAdminButton.onclick = closeModal;
+        closeAdminButton.onclick = closeModal;
+    });
         // 검색 AJAX로 구현하자
         
         
-        
-        
-        
-        
-        
+    	
+    document.addEventListener('click', function (e) {
+    const target = e.target;
+    if (target.classList.contains('dropdown-toggle')) {
+        const dropdown = new bootstrap.Dropdown(target);
+        dropdown.toggle();
+    	}
+    });
+    document.addEventListener('click', function (e) {
+        const target = e.target;
+        if (target.classList.contains('dropdown-menu')) {	
+            const dropdown = new bootstrap.Dropdown(target);
+            dropdown.toggle();
+        }
+    });
         
         
         

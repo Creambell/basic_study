@@ -6,7 +6,7 @@
 <style>
     .bmain {
         width: 900px;
-        height: auto;
+        height: 450px;
         margin: 0 auto;
         margin-top : 80px;
         background-color:white;
@@ -25,23 +25,28 @@
         border-radius: 25px;
     }
     .bbuttons {
-        text-align: center;
-        margin-bottom: 20px;
-        
-    }
+	    display: flex;
+	    justify-content: flex-end;
+	    gap: 10px; /* 버튼 간 간격 조정 */
+	    margin-bottom: 20px;
+	}
+	
+	.btnd {
+	    padding: 10px;
+	    background-color: #E57373;
+	    color: white;
+	    cursor: pointer;
+	    text-decoration: none;
+	    border-radius: 5px;
+	    font-size:20px;
+	}
     .btng {
         border: 1px solid #ccc;
-        padding: 5px 10px;
+        padding: 10px 20px;
         cursor: pointer;
         background-color: #4CAF50;
         color:white;
-    }
-    .btnd{
-    	border: 1px solid #ccc;
-        padding: 5px 10px;
-        cursor: pointer;
-        background-color: #E57373;
-        color:white;
+        font-size:20px;
     }
     .btnw{
     	border: 1px solid #ccc;
@@ -55,51 +60,36 @@
     }
     textarea {
         width: 100%;
+        height: 250px;
         resize: none;
     }
     .bnameop{
     	margin-left:550px;
     	margin-bottom: 5px;
     }
+    
+    
 </style>
 </head>
 <body>
 
 	<div th:replace="~{common/header :: header}"></div>
 
-<div class="bmain">
-    <div class="bheader">
-        <span>게시글 제목</span>
-        <span>이름 / 2023-02-14</span>
-    </div>
-    
-    <textarea class="bcontainer">
-    	
-    </textarea>
-    <div class="bheader">
-    <div class="bbuttons">
-	        <input class="form-control" width='100px' type="file" id="formFile" name='img'>
-	    </div>
-	    <div>
-	        <button type="button" class="btng" style='padding:10px;'>쓰기</button>
-	        <button type="button" class="btnd" style='padding:10px;'>삭제</button>
-	    </div>	
-    </div>
-	
-	<div class="writeButton" style='text-align:right; margin-top:30px;'>
-		<p>수정  페이지 클릭시 
-	    <button type="button" class="btnw" style='padding:10px;'>수정</button>
-	    <button type="button" class="btnd" style='padding:10px;'>삭제</button>
-    </div>
-</div>
-
-<br><br><br><br><br>
- 
-	<div style='text-align:right; padding-right: 120px;'>
-    	<a href="javascript:history.back();" class="btng" style='padding:10px;'>뒤로가기</a>
+	<div class="bmain">
+        <h2>이미지 게시글을 작성해주세요.</h2>
+        <div class="boardimg">
+		    <form th:action="@{/insertImageBoard.ad}" method="post" enctype="multipart/form-data">
+		        <input type="text" name="boardTitle" id="boardTitle" placeholder="제목" required>
+		        <textarea name="boardContent" id="boardContent" placeholder="내용" required></textarea>
+		        <input type="file" name="file" required>
+		        <div class="bbuttons" style="display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 20px;">
+		            <button type="submit" class="btng">등록</button>
+		            <a href="javascript:history.back();" class="btnd" style="padding: 10px;">뒤로가기</a>
+		        </div>
+		    </form>
+		</div>
     </div>
 
-<br><br><br><br><br>
 <div>
 	<div th:replace="~{common/footer :: footer}"></div>
 </div>

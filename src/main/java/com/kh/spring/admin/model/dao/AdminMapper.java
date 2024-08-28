@@ -7,8 +7,10 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.spring.board.model.vo.Board;
+import com.kh.spring.board.model.vo.Image;
 import com.kh.spring.board.model.vo.Reply;
 import com.kh.spring.member.model.vo.Member;
 
@@ -25,14 +27,10 @@ public interface AdminMapper {
 
 	int updateBoard(Board b);
 
-	int deleteBoard(int bId);
-
 	int listSearchCount(HashMap<String, Object> map);
 
 	ArrayList<Board> searchQuBoBoard(HashMap<String, Object> map, RowBounds rowBounds);
 
-	ArrayList<Member> selectMember();
-	
 	int countMemberPost(int i);
 
 	int countMemberReply(int i);
@@ -45,9 +43,42 @@ public interface AdminMapper {
 
 	int updateReply(Reply reply); // 추후 사용가능할수도?
 
-	int deleteReplies(List<Integer> replyIds);
-
 	int deleteReply(int reNo);
 
 	void updateReplyCount(int boardNo);
+	
+	int updateMemberStatus(Member member);
+
+//	int getUserListCount();
+	
+//	ArrayList<Member> selectMember(RowBounds rowBounds);
+	
+	int updateAdminStatus(Member member);
+	
+	int deleteManyBoards(List<Integer> boardIds);
+
+	int updateBoardCount(int bId);
+
+	ArrayList<Image> selectImageList();
+
+	int insertImage(Image image);
+
+	Image selectImage(int bId);
+
+	Image getMainImageForBoard(int boardNo);
+
+	void deleteImage(int boardNo);
+
+	int deleteBoard(int bId);
+
+	void updateImageBoard(Board board, MultipartFile file);
+
+	Board selectImageBoard(int bId);
+	
+	int getUserListCount(@Param("searchKeyword") String searchKeyword);
+
+	ArrayList<Member> selectUserList(RowBounds rowBounds, @Param("searchKeyword") String searchKeyword );
+
+	int deleteReplies(List<Integer> reNoList);
+
 }

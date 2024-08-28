@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<!-- Appenders : 전달된 log를 어디에 출력할지 결정 -->
+	<!-- 
+		ConsoleAppender     : 로그를 콘솔에 출력하기 위한 어펜더
+		JDBCAppender 	    : 로그를 DB에 출력하기 위한 어펜더
+		FileAppender	    : 로그를 파일에 출력하기 위한 어펜더 -> 지정 파일에 로그가 계속 남기에 크기가 지나치게 커질 수 있고 지속적인 로그 관리가 어려움
+		RollingFileAppender : 일정 조건 후에 기존 파일을 백업파일로 바꾸고 다시 처음부터 기록 시작(ex. DailyRollingFileAppender)
+		
+		Layout : 로그를 어떤 형식으로 출력할지 결정(PatternalLayout - 디버깅에 가장 적합)
+			%p : debug, info, warn, error, fatal 등의 priority 출력
+			%m : 로그 내용 출력
+			%d : 로그 이벤트가 발생한 시간 출력. 포맷을 %d(HH:mm:ss, SSS) 같은 형태로 사용(SimpleDateFormat과 일지)
+			%t : 로그 이벤트가 발생된 스레드 이름 출력
+			%% : &표시
+			%n : 줄바꿈
+			%c : package(클래스명 포함) 출력
+			%C{n} : 호출자의 클래스명 출력. n(숫자)만큼의 package를 하단부터 역으로 출력(ex. a.b.c 일때 %C{2} = b.c)
+			%F : 로그가 발생한 프로그램 파일명 출력
+			%l : 로그가 발생한 caller의 정보 출력
+			%L : 로그가 발생한 caller의 라인 수 출력
+			%M : 로그가 발생한 method 이름 출력
+			%r : 애플리케이션 시작 이후부터 로그가 발생한 시점의 시간(밀리세컨드) 출력
+	 -->
+	 
+	 <!-- log file 경로 -->
+	 <property name="LOG_PATH" value="D:/logs/member"/> <!-- 많이 사용하는 값들 변수화 -->
+	 
+	 <!-- console에 글자 색 지정 -->
+	 <conversionRule conversionWord="color" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
+	 <!-- rollingfileAppender때문에 지워진 콘솔 내용을 자체적으로 만드는 appender -->
+	 <appender name="myConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+	 	<layout class="ch.qos.logback.classic.PatternLayout">
+	 		<Pattern>%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ} %color(%-5level) %color(${PID:-}){magenta} --- [%15.15thread] %color(%-40.40logger{36}){cyan}: %msg%n</Pattern>
+	 	</layout>
+	 </appender>
+	 
+	 	<appender name="myFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	 		<!-- 파일 경로 -->
+	 		<file>${LOG_PATH}/login.log</file>
+	 		
+	 		<!-- 출력 패턴 -->
+	 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+	 			<pattern>%d{yy-MM-dd HH:mm:ss} [%p] %c{1}.%M{%L} - %m%n</pattern>
+	 		</encoder>
+	 		
+	 		<!-- Rolling 중에서도 선택할 정책 :TimeBased 시간에 따라 = Daily -->
+	 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+				<fileNamePattern>
+					${LOG_PATH}/login.log.%d{yyyyMMdd}
+				</fileNamePattern>	 			
+	 		</rollingPolicy>
+		</appender>
+		
+		<logger name="com.kh.spring.member.controller.MemberController" level="info" additivity="false">
+			<appender-ref ref = "myFileAppender"/>
+		</logger>
+	 	
+	 	<root level="info">
+	 		<appender-ref ref="myConsoleAppender"/>
+	 	</root>
+</configuration>

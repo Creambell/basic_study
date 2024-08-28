@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>이미지 게시글 수정</title>
+<style>
+body {
+    font-family: 'Raleway', Arial, sans-serif;
+    background-color: #fff8e1;; 
+    color: #4b2e2e;
+    line-height: 1.6;
+}
+
+.bmain {
+    width: 900px;
+    margin: 80px auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+form {
+    display: flex;
+    flex-direction: column;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #8b5a2b;
+    font-weight: bold;
+}
+input[type="text"], textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid black; 
+    border-radius: 5px;
+    font-size: 16px;
+    margin-left: -10px;  
+}
+
+textarea {
+    height: 200px;
+    resize: vertical;
+}
+input[type="file"] {
+    margin-top: 10px;
+}
+.current-image {
+    margin-top: 10px;
+}
+.current-image img {
+    max-width: 200px;
+    border: 2px solid #d2b48c;
+    border-radius: 5px;
+}
+button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    align-self: flex-start;
+}
+button[type="submit"]:hover {
+    background-color: #45a049;
+}
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: #8b5a2b;
+    text-decoration: none;
+}
+.back-link:hover {
+    text-decoration: underline;
+}
+</style>
+</head>
+<body>
+<div class="bmain">
+    <h1>이미지 게시글 수정</h1>
+    <form th:action="@{/updateImageBoard.ad}" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="boardNo" th:value="${board.boardNo}">
+        <input type="hidden" name="page" th:value="${page}">
+        <input type="hidden" name="cateNo" th:value="${board.cateNo}">
+
+        <div class="form-group">
+            <label for="boardTitle">제목</label>
+            <input type="text" id="boardTitle" name="boardTitle" th:value="${board.boardTitle}" required>
+        </div>
+        <div class="form-group">
+            <label for="boardContent">내용</label>
+            <textarea id="boardContent" name="boardContent" th:text="${board.boardContent}" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="file">이미지</label>
+            <input type="file" id="file" name="file">
+            <div class="current-image" th:if="${board.imageUrl}">
+                <p>현재 이미지:</p>
+                <img th:src="${board.imageUrl}" alt="현재 이미지">
+            </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+            <button type="submit" style="background-color: #4CAF50; color: white; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px;">수정</button>
+            <a href="javascript:history.back();" style="background-color: #E57373; color: white; text-decoration: none; padding: 10px 20px; font-size: 16px; border-radius: 5px; display: inline-block;">뒤로가기</a>
+        </div>
+    </form>
+</div>
+    <a href="javascript:history.back();" class="back-link">뒤로가기</a>
+</div>
+</body>
+</html>

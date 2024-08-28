@@ -1,8 +1,9 @@
 package com.kh.spring.common.interceptor;
 
-import java.lang.reflect.Member;
 
 import org.springframework.web.servlet.HandlerInterceptor;
+
+import com.kh.spring.member.model.vo.Member;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

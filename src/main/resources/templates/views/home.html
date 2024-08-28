@@ -6,153 +6,219 @@
     <title>Basic Study 개인 공부 블로그</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: white;
-            color: #333;
+            background-color: #f5f5dc; /* 따뜻한 베이지 색상 */
+            font-family: 'NanumSquareRound', sans-serif;
+            color: #4b2e2e; /* 다크 브라운 텍스트 */
         }
+
         .header {
             display: flex;
             align-items: center;
-            background-color: white;            
+            background-color: #8b5a2b; /* 브라운 계열의 배경색 */
+            color: #fff8e1; /* 밝은 크림 색상 텍스트 */
             justify-content: space-between;
-            padding: 10px 20px;
-            border-bottom: 1px solid #ddd;
+            padding: 15px 30px;
+            border-bottom: 2px solid #b58855;
+            font-family: 'Dancing Script', cursive; /* 로고 폰트 변경 */
         }
+
         .nav {
-            background-color: #e8f1f9;
-            padding: 40px 0;
+            background-color: #d2b48c; /* 카라멜 색상 */
+            padding: 30px 0;
             text-align: center;
         }
+
         .nav a {
-            margin: 0 25px;
+            margin: 0 20px;
             text-decoration: none;
-            color: #333;
+            color: #4b2e2e; /* 다크 브라운 색상 */
             font-weight: bold;
+            font-family: 'Raleway', sans-serif;
         }
-         .nav-link {
-            color: #333;
-            text-decoration: none;
-            font-weight: bold;
+
+        .nav a:hover {
+            color: #b58855;
         }
-        .nav a:visited {
-            color: #333;
-        }
+
         .content {
             display: flex;
             justify-content: space-around;
-            padding: 10px;
-            background-color: white;
+            padding: 20px;
+            background-color: #f5f5dc; /* 베이지 배경 */
         }
+
         .content div {
-            padding-bottom: 10px;
+            padding: 20px;
             width: 20%;
             text-align: center;
             border-radius: 15px;
-            border: 1px solid #ddd;
-            background-color: white; 
+            border: 3px solid #8b5a2b; /* 브라운 테두리 */
+            background-color: #fffaf0; /* 크림색 카드 배경 */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
         }
-        .content .img-container {
-            border: none;
-        }
-        .href {
-        	color: #333; 
-        	text-decoration: none;
-        }
-        .content img {
+
+        .content .img-container img {
             width: 100%;
             height: auto;
-            border-radius: 15px;
+            border-radius: 10px;
+            border: 2px solid #b58855; /* 브라운 계열의 테두리 */
         }
+
         .footer {
-            background-color: white; 
-            padding: 10px 20px;
+            background-color: #8b5a2b; /* 브라운 계열 */
+            padding: 15px 20px;
             text-align: center;
-            border-top: 1px solid #ddd;
+            color: #fff8e1; /* 밝은 크림 색상 텍스트 */
+            font-family: 'Dancing Script', cursive; /* 로고와 동일한 폰트 */
+            border-top: 2px solid #fffaf0;
         }
+
         .notice {
-            background-color: white;
-            padding: 10px 20px;
+            background-color: #fffaf0; /* 크림색 배경 */
+            padding: 15px 20px;
             text-align: left;
-            border-top: 1px solid #ddd;
+            border-top: 1px solid #b58855;
+            color: #4b2e2e; /* 다크 브라운 텍스트 */
+            font-family: 'Raleway', sans-serif;
+        }
+
+        /* 링크 스타일 변경 */
+        a {
+            color: #4b2e2e; /* 다크 브라운 링크 */
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #b58855; /* 호버 시 밝은 브라운 */
+        }
+
+        a:active {
+            color: #8b5a2b; /* 클릭 시 브라운 색상 */
+        }
+
+        .content ul li a {
+            color: #4b2e2e;
+            text-decoration: none;
+        }
+
+        .content ul li a:hover {
+            color: #b58855; /* 호버 시 밝은 브라운 */
+            text-decoration: none;
+        }
     </style>
 </head>
-<body style="background-color: white;">
+<body>
     <div th:replace="~{common/header :: header}"></div>
     <br>
     <div class="content">
         <div class="img-container">
-            <img th:src="@{eclipse.jpg}" alt="Eclipse">
+            <a href="https://www.eclipse.org/downloads/">
+                <img th:src="@{image/eclipse.jpg}" alt="Eclipse">
+            </a>
         </div>
         <div class="img-container">
-            <img th:src="@{java.jpg}" alt="Java">
+            <a href="https://www.java.com/ko/">
+                <img th:src="@{image/java.jpg}" alt="Java">
+            </a>
         </div>
         <div class="img-container">
-            <img th:src="@{spring.jpg}" alt="Spring">
+            <a href="https://spring.io/">
+                <img th:src="@{image/spring.jpg}" alt="Spring">
+            </a>
         </div>
         <div class="img-container">
-            <img th:src="@{springboot.jpg}" alt="SpringBoot">
+            <a href="https://spring.io/projects/spring-boot">
+                <img th:src="@{image/springboot.jpg}" alt="SpringBoot">
+            </a>
         </div>
     </div>
+
     <div class="content">    
         <div>
-            <h3><a th:href="@{JavaBoard.bo}" class="nav-link">자바 게시판</a></h3>
-            <p>1. 자바에 대해서</p>
-            <p>2. 자바의 공부법</p>
-            <p>3. 내가 배운 자바</p>
-            <p>4. 자바 게시판 완성</p>
+            <h3><a th:href="@{JavaBoard.bo}" class="nav-link">자바 게시판</a></h3><br>
+            <ul th:if="${not #lists.isEmpty(javaBoardList)}">
+                <li th:each="board, iterStat : ${javaBoardList}" th:if="${iterStat.index < 4}">
+                    <a th:href="@{|/JavaBoard.bo?bno=${board.boardNo}|}" th:text="${board.boardTitle}">글 제목</a>
+                </li>
+            </ul>
+            <p th:if="${#lists.isEmpty(javaBoardList)}">게시물이 없습니다.</p>
         </div>
+
         <div>
-            <h3><a th:href="@{JavaScriptBoard.bo}" class="nav-link">자바 스크립트 게시판</a></h3>
-            <p>1. 자바에 대해서</p>
-            <p>2. 자바의 공부법</p>
-            <p>3. 내가 배운 자바</p>
-            <p>4. 자바 게시판 완성</p>
-        </div>
+		    <h3><a th:href="@{JavaScriptBoard.bo}" class="nav-link">자바스크립트 게시판</a></h3><br>
+		    <ul th:if="${not #lists.isEmpty(javascriptBoardList)}">
+		        <li th:each="board, iterStat : ${javascriptBoardList}" th:if="${iterStat.index < 4}">
+		            <a th:href="@{|/JavaScriptBoard.bo?bno=${board.boardNo}|}" th:text="${board.boardTitle}">글 제목</a>
+		        </li>
+		    </ul>
+		    <p th:if="${#lists.isEmpty(javascriptBoardList)}">게시물이 없습니다.</p>
+		</div>
+
         <div>
-            <h3><a th:href="@{SpringBoard.bo}" class="nav-link">스프링 게시판</a></h3>
-            <p>1. 자바에 대해서</p>
-            <p>2. 자바의 공부법</p>
-            <p>3. 내가 배운 자바</p>
-            <p>4. 자바 게시판 완성</p>
+            <h3><a th:href="@{SpringBoard.bo}" class="nav-link">스프링 게시판</a></h3><br>
+            <ul th:if="${not #lists.isEmpty(springBoardList)}">
+                <li th:each="board, iterStat : ${springBoardList}" th:if="${iterStat.index < 4}">
+                    <a th:href="@{|/SpringBoard.bo?bno=${board.boardNo}|}" th:text="${board.boardTitle}">글 제목</a>
+                </li>
+            </ul>
+            <p th:if="${#lists.isEmpty(springBoardList)}">게시물이 없습니다.</p>
         </div>
-        <div>
-            <h3><a th:href="@{SpringbootBoard.bo}" class="nav-link">스프링 부트 게시판</a></h3>
-            <p>1. 자바에 대해서</p>
-            <p>2. 자바의 공부법</p>
-            <p>3. 내가 배운 자바</p>
-            <p>4. 자바 게시판 완성</p>
-        </div>
+
+       <div>
+		    <h3><a th:href="@{SpringBootBoard.bo}" class="nav-link">스프링 부트 게시판</a></h3><br>
+		    <ul th:if="${not #lists.isEmpty(springbootBoardList)}">
+		        <li th:each="board, iterStat : ${springbootBoardList}" th:if="${iterStat.index < 4}">
+		            <a th:href="@{|/SpringBootBoard.bo?bno=${board.boardNo}|}" th:text="${board.boardTitle}">글 제목</a>
+		        </li>
+		    </ul>
+		    <p th:if="${#lists.isEmpty(springbootBoardList)}">게시물이 없습니다.</p>
+		</div>
     </div>
+
     <div class="content">
         <div>
-            <h3><a th:href="@{ErrorBoard.bo}" class="nav-link">에러 게시판</a></h3>
-            <p>1. 자바에 대해서</p>
-            <p>2. 자바의 공부법</p>
-            <p>3. 내가 배운 자바</p>
-            <p>4. 자바 게시판 완성</p>
+            <h3><a th:href="@{ErrorBoard.bo}" class="nav-link">에러 게시판</a></h3><br>
+            <ul th:if="${not #lists.isEmpty(errorBoardList)}">
+                <li th:each="board, iterStat : ${errorBoardList}" th:if="${iterStat.index < 4}">
+                    <a th:href="@{|/ErrorBoard.bo?bno=${board.boardNo}|}" th:text="${board.boardTitle}">글 제목</a>
+                </li>
+            </ul>
+            <p th:if="${#lists.isEmpty(errorBoardList)}">게시물이 없습니다.</p>
         </div>
+		
+		<div>
+            <h3><a th:href="@{ImageBoard.bo}" class="nav-link">이미지 게시판</a></h3><br>
+            <ul th:if="${not #lists.isEmpty(imageBoardList)}">
+                <li th:each="board, iterStat : ${imageBoardList}" th:if="${iterStat.index < 4}">
+                    <a th:href="@{|/ImageBoard.bo?bno=${board.boardNo}|}" th:text="${board.boardTitle}">글 제목</a>
+                </li>
+            </ul>
+            <p th:if="${#lists.isEmpty(imageBoardList)}">게시물이 없습니다.</p>
+        </div>
+		
         <div>
-            <h3><a th:href="@{UserBoard.bo}" class="nav-link">방문자 게시판</a></h3>
-            <p>1. 자바에 대해서</p>
-            <p>2. 자바의 공부법</p>
-            <p>3. 내가 배운 자바</p>
-            <p>4. 자바 게시판 완성</p>
+            <h3><a th:href="@{UserBoard.bo}" class="nav-link">방문자 게시판</a></h3><br>
+            <ul th:if="${not #lists.isEmpty(userBoardList)}">
+                <li th:each="board, iterStat : ${userBoardList}" th:if="${iterStat.index < 4}">
+                    <a th:href="@{|/UserBoard.bo?bno=${board.boardNo}|}" th:text="${board.boardTitle}">글 제목</a>
+                </li>
+            </ul>
+            <p th:if="${#lists.isEmpty(userBoardList)}">게시물이 없습니다.</p>
         </div>
+
         <div>
-            <h3><a th:href="@{ImageBoard.bo}" class="nav-link">이미지 게시판</a></h3>
-            <p>1. 자바에 대해서</p>
-            <p>2. 자바의 공부법</p>
-            <p>3. 내가 배운 자바</p>
-            <p>4. 자바 게시판 완성</p>
+            <h3><a th:href="@{BloggerBoard.ad}" class="nav-link">블로거 게시판</a></h3><br>
+            <ul th:if="${not #lists.isEmpty(bloggerBoardList)}">
+                <li th:each="board, iterStat : ${bloggerBoardList}" th:if="${iterStat.index < 4}">
+                    <a th:href="@{|/BloggerBoard.ad?bno=${board.boardNo}|}" th:text="${board.boardTitle}">글 제목</a>
+                </li>
+            </ul>
+            <p th:if="${#lists.isEmpty(bloggerBoardList)}">게시물이 없습니다.</p>
         </div>
-        <div>
-            <h3><a th:href="@{BloggerBoard.ad}" class="nav-link">블로거 게시판</a></h3>
-            <p>1. 자바에 대해서</p>
-            <p>2. 자바의 공부법</p>
-            <p>3. 내가 배운 자바</p>
-            <p>4. 자바 게시판 완성</p>
-        </div>
+        
+         
     </div>
+
     <br>
     
     <!-- 페이지 중간점검을 위한 링크 멤버컨트롤러에 연결만 된 상태입니다. -->
@@ -169,7 +235,7 @@
     </div>
     
     <div class="nav">
-    	<p>관리자페이지</p> 
+        <p>관리자페이지</p> 
         <a th:href="@{UserAdmin.ad}">방문자게시판</a>
         <a th:href="@{ImageAdmin.ad}">이미지</a>
         <a th:href="@{SpringAdmin.ad}">스프링</a>
@@ -182,7 +248,7 @@
     </div>
     
     <div class="nav">
-    	<p>일반 페이지</p> 
+        <p>일반 페이지</p> 
         <a th:href="@{UserBoard.bo}">방문자게시판</a>
         <a th:href="@{ImageBoard.bo}">이미지</a>
         <a th:href="@{SpringBoard.bo}">스프링</a>
@@ -191,7 +257,6 @@
         <a th:href="@{JavaScriptBoard.bo}">자바 스크립트</a>
         <a th:href="@{ErrorBoard.bo}">에러 모음집</a>
     </div>
-    
     
     <div th:replace="~{common/footer :: footer}"></div>
 </body>

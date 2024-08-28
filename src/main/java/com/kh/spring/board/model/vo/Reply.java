@@ -20,5 +20,7 @@ public class Reply {
     private Date updateDate;
     private char reStatus;
     private int replyCount;
+    private String userName;
+    private String boardTitle;
 	
 }

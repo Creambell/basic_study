@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+	    <meta charset="UTF-8" /><link href="../../../static/css/pagination.css" rel="stylesheet" type="text/css">
+
 <!-- 웹 폰트 'NanumSquareRound'를 불러오기 위한 CSS 선언 -->
 <style>
 @font-face {
@@ -20,6 +22,39 @@
         background-color: #f5f5f5;
        
       }
+/* 사이드바 스타일 설정 */
+        .sidebar {
+            width: 300px;
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            height: 100%;
+            border-radius: 15px;
+            margin-top: 40px;
+            margin-left: 60px;
+            font-size: 18px; 
+        }
+        .sidebar h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .sidebar li {
+            padding: 10px 20px;
+            border-bottom: 1px solid #555;
+        }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+        }
+        .sidebar .active {
+            font-weight: bold;
+            font-size: 1.1em;
+        }
 
 /* 메인 컨텐츠 스타일 설정 */
 .main-container {
@@ -110,17 +145,58 @@ h2 {
     border-radius: 5px;
 }
 /* 페이지네이션 스타일 설정 */
-.pagination-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
+.pagination {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 20px;
 }
-.pagination-container .prev-button,
-.pagination-container .next-button,
-.pagination-container .number-button-wrapper {
+
+.pagination {
+	padding: 10px;
+	cursor: pointer;
+}
+.image-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .image-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+         .btn {
+            padding: 5px 10px;
+            margin-left: 5px;
+            cursor: pointer;
+            border: none;
+            border-radius: 3px;
+        }
+        .btn-edit {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .btn-delete {
+            background-color: #f44336;
+            color: white;
+        }
+        .buttons-container {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+#write_button {
+    background-color: #4caf50; /* ErrorAdmin의 색상에 맞춤 */
+    border-color: white;
+    color: #fff;
     padding: 10px;
+    border-radius: 5px;
     cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
 }
 </style>
 <title>이미지 게시판</title>
@@ -129,70 +205,48 @@ h2 {
 
 	<header th:replace="~{common/header :: header}"></header>
 
-<!-- 메인 컨텐츠 -->
-<div class="main-container">
-    <div class="container">
-        <h2>이미지 게시판</h2>
-        <div class="image-grid">
-            <!-- 각 이미지 항목 -->
-            <div class="image-item">
-                <div class="image-placeholder"></div>
-                <div class="image-title">이미지 제목</div>
-                <div class="view-count">2 Views</div>
+    <!-- 메인 컨텐츠 -->
+    <div class="main-container">
+        <div class="container">
+            <h2>이미지 게시판</h2>
+            <div class="image-grid">
+                <!-- 이미지 항목 부분 수정 -->
+                <div class="image-item" th:each="board : ${bList}">
+                    <a th:href="@{/selectImageBoard.ad(bId=${board.boardNo}, page=${pi.currentPage})}">
+                        <img th:if="${board.imageUrl != null}" th:src="@{${board.imageUrl}}" alt="게시글 이미지">
+                        <div class="image-placeholder" th:if="${board.imageUrl == null}"></div>
+                        <div class="image-title" th:text="${board.boardTitle}"></div>
+                        <div class="view-count" th:text="${board.boardCount + ' Views'}"></div>
+                    </a>
+                </div>
             </div>
-            <div class="image-item">
-                <div class="image-placeholder"></div>
-                <div class="image-title">이미지 제목</div>
-                <div class="view-count">3 Views</div>
-            </div>
-            <div class="image-item">
-                <div class="image-placeholder"></div>
-                <div class="image-title">이미지 제목</div>
-                <div class="view-count">4 Views</div>
-            </div>
-            <div class="image-item">
-                <div class="image-placeholder"></div>
-                <div class="image-title">이미지 제목</div>
-                <div class="view-count">5 Views</div>
-            </div>
-            <div class="image-item">
-                <div class="image-placeholder"></div>
-                <div class="image-title">이미지 제목</div>
-                <div class="view-count">6 Views</div>
-            </div>
-            <div class="image-item">
-                <div class="image-placeholder"></div>
-                <div class="image-title">이미지 제목</div>
-                <div class="view-count">7 Views</div>
-            </div>
-        </div>
-        <!-- 검색 바 -->
-        <div class="search-container">
-            <div class="search">
-                <input type="text" placeholder="검색어 입력">
-            </div>
-            <button class="search-button">검색</button>
-        </div>
+        		<div class="buttons-container">
+					<a href="javascript:history.back();" class="btn btn-primary"
+					   style="background-color: #4caf50; border-color: white; color: white; text-align:right;">뒤로 가기 </a>
+		 		</div>
+		 		
+		 		
         <!-- 페이지네이션 -->
-        <div class="pagination-container">
-            <div class="prev-button">&lt;</div>
-            <div class="number-button-wrapper">
-                <span class="number-button">1</span>
-            </div>
-            <div class="number-button-wrapper">
-                <span class="number-button">2</span>
-            </div>
-            <div class="number-button-wrapper">
-                <span class="number-button">3</span>
-            </div>
-            <div class="number-button-wrapper">
-                <span class="number-button">4</span>
-            </div>
-            <div class="number-button-wrapper">
-                <span class="number-button">5</span>
-            </div>
-            <div class="next-button">&gt;</div>
-        </div>
+				<nav aria-label="Standard pagination example"
+					style="float: right; margin-right: 600px;">
+					<ul class="pagination" th:with="loc=${loc}">
+						<li class="page-item"><a class="page-link"
+							th:href="@{${loc}(page=${pi.currentPage > 1 ? pi.currentPage - 1 : 1})}"
+							th:onclick="return ${pi.currentPage > 1}" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+						</a></li>
+						<li class="page-item"
+							th:each="p : ${#numbers.sequence(pi.startPage, pi.endPage)}">
+							<a class="page-link" th:href="@{${loc}(page=${p})}">[[${ p }]]</a>
+						</li>
+						<li class="page-item"><a class="page-link"
+							th:href="@{${loc}(page=${pi.currentPage + 1})}" aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+						</a></li>
+					</ul>
+				</nav>	
+				
+				
     </div>
 </div>
 <footer th:replace="~{common/footer :: footer}"></footer>

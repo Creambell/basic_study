@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
-    <meta charset="UTF-8" />
-    <title>방문자 게시판</title>
+    <meta charset="UTF-8" /> 
+	  <meta charset="UTF-8" /><link href="../../../static/css/pagination.css" rel="stylesheet" type="text/css">
+
+    <title>블로거 게시판</title>
     <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
@@ -22,40 +24,39 @@
       }
 
 
-/* 사이드바 스타일 설정 08-05 */
-.sidebar {
-    width: 200px;
-    background-color: #333;
-    color: white;
-    padding: 20px;
-    height: 100%;
-    border-radius: 20px;
-    margin-left: 80px;
-}
-.sidebar h3 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-.sidebar ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-.sidebar li {
-    padding: 10px 20px;
-    border-bottom: 1px solid #555;
-}
-.sidebar li:hover {
-    background-color: #555;
-}
-.sidebar a {
-    color: white;
-    text-decoration: none;
-}
-.sidebar .active {
-    font-weight: bold;
-    font-size: 1.1em;
-}
+/* 사이드바 스타일 설정 */
+        .sidebar {
+            width: 300px;
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            height: 100%;
+            border-radius: 15px;
+            margin-top: 40px;
+            margin-left: 60px;
+            font-size: 18px; 
+        }
+        .sidebar h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .sidebar li {
+            padding: 10px 20px;
+            border-bottom: 1px solid #555;
+        }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+        }
+        .sidebar .active {
+            font-weight: bold;
+            font-size: 1.1em;
+        }
 
       /* 메인 컨텐츠 스타일 설정 */
       .main-content-container {
@@ -191,29 +192,20 @@
     <header th:replace="~{common/header :: header}"></header>
 
 <!-- 사이드바 -->
-<aside class="sidebar">
-    <h3>관리자메뉴</h3>
-    <ul>
-        <li><a href="UserAdmin.ad">방문자 게시판</a></li>
-        <li><a href="ImageAdmin.ad">Image</a></li>
-        <li><a href="SpringAdmin.ad">Spring</a></li>
-        <li><a href="SpringBootAdmin.ad">SpringBoot</a></li>
-        <li><a href="JavaAdmin.ad">Java</a></li>
-        <li><a href="JavaScriptAdmin.ad">JavaScript</a></li>
-        <li><a href="ErrorAdmin.ad">Error 모음집</a></li>
-        <li><a href="BloggerBoard.ad" class="active">블로거 게시판</a></li>
-        <li class="dropdown">
-            <a href="AdminPage.ad" class="dropdown-toggle" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                회원정보수정
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="userDropdown">
-                <li><a class="dropdown-item" href="#">회원관리</a></li>
-                <li><a class="dropdown-item" href="#">게시글 관리</a></li>
-                <li><a class="dropdown-item" href="#">댓글 관리</a></li>
-            </ul>
-        </li>
-    </ul>
-</aside>
+	<aside class="sidebar">
+	    <h3>관리자메뉴</h3>
+	    <ul>
+	        <li><a href="UserAdmin.ad">방문자 게시판</a></li>
+	        <li><a href="ImageAdmin.ad">Image</a></li>
+	        <li><a href="SpringAdmin.ad">Spring</a></li>
+	        <li><a href="SpringBootAdmin.ad">SpringBoot</a></li>
+	        <li><a href="JavaAdmin.ad">Java</a></li>
+	        <li><a href="JavaScriptAdmin.ad">JavaScript</a></li>
+	        <li><a href="ErrorAdmin.ad">Error 모음집</a></li>
+	        <li><a href="BloggerBoard.ad" class="active">블로거 게시판</a></li>
+	         <li><a href="adminPage.ad">회원관리</a></li>
+	      </ul>
+	</aside>
 <!-- 테이블 내용 -->
   
     <!-- 메인 컨텐츠 -->
@@ -253,37 +245,44 @@
 	        <button class="btn btn-primary" type="button" id="update_button">수정</button>
 	        <button class="btn btn-primary" type="button" id="delete_button">삭제</button>
         </div>
-          <!-- 검색 영역 -->
-          <div class="search-container">
-            <select class="form-select" aria-label="Default select example">
-              <option selected>----</option>
-              <option value="1">작성자</option>
-              <option value="2">제목</option>
-              <option value="3">글 번호</option>
-            </select>
-            <div class="search">
-              <input type="text" placeholder="검색어 입력" />
-            </div>
-            <button class="search-button">검색</button>
-          </div>
+        
+        <!-- 검색 영역 분리 완료 -->
+		<form id="searchForm" th:action="@{searchList.ad}" method="get">
+			<input type="hidden" name="cateNo" value="107">
+			<div class="search-container">
+				<select name="condition" class="searchOption"
+					aria-label="Default select example">
+					<option value="#">---</option>
+					<option value="title">제목</option>
+					<option value="content">내용</option>
+					<option value="writer">작성자</option>
+				</select>
+				<div class="search">
+					<input type="text" name="search" placeholder="검색어 입력" />
+				</div>
+				<button type="submit" class="search-button" id="searchIcon">검색</button>
+			</div>
+		</form>
+          
 		<!-- 페이지네이션 -->
-		<nav aria-label="Standard pagination example" style="float: right; margin-right:350px;">
-			<ul class="pagination" th:with="loc=${loc}">
-			    <li class="page-item">
-			    	<a class="page-link" th:href="@{${loc}(page=${pi.currentPage-1})}" aria-label="Previous">
-			    		<span aria-hidden="true">&laquo;</span>
-			      	</a>
-			    </li>
-			    <li class="page-item" th:each="p : ${#numbers.sequence(pi.startPage, pi.endPage)}">
-			           <a class="page-link" th:href="@{${loc}(p)}">[[${ p }]]</a>
-			       </li>
-			    <li class="page-item">
-			    	<a class="page-link" th:href="@{${loc}(page=${pi.currentPage + 1})}" aria-label="Next">
-			    		<span aria-hidden="true">&raquo;</span>
-			    	</a>
-			    </li>
-			</ul>
-		</nav>       
+				<nav aria-label="Standard pagination example"
+					style="float: right; margin-right: 350px;">
+					<ul class="pagination" th:with="loc=${loc}">
+						<li class="page-item"><a class="page-link"
+							th:href="@{${loc}(page=${pi.currentPage > 1 ? pi.currentPage - 1 : 1})}"
+							th:onclick="return ${pi.currentPage > 1}" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+						</a></li>
+						<li class="page-item"
+							th:each="p : ${#numbers.sequence(pi.startPage, pi.endPage)}">
+							<a class="page-link" th:href="@{${loc}(page=${p})}">[[${ p }]]</a>
+						</li>
+						<li class="page-item"><a class="page-link"
+							th:href="@{${loc}(page=${pi.currentPage + 1})}" aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+						</a></li>
+					</ul>
+				</nav>
         </div>
       </div>
     </div>
@@ -291,86 +290,88 @@
     <!-- 푸터 추가 -->
     <footer th:replace="~{common/footer :: footer}"></footer>
     
-      <script th:inline="javascript">
-		// 체크박스 전체 선택
-		document.querySelector('input[id="checkAll"]').addEventListener('change', function() {
-		    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-		    checkboxes.forEach(checkbox => {
-		        checkbox.checked = this.checked;
-		    });    
-		});
-		
-		// 검색 기능
-		document.getElementById('searchForm').addEventListener('submit', function(event) {
-		    event.preventDefault();
-		    performSearch();
-		});
-		
-		function performSearch() {
-		    const form = document.getElementById('searchForm');
-		    const condition = form.querySelector('[name="condition"]').value;
-		    const search = form.querySelector('[name="search"]').value;
-		    const cateNo = form.querySelector('[name="cateNo"]').value;
-		    const currentPage = 1; // 검색 시 첫 페이지로 이동
-		
-		    if (condition === '#' || search.trim() === '') {
-		        alert('검색 조건과 검색어를 모두 입력해주세요.');
-		        return;
-		    }
-		
-		    const url = `${form.action}?condition=${encodeURIComponent(condition)}&search=${encodeURIComponent(search)}&page=${currentPage}&cateNo=${cateNo}`;
-		    window.location.href = url;
-		}
-		
-		// 검색 버튼 클릭 이벤트
-		document.getElementById('searchIcon').addEventListener('click', function(event) {
-		    event.preventDefault();
-		    performSearch();
-		});
-		
-		// 엔터 키 이벤트
-		document.querySelector('.search input').addEventListener('keyup', function(event) {
-		    if (event.key === 'Enter') {
-		        event.preventDefault();
-		        performSearch();
-		    }
-		});
-		
-		// 게시글 제목 클릭 이벤트
-		document.addEventListener('DOMContentLoaded', function() {
-		    const boardTitles = document.querySelectorAll('.board-title');
-		    boardTitles.forEach(title => {
-		        title.addEventListener('click', function(event) {
-		            event.preventDefault();
-		            const boardNo = this.getAttribute('data-id');
-		            window.location.href = `BoardAdminDetail.ad?bId=${boardNo}&page=1&cateNo=107`;
-		        });
-		    });
-		});
-		
-		// 수정 버튼 클릭 시
-		document.getElementById('update_button').addEventListener('click', function() {
-		    const selectedBoards = document.querySelectorAll('.board-checkbox:checked');
-		    if (selectedBoards.length === 1) {
-		        const boardNo = selectedBoards[0].value;
-		        window.location.href = `BoardAdminDetail.ad?bId=${boardNo}&page=1&cateNo=107`;
-		    } else {
-		        alert('수정할 게시글을 하나만 선택해주세요.');
-		    }
-		});
-		
-		// 삭제 버튼 클릭 시
-		document.getElementById('delete_button').addEventListener('click', function() {
-		    const selectedBoards = document.querySelectorAll('.board-checkbox:checked');
-		    if(confirm("정말로 삭제하시겠습니까?")){
-		        if (selectedBoards.length === 1) {
-		            const boardNo = selectedBoards[0].value;
-		            window.location.href = `deleteBoard.ad?bId=${boardNo}&page=1&cateNo=107`;
-		        } else {
-		            alert('삭제할 게시글을 하나만 선택해주세요.');
-		        }
-		    }
-		});
+    <script th:inline="javascript">
+ // 체크박스 전체 선택
+    document.querySelector('input[id="checkAll"]').addEventListener('change', function() {
+        const checkboxes = document.querySelectorAll('.board-checkbox');
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = this.checked;
+        });    
+    });
+
+    // 검색 기능
+    document.getElementById('searchForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        performSearch();
+    });
+
+    function performSearch() {
+        const form = document.getElementById('searchForm');
+        const condition = form.querySelector('[name="condition"]').value;
+        const search = form.querySelector('[name="search"]').value;
+        const cateNo = form.querySelector('[name="cateNo"]').value;
+        const currentPage = 1; // 검색 시 첫 페이지로 이동
+
+        if (condition === '#' || search.trim() === '') {
+            alert('검색 조건과 검색어를 모두 입력해주세요.');
+            return;
+        }
+
+        const url = `${form.action}?condition=${encodeURIComponent(condition)}&search=${encodeURIComponent(search)}&page=${currentPage}&cateNo=${cateNo}`;
+        window.location.href = url;
+    }
+
+    // 검색 버튼 클릭 이벤트
+    document.getElementById('searchIcon').addEventListener('click', function(event) {
+        event.preventDefault();
+        performSearch();
+    });
+
+    // 엔터 키 이벤트
+    document.querySelector('.search input').addEventListener('keyup', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            performSearch();
+        }
+    });
+
+    // 게시글 제목 클릭 이벤트
+    document.addEventListener('DOMContentLoaded', function() {
+        const boardTitles = document.querySelectorAll('.board-title');
+        boardTitles.forEach(title => {
+            title.addEventListener('click', function(event) {
+                event.preventDefault();
+                const boardNo = this.getAttribute('data-id');
+                window.location.href = `BoardAdminDetail.ad?bId=${boardNo}&page=1&cateNo=107`;
+            });
+        });
+    });
+
+    // 수정 버튼 클릭 시
+    document.getElementById('update_button').addEventListener('click', function() {
+        const selectedBoards = document.querySelectorAll('.board-checkbox:checked');
+        if (selectedBoards.length === 1) {
+            const boardNo = selectedBoards[0].value;
+            window.location.href = `BoardAdminDetail.ad?bId=${boardNo}&page=1&cateNo=107`;
+        } else {
+            alert('수정할 게시글을 하나만 선택해주세요.');
+        }
+    });
+
+    // 삭제 버튼 클릭 시
+    document.getElementById('delete_button').addEventListener('click', function() {
+        const selectedBoards = document.querySelectorAll('.board-checkbox:checked');
+        if (selectedBoards.length === 0) {
+            alert('삭제할 게시글을 선택해주세요.');
+            return;
+        }
+
+        if(confirm("선택한 게시글을 정말로 삭제하시겠습니까?")) {
+            const boardIds = Array.from(selectedBoards).map(checkbox => checkbox.value);
+            const boardIdsString = boardIds.join(',');
+            window.location.href = `deleteManyBoards.ad?bIds=${boardIdsString}&page=1&cateNo=107`;
+        }
+    });
 	</script>
   </body>
 </html>

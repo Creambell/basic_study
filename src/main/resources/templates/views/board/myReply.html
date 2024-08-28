@@ -1,0 +1,317 @@
+	<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <meta charset="UTF-8">
+	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	    <style>
+	/* 페이지네이션 스타일 설정 */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+}
+
+.page-item {
+    margin: 0 5px;
+}
+
+.page-link {
+    color: black !important; 
+    background-color: transparent !important;
+    border: none !important;
+    padding: 5px 10px; 
+}
+
+.page-link:hover {
+    text-decoration: underline; 
+}
+
+.page-item.active .page-link {
+    font-weight: bold !important;
+    text-decoration: underline;
+    color: tomato !important;
+}
+
+/* 이전, 다음 버튼 스타일 */
+.page-item:first-child .page-link,
+.page-item:last-child .page-link {
+    border: 1px solid #dee2e6 !important;
+    border-radius: 5px; 
+}
+    
+    /*여기까지 페이지 css*/
+	    
+	    
+	        @font-face {
+	            font-weight: normal;
+	            font-style: normal;
+	        }
+	        /* 기본 스타일 설정 */
+	        body {
+	            margin: 0;
+	            padding: 0;
+	            display: flex;	
+	        }
+	        /* 사이드바 스타일 설정 */
+	        .sidebar {
+	            width: 300px;
+	            background-color: #333;
+	            color: white;
+	            padding: 20px;
+	            height: 100%;
+	            border-radius: 15px;
+	            margin-top: 40px;
+	            margin-left: 60px;
+	            font-size: 18px; 
+	        }
+	        .sidebar h3 {
+	            text-align: center;
+	            margin-bottom: 20px;
+	        }
+	        .sidebar ul {
+	            list-style-type: none;
+	            padding: 0;
+	            margin: 0;
+	        }
+	        .sidebar li {
+	            padding: 10px 20px;
+	            border-bottom: 1px solid #555;
+	        }
+	        .sidebar a {
+	            color: white;
+	            text-decoration: none;
+	        }
+	        .sidebar .active {
+	            font-weight: bold;
+	            font-size: 1.1em;
+	        }
+	        /* 메인 컨텐츠 스타일 설정 */
+	        .main-container {
+	        	margin-bottom: 120px;
+	            width: 100%;
+	            flex-grow: 1;
+	            padding: 20px;
+	            display: flex;
+	            justify-content: center;
+	            align-items: flex-start;
+	            
+	           	margin-bottom: 120px;
+	            
+	        }
+	        .container {
+	            width: 100% !important;	
+	            margin-top: 20px;
+	            margin-left: -50px;
+	            padding-top: 30px;
+	            padding-bottom: 30px;
+	            padding-right: 30px !important;
+	            padding-left: 30px !important;
+	            background-color: white;
+	            border-radius: 10px;
+	            height: 100%;
+	            display: table;
+	        }
+	        #board-title {
+	            border-left: 5px solid black;
+	            padding-left: 10px;
+	            display: inline-block;
+	            margin-bottom: 15px;
+	        }
+	        /* 테이블 스타일 설정 */
+	        .table {
+	            width: 100%;
+	            border-collapse: collapse;
+	            margin-bottom: 20px;
+	        }
+	        .table th, .table td {
+	            border: 1px solid #ddd;
+	            padding: 10px;
+	            text-align: center;
+	            display: table-cell;
+	            height: 17px;
+	            vertical-align: middle;
+	            font-size: 16px;
+	        }
+	        .table th {
+	            background-color: #f2f2f2;
+	        }
+	        .table-group-divider {
+	            border-top: 2px solid gray;
+	        }
+	        /* 체크박스 스타일 설정 */
+	        .form-check-input {
+	            transform: scale(1);
+	            accent-color: #FF6347;
+	        }
+	        /* 버튼 스타일 설정 */
+	        button {
+	            color: #fff;
+	            padding: 10px;
+	            border-radius: 5px;
+	            border: none;
+	            cursor: pointer;
+	        }
+	        #update_button {
+	            background-color: #FFB74D;
+	        }
+	        #delete_button {
+	            background-color: #E57373;
+	        }
+	        .buttons-container {
+	            display: flex;
+	            justify-content: flex-end;
+	            gap: 10px;
+	            margin-bottom: 20px;
+	        }
+	        /* 페이지네이션 스타일 설정 */
+	        .pagination-container {
+	            display: flex;
+	            justify-content: center;
+	            align-items: center;
+	            margin-top: 20px;
+	        }
+	        .pagination-container .prev-button,
+	        .pagination-container .next-button,
+	        .pagination-container .number-button-wrapper {
+	            padding: 10px;
+	            cursor: pointer;
+	        }
+	        /* 검색 영역 스타일 설정 */
+	        .search-container {
+	            display: flex;
+	            justify-content: center;
+	            align-items: center;
+	            margin-bottom: 20px;
+	        }
+	        .search-container select,
+	        .search-container .search,
+	        .search-container .search-button {
+	            height: 40px;
+	            margin-right: 10px;
+	        }
+	        .search-container select {
+	            width: 100px;
+	        }
+	        .search input {
+	            width: 200px;
+	            border: 1px solid #bbb;
+	            border-radius: 5px;
+	            padding: 10px 12px;
+	            font-size: 14px;
+	        }
+	        .search-button {
+	            background-color: #4CAF50;
+	            color: white;
+	            border: none;
+	            padding: 0 20px;
+	            text-align: center;
+	            text-decoration: none;
+	            display: inline-block;
+	            font-size: 16px;
+	            cursor: pointer;
+	            border-radius: 5px;
+	        }
+	        .yes-or-no {
+	            border-radius: 5px;
+	            height: 35px;
+	        }
+	        a.dropdown-item:hover, .dropdown-item:active {
+	            background-color: grey;	
+	        }
+	    </style>
+	    <title>내 댓글 보기</title>
+	</head>
+	<body>
+	    <div th:replace="~{common/header :: header}"></div>
+	    
+	    <!-- 메인 컨텐츠 -->
+	    <article class="main-container">
+	        <div class="container">
+	            <h2 id="board-title"> 내가 작성한 댓글</h2>
+	            <!-- 회원 정보 -->
+	            <table class="table">
+	                <thead>
+	                    <tr> 
+	                        <th scope="col" style="width: 10%;">댓글 번호</th>
+	                        <th scope="col" style="width: 15%;">게시글 번호</th>
+	                        <th scope="col" style="width: 15%;">게시글 제목</th>
+	                        <th scope="col" style="width: 45%">댓글 내용</th>
+	                        <th scope="col" style="width: 15%">작성일</th>
+	                    </tr>
+	                </thead>
+	                <tbody class="table-group-divider">
+	                    <tr th:each="r:${list}" >
+	                        <td>[[${r.reNo}]]</td>
+	                        <td>[[${r.boardNo}]]</td>
+	                        <td>[[${r.boardTitle}]]</td>
+	                        <td>[[${r.reContent}]]</td>
+	                        <td>[[${r.createDate}]]</td>
+	                    </tr>
+	                </tbody>
+	            </table>
+			
+			<!-- 페이지네이션 -->
+			<div class="pagination-container">
+			    <nav aria-label="Standard pagination example">
+			        <ul class="pagination" th:with="loc=${loc}">
+			            <li class="page-item" th:classappend="${p == pi.currentPage} ? 'active' : ''"
+			            >
+			                <a class="page-link"
+			                   th:href="@{${loc}(page=${pi.currentPage > 1 ? pi.currentPage - 1 : 1})}"
+			                   th:onclick="return ${pi.currentPage > 1}" aria-label="Previous">
+			                    <span aria-hidden="true">&laquo;</span>
+			                </a>
+			            </li>
+			            <li class="page-item" th:classappend="${p == pi.currentPage} ? 'active' : ''"
+			                th:each="p : ${#numbers.sequence(pi.startPage, pi.endPage)}">
+			                <a class="page-link" th:href="@{${loc}(page=${p})}">[[${p}]]</a>
+			            </li>
+			            <li class="page-item" th:classappend="${p == pi.currentPage} ? 'active' : ''">
+			                <a class="page-link"
+			                   th:href="@{${loc}(page=${pi.currentPage < pi.maxPage ? pi.currentPage + 1 : pi.maxPage})}"
+			                   th:onclick="return ${pi.currentPage < pi.maxPage}" aria-label="Next">
+			                    <span aria-hidden="true">&raquo;</span>
+			                </a>
+			            </li>
+			        </ul>
+			    </nav>
+			</div>
+           </div>
+	    </article>    
+	  	<div th:replace="~{common/footer :: footer}"></div>
+	    
+	    
+	    <script>
+	    	
+	    document.addEventListener('click', function (e) {
+	    const target = e.target;
+	    if (target.classList.contains('dropdown-toggle')) {
+	        const dropdown = new bootstrap.Dropdown(target);
+	        dropdown.toggle();
+	    	}
+	    });
+	    document.addEventListener('click', function (e) {
+	        const target = e.target;
+	        if (target.classList.contains('dropdown-menu')) {	
+	            const dropdown = new bootstrap.Dropdown(target);
+	            dropdown.toggle();
+	        }
+	    });
+	        
+	        
+	        
+	        
+	        
+	        
+	    </script>
+	</body>
+	</html>
