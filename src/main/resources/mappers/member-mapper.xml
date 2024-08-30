@@ -66,20 +66,18 @@
 <!-- 			user_no=#{userNo}  -->
 <!-- 	</update> -->
 	<update id="updateMember" parameterType="Member">
-	    UPDATE "USER"
-	    SET 
-	        USER_ID = #{userId},
-	        USER_EMAIL = #{userEmail},
-	        USER_PHONE = #{userPhone}
-	        <if test="userPwd != null and userPwd != ''">
-	        , USER_PWD = #{userPwd}
-	        </if>
-	    WHERE USER_NO = #{userNo}
+	  UPDATE "USER"
+	  SET
+	    USER_NAME = #{userName},
+	    USER_EMAIL = #{userEmail},
+	    USER_PHONE = #{userPhone},
+	    USER_PWD = #{userPwd,jdbcType=VARCHAR}
+	  WHERE USER_NO = #{userNo}
 	</update>
 	
 	
 	
-	<select id="checkIdExceptCurrent" resultType="_int">
+<select id="checkIdExceptCurrent" resultType="_int">
     SELECT COUNT(*)
     FROM "USER"
     WHERE user_id = #{userId} AND user_no != #{currentUserNo}
