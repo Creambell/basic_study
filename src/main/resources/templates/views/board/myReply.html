@@ -256,11 +256,14 @@
 	                        <td>[[${r.reContent}]]</td>
 	                        <td>[[${r.createDate}]]</td>
 	                    </tr>
+	                    <tr th:if="${#lists.isEmpty(list)}">
+                        <td  colspan="5">작성된 댓글이 없습니다.</td>
+                    </tr>
 	                </tbody>
 	            </table>
 			
 			<!-- 페이지네이션 -->
-			<div class="pagination-container">
+            <div class="pagination-container" th:if="${list != null && !#lists.isEmpty(list)}">
 			    <nav aria-label="Standard pagination example">
 			        <ul class="pagination" th:with="loc=${loc}">
 			            <li class="page-item" th:classappend="${p == pi.currentPage} ? 'active' : ''"
