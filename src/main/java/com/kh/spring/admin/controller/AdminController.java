@@ -497,8 +497,7 @@ public class AdminController {
     
     
     
-    
-    @GetMapping("adminPage.ad")
+        @GetMapping("adminPage.ad")
 	public String AdminPage(Model model, 
 			@RequestParam(value="page", defaultValue="1") int currentPage,
 			@RequestParam(value="searchKeyword", required = false) String searchKeyword
@@ -523,10 +522,8 @@ public class AdminController {
 	        model.addAttribute("pi", pi);
 	        model.addAttribute("searchKeyword", searchKeyword);
 	        
-	        return "adminPage";
-	    } else {
-            throw new MemberException("회원 불러오기를 실패했습니다.");
-	    }
+	        
+	    } return "adminPage";
 	}	
 	
 	@PostMapping("updateMemberStatus.adm")
