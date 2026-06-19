@@ -188,7 +188,7 @@
           <!-- 버튼 영역 -->
           <div class="buttons-container">
 				<button class="btn btn-primary" type="button" id="write_button"
-					th:onclick="'location.href=\'writeBoard.bo?cateNo=100\''">쓰기</button>
+					th:onclick="'location.href=\'writeBoard.bo?cateNo=102\''">쓰기</button>
 				<a href="javascript:history.back();" class="btn btn-primary"
 				   style="background-color: #4caf50; border-color: white; color: white; text-align:right;">뒤로 가기 </a>
 		  </div>
@@ -277,7 +277,7 @@
 		        title.addEventListener('click', function(event) {
 		            event.preventDefault();
 		            const boardNo = this.getAttribute('data-id');
-		            window.location.href = `BoardDetail.bo?bId=${boardNo}&page=1&cateNo=102`;
+		            window.location.href = `selectBoard.bo?bId=${boardNo}&page=1&cateNo=102`;
 		        });
 		    });
 		});

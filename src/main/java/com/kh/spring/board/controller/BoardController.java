@@ -220,7 +220,7 @@ public class BoardController {
     	
         Board board = bService.selectBoard(bId, cateNo, currentUserNo);
         if(board != null) {
-            model.addAttribute("b", board);
+            model.addAttribute("board", board);
             model.addAttribute("page", page);
             return "BoardDetail";
         } else {
