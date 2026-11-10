@@ -198,34 +198,18 @@
 	          <div class="search-container">
 	              <select name="condition" class="searchOption" aria-label="Default select example">
 	                 <option value="#">---</option>
-	                  <option value="title">제목</option>
-	                  <option value="content">내용</option>
-	                  <option value="writer">작성자</option>
+	                  <option value="title" th:selected="${condition == 'title'}">제목</option>
+	                  <option value="content" th:selected="${condition == 'content'}">내용</option>
+	                  <option value="writer" th:selected="${condition == 'writer'}">작성자</option>
 	              </select>
 	              <div class="search">
-	                  <input type="text" name="search" placeholder="검색어 입력" />
+	                  <input type="text" name="search" placeholder="검색어 입력" th:value="${search}" />
 	              </div>
 	              <button type="submit" class="search-button" id="searchIcon">검색</button>
 	          </div>
 	      </form>
           <!-- 페이지네이션 -->
-		  <nav aria-label="Standard pagination example"
-			  style="float: right; margin-right: 350px;">
-			  <ul class="pagination" th:with="loc=${loc}">
-				  <li class="page-item"><a class="page-link"
-				  	  th:href="@{${loc}(page=${pi.currentPage-1})}"
-					  aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-				  </a></li>
-				  <li class="page-item"
-					  th:each="p : ${#numbers.sequence(pi.startPage, pi.endPage)}">
-					  <a class="page-link" th:href="@{${loc}(page=${p})}">[[${ p }]]</a>
-				  </li>
-				  <li class="page-item"><a class="page-link"
-					  th:href="@{${loc}(page=${pi.currentPage + 1})}" aria-label="Next">
-						  <span aria-hidden="true">&raquo;</span>
-				  </a></li>
-			  </ul>
-		  </nav>
+		  <nav th:replace="~{board/pagination :: links('/JavaScriptBoard.bo', 105)}"></nav>
           
         </div>
       </div>

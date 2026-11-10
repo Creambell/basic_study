@@ -9,7 +9,8 @@ public class Pagination {
 		int startPage;
 		int endPage;
 		
-		maxPage = (int)Math.ceil((double)listCount/boardLimit);
+		maxPage = Math.max(1, (int)Math.ceil((double)listCount/boardLimit));
+		currentPage = Math.max(1, Math.min(currentPage, maxPage));
 		startPage = (currentPage - 1)/pageLimit * pageLimit + 1;
 		endPage = startPage + pageLimit -1;
 		if(maxPage < endPage) {

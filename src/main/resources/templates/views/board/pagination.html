@@ -1,0 +1,19 @@
+<nav th:fragment="links(listPath, category)" th:if="${pi.maxPage > 1}"
+     aria-label="게시판 페이지" style="float: right; margin-right: 350px;">
+    <ul class="pagination">
+        <li class="page-item" th:if="${pi.currentPage > 1}">
+            <a class="page-link" aria-label="이전 페이지"
+               th:href="${search == null} ? @{${listPath}(page=${pi.currentPage - 1})} : @{/searchList.bo(page=${pi.currentPage - 1}, cateNo=${category}, condition=${condition}, search=${search})}">&laquo;</a>
+        </li>
+        <li class="page-item" th:each="p : ${#numbers.sequence(pi.startPage, pi.endPage)}"
+            th:classappend="${p == pi.currentPage} ? 'active'">
+            <a class="page-link" th:attr="aria-current=${p == pi.currentPage} ? 'page'"
+               th:href="${search == null} ? @{${listPath}(page=${p})} : @{/searchList.bo(page=${p}, cateNo=${category}, condition=${condition}, search=${search})}"
+               th:text="${p}"></a>
+        </li>
+        <li class="page-item" th:if="${pi.currentPage < pi.maxPage}">
+            <a class="page-link" aria-label="다음 페이지"
+               th:href="${search == null} ? @{${listPath}(page=${pi.currentPage + 1})} : @{/searchList.bo(page=${pi.currentPage + 1}, cateNo=${category}, condition=${condition}, search=${search})}">&raquo;</a>
+        </li>
+    </ul>
+</nav>

@@ -58,25 +58,24 @@
         AND BOARD_WRITER_NO = #{writerNo} AND BOARD_STATUS = 'Y'
    </update>
    
-   <!-- 검색어 게시글 수 조회 -->
-   <select id="listSearchCount" resultType="_int">
-      select count(*) from board where cate_No = #{cateNo} and BOARD_STATUS
-      = 'Y'
-      <if test="condition == 'title'">and board_title like '%' || #{search} || '%'</if>
-      <if test="condition == 'content'">and board_content like '%' || #{search} || '%'</if>
-   </select>
-   <!-- 검색어 게시글 수 조회 -->
+   <sql id="boardSearchFilter">
+      WHERE CATE_NO = #{cateNo} AND BOARD_STATUS = 'Y'
+      <if test="condition == 'title'">AND BOARD_TITLE LIKE '%' || #{search} || '%'</if>
+      <if test="condition == 'content'">AND BOARD_CONTENT LIKE '%' || #{search} || '%'</if>
+      <if test="condition == 'writer'">AND BOARD_WRITER_NAME LIKE '%' || #{search} || '%'</if>
+   </sql>
 
-   <!-- 후기리스트 검색어 리스트 조회 -->
-   <select id="searchQuBoBoard" resultType="Board">
-      select * from board where cate_No = #{cateNo} and BOARD_STATUS = 'Y'
-      <if test="condition == 'title'">and board_title like '%' || #{search} || '%'</if>
-      <if test="condition == 'content'">and board_content like '%' || #{search} || '%'</if>
-      <if test="condition == 'writer'">and board_writer_name like '%' || #{search} || '%'</if>
+   <select id="listSearchCount" resultType="_int">
+      SELECT COUNT(*) FROM BOARD
+      <include refid="boardSearchFilter"/>
    </select>
-   <!-- 후기리스트 검색어 리스트 조회 -->
-   
-   
+
+   <select id="searchQuBoBoard" resultType="Board">
+      SELECT * FROM BOARD
+      <include refid="boardSearchFilter"/>
+      ORDER BY BOARD_NO DESC
+   </select>
+
    <select id="selectMember" resultType="Member">
       select * 
       from "USER"

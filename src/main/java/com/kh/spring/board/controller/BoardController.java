@@ -206,7 +206,7 @@ public class BoardController {
             model.addAttribute("board", new ArrayList<Board>());
             model.addAttribute("pi", pi);
         }
-        return "SpringBootBoard";
+        return "SpringbootBoard";
     }
     
     // 게시글 선택 (오정현 수정 사항)
@@ -315,7 +315,7 @@ public class BoardController {
         switch(cateNo) {
             case 100: return "UserBoard";
             case 102: return "SpringBoard";
-            case 103: return "SpringBootBoard";
+            case 103: return "SpringbootBoard";
             case 104: return "JavaBoard";
             case 105: return "JavaScriptBoard";
             case 106: return "ErrorBoard";
