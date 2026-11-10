@@ -1,7 +1,6 @@
 package com.kh.spring.member.controller;
 
 import java.io.PrintWriter;
-import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -39,10 +38,7 @@ public class MemberController {
 	
 	@PostMapping("login.me")
 	public String login(@ModelAttribute Member m, Model model) {
-	    System.out.println("입력된 사용자 정보: " + m);
-	    
 	    Member loginUser = mService.login(m);
-	    System.out.println("DB에서 조회된 사용자: " + loginUser);
 	    
 	    if (loginUser == null) {
 	        throw new MemberException("사용자를 찾을 수 없습니다.");
@@ -67,7 +63,6 @@ public class MemberController {
 	public String insertMember(@ModelAttribute Member m){
 		
 		m.setUserPwd(bcrypt.encode(m.getUserPwd()));
-		System.out.println(m);
 		int result = mService.insertMember(m);
 		if (result > 0) {
 			return "redirect:home.do";
@@ -109,7 +104,7 @@ public class MemberController {
 	public String updateMember(@ModelAttribute Member m,
 	                           @RequestParam(value="currentPwd") String currentPwd,
 	                           @RequestParam(value="userPwd", required = false) String userPwd,
-	                           @SessionAttribute(name = "loginUser", required = false) Member loginUser,
+	                           @SessionAttribute("loginUser") Member loginUser,
 	                           Model model) {
 		
 	    	//현재 비번 입력하고, 암호화 풀고 비교하고 일치할 경우
@@ -123,13 +118,13 @@ public class MemberController {
 	    	    m.setUserPwd(loginUser.getUserPwd());
 	    	}
 	        m.setUserNo(loginUser.getUserNo());
+	        m.setUserId(loginUser.getUserId());
 	        
 	        int result = mService.updateMember(m);
 	        
 	        //업데이트 된거 잇으면 
 	        if (result > 0) {
 	            Member updatedUser = mService.login(m);
-	            System.out.println("업데이트 후 조회된 회원 정보: " + updatedUser);
 	            
 	            model.addAttribute("loginUser", updatedUser);
 				return "redirect:myInfo.me";

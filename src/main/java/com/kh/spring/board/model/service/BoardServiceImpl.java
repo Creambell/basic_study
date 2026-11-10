@@ -73,8 +73,8 @@ public class BoardServiceImpl implements BoardService{
     }
 
 	@Override
-	public int deleteBoard(int bId) {
-		return bMapper.deleteBoard(bId);
+	public int deleteBoard(int bId, int cateNo, int writerNo) {
+		return bMapper.deleteBoard(bId, cateNo, writerNo);
 	}
 
 	@Override
@@ -130,8 +130,8 @@ public class BoardServiceImpl implements BoardService{
 	}
 	
 	@Override
-    public int deleteReply(int reNo) {
-        return bMapper.deleteReply(reNo);
+    public int deleteReply(int reNo, int writerNo) {
+        return bMapper.deleteReply(reNo, writerNo);
     }
 	
 //	@Override

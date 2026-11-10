@@ -26,7 +26,7 @@ public interface BoardMapper {
 
 	int updateBoard(Board b);
 
-	int deleteBoard(int bId);
+	int deleteBoard(@Param("bId") int bId, @Param("cateNo") int cateNo, @Param("writerNo") int writerNo);
 
 	int listSearchCount(HashMap<String, Object> map);
 
@@ -48,7 +48,7 @@ public interface BoardMapper {
 
 	int deleteReplies(List<Integer> replyIds);
 
-	int deleteReply(int reNo);
+	int deleteReply(@Param("reNo") int reNo, @Param("writerNo") int writerNo);
 
 	List<Board> selectBoardListByCategory(int cateNo);
 

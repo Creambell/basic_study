@@ -31,7 +31,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/list.bo", "/topList.bo", "/list.at");
 
         registry.addInterceptor(new CheckAdminInterceptor())
-                .addPathPatterns("/*.ad")
+                .addPathPatterns("/*.ad", "/*.adm")
         		.excludePathPatterns("/selectImageBoard.ad");
     }
 }

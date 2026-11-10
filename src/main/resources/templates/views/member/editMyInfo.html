@@ -119,20 +119,12 @@
             <div class="join-area">
                 <h2>| 내 정보 수정</h2>
                 <form action="updateMember.me" method="POST">
-                    <input type="hidden" name="userNo" th:value="${loginUser.userNo}">
-                    <input type="hidden" name="userId" th:value="${loginUser.userId}">
-                    <input type="hidden" name="userStatus" th:value="${loginUser.userStatus}">
-                	<input type="hidden" name="userJoinDate" th:value="${loginUser.userJoinDate}">
-                	<input type="hidden" name="postCount" th:value="${loginUser.postCount}">
-                	<input type="hidden" name="replyCount" th:value="${loginUser.replyCount}">
-                	<input type="hidden" name="isAdmin" th:value="${loginUser.isAdmin}">
-                
                     <label for="name">이름</label>
                     <input type="text" id="name" name="userName" placeholder="1~5자의 한글이나 1~10자의 영문" th:value="${loginUser.userName}"
 						   pattern="^[가-힣]{1,5}|[a-zA-Z]{1,10}$"	
 						   title="1~5자의 한글이나 1~10자의 영문으로 특수문자를 제외하고 입력해주세요."
 					 >
-                    <label for="id">아이디 : [[${loginUser.userId}]]	(아이디는 변경할 수 없습니다.)</label>
+                    <label>아이디 : [[${loginUser.userId}]]	(아이디는 변경할 수 없습니다.)</label>
                     
                     <label for="password">본인 확인을 위해 현재 비밀번호를 입력해주세요.</label>
                     <input type="password" id="currentPwd" name="currentPwd" placeholder="4~20자의 영문 대소문자, 숫자, 특수문자"  
@@ -148,7 +140,7 @@
                     >
                     
                     <label for="email">이메일</label>
-                    <input type="email" id="email" name="userEmail" placeholder="example@gmail.com" th	:value="${loginUser.userEmail}"
+                    <input type="email" id="email" name="userEmail" placeholder="example@gmail.com" th:value="${loginUser.userEmail}"
                     >
                     
                     <label for="phone">휴대폰 번호</label>
@@ -164,35 +156,6 @@
         </div>
     </div>
     <div th:replace="~{common/footer :: footer}"></div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-	  
-			document.getElementById('id').addEventListener('change', function(){
-				const idResult = document.getElementById('idCheckResult');
-				
-				if(this.value.trim() == ''){
-					idResult.innerText = "다시 아이디를 확인해주세요.";
-					idResult.style.color = 'black';
-				}else{
-					$.ajax({
-						url:'checkId.me', 				//key:value, key,value : url은 필수 속성.
-						data: {id:this.value.trim()}, 
-						success: (data) =>{
-							console.log(data);							//넘어온 데이터 yes/no -> u can/cant use this
-						if(data == 'yes'){
-							idResult.innerText = "";
-							idResult.style.color = 'green';								
-						}else{
-							idResult.innerText = "	이미 사용중인 아이디입니다";
-							idResult.style.color = 'red';
-						}
-					},
-						error: data => console.log(data) 
-					});
-				}
-			});	
-  		}
-</script>
 </body>
 </html>
 

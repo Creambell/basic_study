@@ -46,14 +46,16 @@
    
    <update id="updateBoard">
        update board
-       set board_title = #{boardTitle}, board_content = #{boardContent}, CREATE_DATE = sysdate, CATE_NO = #{cateNo}
-       where board_NO = #{boardNo}
+       SET BOARD_TITLE = #{boardTitle}, BOARD_CONTENT = #{boardContent}, UPDATE_DATE = SYSDATE
+       WHERE BOARD_NO = #{boardNo} AND CATE_NO = #{cateNo}
+         AND BOARD_WRITER_NO = #{boardWriterNo} AND BOARD_STATUS = 'Y'
    </update>
    
    <update id="deleteBoard">
       update board
       set board_status = 'N'
-      where board_NO = #{bId}
+      WHERE BOARD_NO = #{bId} AND CATE_NO = #{cateNo}
+        AND BOARD_WRITER_NO = #{writerNo} AND BOARD_STATUS = 'Y'
    </update>
    
    <!-- 검색어 게시글 수 조회 -->
@@ -128,14 +130,14 @@
     <update id="updateReply">
         UPDATE REPLY
         SET RE_CONTENT = #{reContent}, UPDATE_DATE = SYSDATE
-        WHERE RE_NO = #{reNo}
+        WHERE RE_NO = #{reNo} AND RE_WRITER_NO = #{reWriterNo} AND RE_STATUS = 'Y'
     </update>
     
     <!-- 댓글 삭제 (오정현 수정)-->
     <update id="deleteReply">
         UPDATE REPLY
         SET RE_STATUS = 'N'
-        WHERE RE_NO = #{reNo}
+        WHERE RE_NO = #{reNo} AND RE_WRITER_NO = #{writerNo} AND RE_STATUS = 'Y'
     </update>
    
    <!-- 게시글별 댓글 수 갱신 -->

@@ -17,6 +17,7 @@ public class Member {
 	private int userNo;
     private String userName;
     private String userId;
+    @ToString.Exclude
     private String userPwd;
     private String userEmail;
     private String userPhone;

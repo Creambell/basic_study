@@ -17,7 +17,7 @@ public class CheckAdminInterceptor implements HandlerInterceptor {
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		String msg = null;
 		
-		if(loginUser == null || loginUser.getIsAdmin().equals("N")) {
+		if(loginUser == null || !"Y".equals(loginUser.getIsAdmin())) {
 			msg = "권한이 없습니다";
 			
 			response.setContentType("text/html; charset=UTF-8"); // 

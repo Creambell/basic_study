@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +16,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.kh.spring.admin.model.service.AdminService;
 import com.kh.spring.board.model.exception.BoardException;
@@ -234,7 +236,7 @@ public class BoardController {
                             @RequestParam("cateNo") int cateNo, Model model) {
         Board board = bService.selectBoardWithIncrementCount(bId, cateNo);
         if(board != null) {
-            model.addAttribute("b", board);
+            model.addAttribute("board", board);
             model.addAttribute("page", page);
             return "BoardDetail";
         } else {
@@ -267,14 +269,14 @@ public class BoardController {
     
     // 게시글 수정
     @PostMapping("updateBoard.bo")
-    public String updateBoard(@ModelAttribute Board board, @RequestParam("page") int page, 
-                              @RequestParam("cateNo") int cateNo, RedirectAttributes ra) {
+    public String updateBoard(@ModelAttribute Board board, @RequestParam("cateNo") int cateNo,
+                              @SessionAttribute("loginUser") Member loginUser) {
+        String redirect = getBoardRedirect(cateNo);
+        board.setCateNo(cateNo);
+        board.setBoardWriterNo(loginUser.getUserNo());
         int result = bService.updateBoard(board);
         if(result > 0) {
-            ra.addAttribute("bId", board.getBoardNo());
-            ra.addAttribute("page", page);
-            ra.addAttribute("cateNo", cateNo);
-            return "redirect:" + getBoardRedirect(cateNo);
+            return redirect;
         } else {
             throw new BoardException("게시글 수정 실패");
         }
@@ -282,10 +284,12 @@ public class BoardController {
     
     // 게시글 삭제 (오정현 수정)
 	@PostMapping("deleteBoard.bo")
-	public String deleteBoard(@RequestParam("bId") int bId, @RequestParam("cateNo") int cateNo) {
-		int result = bService.deleteBoard(bId);
+	public String deleteBoard(@RequestParam("bId") int bId, @RequestParam("cateNo") int cateNo,
+	                          @SessionAttribute("loginUser") Member loginUser) {
+		String redirect = getBoardRedirect(cateNo);
+		int result = bService.deleteBoard(bId, cateNo, loginUser.getUserNo());
 		if(result > 0 ) {
-			return getBoardRedirect(cateNo);
+			return redirect;
 		} else {
 			throw new BoardException("게시글 삭제를 실패했습니다");
 		}
@@ -338,9 +342,13 @@ public class BoardController {
     // 게시판 수정창 (오정현 수정)
  	@GetMapping("editBoard.bo")
  	public String editBoard(@RequestParam("bId") int bId, @RequestParam("page") int page, Model model,
- 							@RequestParam("cateNo") int cateNo) {
+ 							@RequestParam("cateNo") int cateNo,
+ 	                        @SessionAttribute("loginUser") Member loginUser) {
  	    Board board = bService.selectBoard(bId, cateNo);
  	    if(board != null) {
+ 	        if (board.getBoardWriterNo() != loginUser.getUserNo()) {
+ 	            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+ 	        }
  	        model.addAttribute("board", board);
  	        model.addAttribute("page", page);
  	        model.addAttribute("cateNo",cateNo);
@@ -451,10 +459,12 @@ public class BoardController {
 	@PostMapping("updateReply.bo")
 	@ResponseBody
 	public String updateReply(@RequestParam("reNo") int reNo, 
-	                          @RequestParam("reContent") String reContent) {
+	                          @RequestParam("reContent") String reContent,
+	                          @SessionAttribute("loginUser") Member loginUser) {
 	    Reply reply = new Reply();
 	    reply.setReNo(reNo);
 	    reply.setReContent(reContent);
+	    reply.setReWriterNo(loginUser.getUserNo());
 	    
 	    int result = bService.updateReply(reply);
 	    return result > 0 ? "success" : "fail";
@@ -463,8 +473,9 @@ public class BoardController {
 	// 댓글 삭제
 	@PostMapping("deleteReply.bo")
 	@ResponseBody
-	public String deleteReply(@RequestParam("reNo") int reNo) {
-	    int result = bService.deleteReply(reNo);
+	public String deleteReply(@RequestParam("reNo") int reNo,
+	                          @SessionAttribute("loginUser") Member loginUser) {
+	    int result = bService.deleteReply(reNo, loginUser.getUserNo());
 	    return result > 0 ? "success" : "fail";
 	}
 

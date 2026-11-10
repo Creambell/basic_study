@@ -26,7 +26,7 @@ public interface BoardService {
 	int updateBoard(Board b);
 	
 	// 게시글 삭제
-	int deleteBoard(int bId);
+	int deleteBoard(int bId, int cateNo, int writerNo);
 
 	int listSearchCount(HashMap<String, Object> map);
 
@@ -50,7 +50,7 @@ public interface BoardService {
 	
 	int deleteReplies(List<Integer> replyIds);
 	
-    int deleteReply(int reNo);
+    int deleteReply(int reNo, int writerNo);
     
 //    void updateReplyCount(int boardNo);
 
